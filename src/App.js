@@ -1,25 +1,32 @@
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import styled from "styled-components";
+
+import Modal from "./components/Modal/Modal"
+import Market from "./components/Market/Market"
+import useModal from "./hooks/useModal"
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const Main = styled.div`
+	border: 1px solid black;
+	width: 432px;
+	height: 768px;
+	`
+
+const App = () => {
+	const {isShowing, toggle} = useModal()
+
+	return (
+		<div className="container">
+			<Main className="main">
+				<Market />
+				<div className="mainFooter">
+					<button onClick={toggle}>Modal</button>
+				</div>
+				<Modal isShowing={isShowing} hide={toggle} />
+			</Main>
+		</div>
+	)
 }
 
 export default App;
