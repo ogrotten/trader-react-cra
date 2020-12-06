@@ -9,8 +9,8 @@ import './App.css';
 
 const Main = styled.div`
 	// border: 1px solid black;
-	// width: 432px;
-	// height: 768px;
+	width: 432px;
+	height: 768px;
 	`
 
 const App = () => {
@@ -18,7 +18,7 @@ const App = () => {
 
 	return (
 		<div className="container">
-			<Main className="main">
+			<Main id="main" className="main">
 				<Market />
 				<div className="mainFooter">
 					<button onClick={toggle}>Modal</button>
