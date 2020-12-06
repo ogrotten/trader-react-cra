@@ -10,14 +10,16 @@
 }
 
 .modal-wrapper {
+	/* ideally, these dimension would be % */
+	width: 432px;
+	height: 768px;
+	/*  */
+	z-index: 110;
 	box-sizing: border-box;
 	position: absolute;
 	display: grid;
 	grid-template-columns: 25px auto 25px;
 	grid-template-rows: 25px auto 25px;
-	width: 432px;
-	height: 768px;
-	z-index: 110;
 }
 
 .modal {

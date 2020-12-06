@@ -5,7 +5,7 @@ import "./Market.scss"
 
 const Market = () => {
 	return (
-		<section>
+		<section className="market-table">
 			<table>
 				<thead>
 					<tr>
@@ -18,9 +18,9 @@ const Market = () => {
 				</thead>
 				<tbody>
 					<tr>
-						<td>991</td>
-						<td>9999999</td>
-						<td>Fluxnet</td>
+						<td className="count">991</td>
+						<td className="price">9999999</td>
+						<td className="name">Fluxnet</td>
 						<td className="buysell-cell"><button className="buysell-button">buy</button></td>
 						<td className="buysell-cell"><button className="buysell-button">sell</button></td>
 					</tr>
