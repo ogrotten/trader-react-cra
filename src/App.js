@@ -8,9 +8,9 @@ import useModal from "./hooks/useModal"
 import './App.css';
 
 const Main = styled.div`
-	border: 1px solid black;
-	width: 432px;
-	height: 768px;
+	// border: 1px solid black;
+	// width: 432px;
+	// height: 768px;
 	`
 
 const App = () => {

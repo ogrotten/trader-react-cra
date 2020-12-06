@@ -1,13 +1,13 @@
-.market-table {
-	display: grid;
-	grid-template-columns: max(100px) 1fr 1fr 1fr;
-	grid-template-rows: 1fr 1fr 1fr;
-	gap: 0px 0px;
-	grid-template-areas:
-		". . . ."
-		". . . ."
-		". . . .";
-}
+// .market-table {
+// 	display: grid;
+// 	grid-template-columns: 100px 1fr 1fr 1fr;
+// 	grid-template-rows: 1fr 1fr 1fr;
+// 	gap: 0px 0px;
+// 	grid-template-areas:
+// 		". . . ."
+// 		". . . ."
+// 		". . . .";
+// }
 
 * {
 	box-sizing: border-box;
@@ -28,7 +28,7 @@ table {
 	display: grid;
 	border-collapse: collapse;
 	max-width: 100%;
-	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-template-columns: 50px 80px 1fr 50px 50px;
 	// minmax(150px, 1fr)
 	// minmax(150px, 1.67fr)
 	// minmax(150px, 1.67fr)
