@@ -1,36 +1,35 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 
 import "./Market.css"
 
 const Market = () => {
-
-
-	const m = dicetest();
 	return (
 		<div>
+			Market
 		</div>
 	)
 }
 
-const d100 = () => {
+function d100 () {
 	return Math.ceil(Math.random() * 100)
 }
 
-const dAny = (x) => {
+function dAny (x) {
 	return Math.ceil(Math.random() * x)
 }
 
-const dRange = (n, x) => {
+function dRange (n, x) {
 	const range = x - (n - 1)
 	return Math.ceil(Math.random() * range) + (n - 1)
 }
 
-const dicetest = () => {
-/* 
-
-For dicetest output, put this in the component return.
-
+function dicetest () {
+	/* 
+	
+	For dicetest output, put this in the component return.
+	
+	const m = dicetest();
 	<ul>
 		{
 			m.map((e, i) => {
@@ -39,7 +38,7 @@ For dicetest output, put this in the component return.
 		}
 	</ul>
 
- */
+	 */
 	let i = 0
 	let result = new Array(20).fill(0)
 	while (i < 1000) {
