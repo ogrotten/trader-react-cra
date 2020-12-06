@@ -1,12 +1,17 @@
 import React from 'react';
 // import ReactDOM from 'react-dom';
 
-import "./Market.css"
+import "./Market.scss"
 
 const Market = () => {
 	return (
 		<div>
 			Market
+			<section>
+				<ol className="market-table">
+					<li className="">$</li>
+				</ol>
+			</section>
 		</div>
 	)
 }
