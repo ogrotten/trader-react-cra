@@ -1,0 +1,12 @@
+Cocaine	15000	29000
+Heroin	5500	13000
+MDA	1500	4400
+Acid	1000	4400
+PCP	1000	2500
+Hashish	480	1280
+Shrooms	630	1300
+Opium	540	1250
+Weed	315	890
+Peyote	220	700
+Speed	90	250
+Ludes	11	60
