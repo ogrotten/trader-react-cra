@@ -2,14 +2,20 @@ import React, { useState, useEffect, useCallback } from 'react'
 
 import ITEMS from "../../data/items.json"
 import RANGES from "../../data/pricerange.json"
-import { d100, dAny, dRange } from "../../engines/dice"
+import { d100, dAny, dRange, dicetest } from "../../engines/dice"
+
+// Set the minimum count of available items
+const MINIMUM_AVAILABLE = 4
 
 const MarketTable = () => {
 	// let b = 
 	const [List, setList] = useState([])
 
 	const marketGet = useCallback((allItems, allRanges) => {
+		// list array that will be set into state
 		let pricelist = []
+		// count available items
+		let availcount = 0
 		allItems.map(e => {
 			// see const pricerange at the bottom
 			// const rangeNew = pricerange(+e.pricerange, allRanges);
@@ -23,6 +29,7 @@ const MarketTable = () => {
 			if (d100() < e.availability) {
 				avail.avail = true
 				pricelist.unshift(avail)
+				availcount += 1
 			} else {
 				avail.avail = false
 				pricelist.push(avail)
@@ -32,7 +39,16 @@ const MarketTable = () => {
 		pricelist.forEach(e => {
 			e.marketorder = pricelist.indexOf(e)
 		})
+		
 		pricelist.sort((a, b) => (a.id > b.id) ? 1 : -1)
+
+		if (availcount < MINIMUM_AVAILABLE) {
+			console.log(`Short...`, )
+			const cutoff = dRange(MINIMUM_AVAILABLE, pricelist.length)
+			pricelist.forEach((e, i) => {
+				(e.marketorder < cutoff) ? e.avail = true : e.avail = false
+			});
+		}
 
 		setList(pricelist)
 	}, [])
@@ -115,6 +131,17 @@ const MarketTable = () => {
 		marketGet(ITEMS, RANGES)
 	}, [marketGet])
 
+	// useEffect(() => {
+	// 	if (availcount < MINIMUM_AVAILABLE) {
+	// 		const cutoff = dRange(MINIMUM_AVAILABLE, List.length)
+	// 		const templist = [...List]
+	// 		templist.forEach((e, i) => {
+	// 			(e.marketorder < cutoff) ? e.avail = true : e.avail = false
+	// 		});
+	// 		// setList(templist)
+	// 	}
+	// }, [List])
+
 	return (
 		<section className="market-table">
 			<table>
@@ -132,7 +159,7 @@ const MarketTable = () => {
 						return (
 							<tr key={e.id}>
 								<td className="count">99{e.id}</td>
-								<td className="price">{e.pricemax}</td>
+								<td className="price">{e.price}</td>
 								<td className="name">{e.name}</td>
 								{/* <td className="buysell-cell"><button className="buysell-button">buy</button></td> */}
 								{/* <td className="buysell-cell"><button className="buysell-button">sell</button></td> */}
