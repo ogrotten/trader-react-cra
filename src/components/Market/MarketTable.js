@@ -39,11 +39,11 @@ const MarketTable = () => {
 		pricelist.forEach(e => {
 			e.marketorder = pricelist.indexOf(e)
 		})
-		
+
 		pricelist.sort((a, b) => (a.id > b.id) ? 1 : -1)
 
 		if (availcount < MINIMUM_AVAILABLE) {
-			console.log(`Short...`, )
+			console.log(`Short...`,)
 			const cutoff = dRange(MINIMUM_AVAILABLE, pricelist.length)
 			pricelist.forEach((e, i) => {
 				(e.marketorder < cutoff) ? e.avail = true : e.avail = false
@@ -137,26 +137,24 @@ const MarketTable = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{List.map((e) => {
-						return (
-							<tr key={e.id}>
+					{List.map(e => {
+						if (e.avail === true) {
+							return (<tr key={e.id} className="market-row">
 								<td className="price">{e.price}</td>
 								<td className="inv">99{e.id}</td>
 								<td className="name">{e.name}</td>
-								<td className="buysell-cell">
-									{e.avail === true
-										? <button className="buysell-button">buy</button>
-										: null
-									}
-								</td>
-								<td className="buysell-cell">
-									{e.avail === true
-										? <button className="buysell-button">sell</button>
-										: null
-									}
-								</td>
-							</tr>
-						)
+								<td className="buysell-cell"><button className="buysell-button">buy</button></td>
+								<td className="buysell-cell"><button className="buysell-button">sell</button></td>
+							</tr>)
+						} else {
+							return (<tr key={e.id}>
+								<td className="price">&nbsp;</td>
+								<td className="inv">&nbsp;</td>
+								<td className="name">{e.name}</td>
+								<td className="buysell-cell">&nbsp;</td>
+								<td className="buysell-cell">&nbsp;</td>
+							</tr>)
+						}
 					})}
 				</tbody>
 			</table>
