@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 
 import ITEMS from "../../data/items.json"
 import RANGES from "../../data/pricerange.json"
@@ -6,15 +6,14 @@ import { d100, dAny, dRange } from "../../engines/dice"
 
 const MarketTable = () => {
 	// let b = 
-	console.log(`MarketTable.js 10: `, RANGES[ITEMS[0].pricerange])
-	const [List, setList] = useState({})
+	const [List, setList] = useState([])
 
-	const marketGet = (allItems, allRanges) => {
+	const marketGet = useCallback((allItems, allRanges) => {
 		let pricelist = []
 		allItems.map(e => {
 			// see const pricerange at the bottom
 			// const rangeNew = pricerange(+e.pricerange, allRanges);
-			const rangeNew = RANGES[e.pricerange]
+			const rangeNew = allRanges[e.pricerange]
 
 			let avail = {
 				price: price(+e.pricemin, +e.pricemax, rangeNew.width, rangeNew.side),
@@ -35,8 +34,8 @@ const MarketTable = () => {
 		})
 		pricelist.sort((a, b) => (a.id > b.id) ? 1 : -1)
 
-		return pricelist
-	}
+		setList(pricelist)
+	}, [])
 
 	const price = (pricemin, pricemax, skewwidth, skewdir) => {
 
@@ -103,15 +102,18 @@ const MarketTable = () => {
 
 		if (one === -1) {
 			return dRange(0, all[all.length - 1])
-			
+
 		} else {
 			return all[one]
 		}
 
 	}
 
-	console.log(`MarketTable.js 88: `, marketGet(ITEMS, RANGES))
+	// console.log(`MarketTable.js 88: `, marketGet(ITEMS, RANGES))
 
+	useEffect(() => {
+		marketGet(ITEMS, RANGES)
+	}, [marketGet])
 
 	return (
 		<section className="market-table">
@@ -126,14 +128,26 @@ const MarketTable = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{ITEMS.map((e) => {
+					{List.map((e) => {
 						return (
 							<tr key={e.id}>
 								<td className="count">99{e.id}</td>
 								<td className="price">{e.pricemax}</td>
 								<td className="name">{e.name}</td>
-								<td className="buysell-cell"><button className="buysell-button">buy</button></td>
-								<td className="buysell-cell"><button className="buysell-button">sell</button></td>
+								{/* <td className="buysell-cell"><button className="buysell-button">buy</button></td> */}
+								{/* <td className="buysell-cell"><button className="buysell-button">sell</button></td> */}
+								<td className="buysell-cell">
+									{e.avail === true
+										? <button className="buysell-button">buy</button>
+										: null
+									}
+								</td>
+								<td className="buysell-cell">
+									{e.avail === true
+										? <button className="buysell-button">sell</button>
+										: null
+									}
+								</td>
 							</tr>
 						)
 					})}
