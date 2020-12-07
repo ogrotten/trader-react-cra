@@ -1,56 +1,47 @@
-[
-	{
-		"type": "NORMAL",
+{
+	"NORMAL": {
 		"description": "normal",
 		"width": -3.75,
 		"side": 1
 	},
-	{
-		"type": "NORM_LO",
+	"NORM_LO": {
 		"description": "normal range, skew low",
 		"width": -3.75,
 		"side": 1.6
 	},
-	{
-		"type": "NORM_HI",
+	"NORM_HI": {
 		"description": "normal range, skew high",
 		"width": -3.75,
 		"side": 0.6
 	},
-	{
-		"type": "WIDE",
+	"WIDE": {
 		"description": "normal, wide",
 		"width": -7,
 		"side": 1
 	},
-	{
-		"type": "WIDE_LO",
+	"WIDE_LO": {
 		"description": "wide range, skew low",
 		"width": -7,
 		"side": 1.6
 	},
-	{
-		"type": "WIDE_HI",
+	"WIDE_HI": {
 		"description": "wide range, skew high",
 		"width": -7,
 		"side": 0.6
 	},
-	{
-		"type": "NARROW",
+	"NARROW": {
 		"description": "normal, narrow",
 		"width": -1.2,
 		"side": 1
 	},
-	{
-		"type": "NAR_LO",
+	"NAR_LO": {
 		"description": "narrow range, skew low",
 		"width": -1.2,
 		"side": 1.6
 	},
-	{
-		"type": "NAR_HI",
+	"NAR_HI": {
 		"description": "narrow range, skew high",
 		"width": -1.2,
 		"side": 0.6
 	}
-]
+}

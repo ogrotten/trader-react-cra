@@ -13,7 +13,6 @@ export const dRange = (n, x) => {
 	return Math.ceil(Math.random() * range) + (n - 1)
 }
 
-	// return {d100, dAny, dRange}
-// }
-
-// export default roll
+export const between = (n, x) => {
+	
+}
