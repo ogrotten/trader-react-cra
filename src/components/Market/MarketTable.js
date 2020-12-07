@@ -139,7 +139,7 @@ const MarketTable = () => {
 				<tbody>
 					{List.map(e => {
 						if (e.avail === true) {
-							return (<tr key={e.id}>
+							return (<tr key={e.id} className="market-row">
 								<td className="price">{e.price}</td>
 								<td className="inv">99{e.id}</td>
 								<td className="name">{e.name}</td>
@@ -155,7 +155,7 @@ const MarketTable = () => {
 								<td className="buysell-cell">&nbsp;</td>
 							</tr>)
 						}
-					}
+					})}
 				</tbody>
 			</table>
 		</section>
