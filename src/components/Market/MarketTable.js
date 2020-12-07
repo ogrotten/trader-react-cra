@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 
 import ITEMS from "../../data/items.json"
 import RANGES from "../../data/pricerange.json"
-import { d100, dAny, dRange, dicetest } from "../../engines/dice"
+import { d100, dRange } from "../../engines/dice"
 
 // Set the minimum count of available items
 const MINIMUM_AVAILABLE = 4
@@ -16,7 +16,7 @@ const MarketTable = () => {
 		let pricelist = []
 		// count available items
 		let availcount = 0
-		allItems.map(e => {
+		allItems.forEach(e => {
 			// see const pricerange at the bottom
 			// const rangeNew = pricerange(+e.pricerange, allRanges);
 			const rangeNew = allRanges[e.pricerange]
@@ -131,24 +131,13 @@ const MarketTable = () => {
 		marketGet(ITEMS, RANGES)
 	}, [marketGet])
 
-	// useEffect(() => {
-	// 	if (availcount < MINIMUM_AVAILABLE) {
-	// 		const cutoff = dRange(MINIMUM_AVAILABLE, List.length)
-	// 		const templist = [...List]
-	// 		templist.forEach((e, i) => {
-	// 			(e.marketorder < cutoff) ? e.avail = true : e.avail = false
-	// 		});
-	// 		// setList(templist)
-	// 	}
-	// }, [List])
-
 	return (
 		<section className="market-table">
 			<table>
 				<thead>
 					<tr>
-						<th>#</th>
 						<th>Price</th>
+						<th>Inv</th>
 						<th>Name</th>
 						<th>&nbsp;</th>
 						<th>&nbsp;</th>
@@ -158,8 +147,8 @@ const MarketTable = () => {
 					{List.map((e) => {
 						return (
 							<tr key={e.id}>
-								<td className="count">99{e.id}</td>
 								<td className="price">{e.price}</td>
+								<td className="inv">99{e.id}</td>
 								<td className="name">{e.name}</td>
 								{/* <td className="buysell-cell"><button className="buysell-button">buy</button></td> */}
 								{/* <td className="buysell-cell"><button className="buysell-button">sell</button></td> */}

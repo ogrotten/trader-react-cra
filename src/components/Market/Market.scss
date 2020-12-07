@@ -7,12 +7,7 @@ table {
 	display: grid;
 	border-collapse: collapse;
 	max-width: 100%;
-	grid-template-columns: 50px 80px 1fr repeat(2, 60px);
-	// minmax(150px, 1fr)
-	// minmax(150px, 1.67fr)
-	// minmax(150px, 1.67fr)
-	// minmax(150px, 1.67fr)
-	// minmax(150px, 3.33fr)
+	grid-template-columns: 80px 50px 1fr repeat(2, 60px);
 }
 
 thead,
@@ -26,7 +21,7 @@ tr {
 
 th,
 td {
-	padding: 10px 3px;
+	padding: 10px 8px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -47,8 +42,6 @@ th:last-child {
 }
 
 td {
-	// padding-top: 10px;
-	// padding-bottom: 10px;
 	color: #808080;
 	border: 1px solid rgb(224, 224, 224);
 }
@@ -68,4 +61,8 @@ button.buysell-button{
 	height: 25px;
 	padding: 0;
 	margin: 0;
+}
+
+td.price {
+	text-align: right;
 }
