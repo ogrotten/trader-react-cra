@@ -63,7 +63,6 @@ const MarketTable = () => {
 			while (u === 0) u = Math.random(); //Converting [0,1) to (0,1)
 			while (v === 0) v = Math.random();
 			let num = Math.sqrt(skewwidth * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
-			let orignum = num
 			num = num / 10.0 + 0.5; // Translate to 0 -> 1
 			if (num > max) {
 			}
@@ -85,10 +84,6 @@ const MarketTable = () => {
 			console.error(`PROBLEM >>> items.js 51 overmax ${overmax}`)
 		}
 
-		const round_to_precision = (x, precision) => {
-			var y = +x + (precision === undefined ? 0.5 : precision / 2);
-			return y - (y % (precision === undefined ? 1 : +precision));
-		}
 
 		return Math.round(randn_bm(pricemin, pricemax, skewdir));
 	}
@@ -125,8 +120,6 @@ const MarketTable = () => {
 
 	}
 
-	// console.log(`MarketTable.js 88: `, marketGet(ITEMS, RANGES))
-
 	useEffect(() => {
 		marketGet(ITEMS, RANGES)
 	}, [marketGet])
@@ -150,8 +143,6 @@ const MarketTable = () => {
 								<td className="price">{e.price}</td>
 								<td className="inv">99{e.id}</td>
 								<td className="name">{e.name}</td>
-								{/* <td className="buysell-cell"><button className="buysell-button">buy</button></td> */}
-								{/* <td className="buysell-cell"><button className="buysell-button">sell</button></td> */}
 								<td className="buysell-cell">
 									{e.avail === true
 										? <button className="buysell-button">buy</button>
