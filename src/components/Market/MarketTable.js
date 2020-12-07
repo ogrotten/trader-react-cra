@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react'
 
+import ITEMS from "../../data/items.json"
+
+
 const MarketTable = () => {
+	console.log(`MarketTable.js 7: `, ITEMS)
 	return (
 		<section className="market-table">
 			<table>

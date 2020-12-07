@@ -5,8 +5,6 @@ import MarketTable from "./MarketTable"
 
 import "./Market.scss"
 
-import "../../data/items.json"
-
 const Market = () => {
 	return (
 		<MarketTable />
