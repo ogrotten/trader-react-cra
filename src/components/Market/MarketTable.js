@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from 'react'
 
 import ITEMS from "../../data/items.json"
-
+import RANGES from "../../data/pricerange.json"
+import PR from "../../data/pr.json"
+import {d100, dAny, dRange} from "../../engines/dice"
 
 const MarketTable = () => {
-	console.log(`MarketTable.js 7: `, ITEMS)
+	console.log(`MarketTable.js 8: `, PR["NORMAL"])
+	const [List, setList] = useState({})
+	
+	const makeList = () => {
+		let templist = {}
+		
+	}
+
 	return (
 		<section className="market-table">
 			<table>
@@ -18,62 +27,17 @@ const MarketTable = () => {
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td className="count">991</td>
-						<td className="price">9999999</td>
-						<td className="name">Fluxnet</td>
-						<td className="buysell-cell"><button className="buysell-button">buy</button></td>
-						<td className="buysell-cell"><button className="buysell-button">sell</button></td>
-					</tr>
-					<tr>
-						<td>992</td>
-						<td>9999999</td>
-						<td>Solo</td>
-						<td className="buysell-cell"><button className="buysell-button">buy</button></td>
-						<td className="buysell-cell"><button className="buysell-button">sell</button></td>
-					</tr>
-					<tr>
-						<td>993</td>
-						<td>9999999</td>
-						<td>Zillion</td>
-						<td className="buysell-cell"><button className="buysell-button">buy</button></td>
-						<td className="buysell-cell"><button className="buysell-button">sell</button></td>
-					</tr>
-					<tr>
-						<td>997</td>
-						<td>9999999</td>
-						<td>Valeradone</td>
-						<td className="buysell-cell"><button className="buysell-button">buy</button></td>
-						<td className="buysell-cell"><button className="buysell-button">sell</button></td>
-					</tr>
-					<tr>
-						<td>994</td>
-						<td>9999999</td>
-						<td>Altered Calm</td>
-						<td className="buysell-cell"><button className="buysell-button">buy</button></td>
-						<td className="buysell-cell"><button className="buysell-button">sell</button></td>
-					</tr>
-					<tr>
-						<td>995</td>
-						<td>9999999</td>
-						<td>Nails</td>
-						<td className="buysell-cell"><button className="buysell-button">buy</button></td>
-						<td className="buysell-cell"><button className="buysell-button">sell</button></td>
-					</tr>
-					<tr>
-						<td>996</td>
-						<td>9999999</td>
-						<td>Hyfit</td>
-						<td className="buysell-cell"><button className="buysell-button">buy</button></td>
-						<td className="buysell-cell"><button className="buysell-button">sell</button></td>
-					</tr>
-					<tr>
-						<td>998</td>
-						<td>9999999</td>
-						<td>Nanozine</td>
-						<td className="buysell-cell"><button className="buysell-button">buy</button></td>
-						<td className="buysell-cell"><button className="buysell-button">sell</button></td>
-					</tr>
+					{ITEMS.map((e) => {
+						return (
+							<tr key={e.id}>
+								<td className="count">99{e.id}</td>
+								<td className="price">{e.pricemax}</td>
+								<td className="name">{e.name}</td>
+								<td className="buysell-cell"><button className="buysell-button">buy</button></td>
+								<td className="buysell-cell"><button className="buysell-button">sell</button></td>
+							</tr>
+						)
+					})}
 				</tbody>
 			</table>
 		</section>

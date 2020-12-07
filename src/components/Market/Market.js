@@ -3,6 +3,8 @@ import styled from "styled-components";
 
 import MarketTable from "./MarketTable"
 
+import { d100, dAny, dRange } from "../../engines/dice"
+
 import "./Market.scss"
 
 const Market = () => {
@@ -11,18 +13,18 @@ const Market = () => {
 	)
 }
 
-function d100() {
-	return Math.ceil(Math.random() * 100)
-}
+// function d100() {
+// 	return Math.ceil(Math.random() * 100)
+// }
 
-function dAny(x) {
-	return Math.ceil(Math.random() * x)
-}
+// function dAny(x) {
+// 	return Math.ceil(Math.random() * x)
+// }
 
-function dRange(n, x) {
-	const range = x - (n - 1)
-	return Math.ceil(Math.random() * range) + (n - 1)
-}
+// function dRange(n, x) {
+// 	const range = x - (n - 1)
+// 	return Math.ceil(Math.random() * range) + (n - 1)
+// }
 
 function dicetest() {
 	/* 

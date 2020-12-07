@@ -28,7 +28,7 @@
 		"bonusAmount"		: "0"
 	},
 	{
-		"id"				: "3",
+		"id"				: "2",
 		"name"				: "Solo",
 		"pricemin"			: "15",
 		"pricemax"			: "80",
