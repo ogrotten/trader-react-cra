@@ -137,28 +137,24 @@ const MarketTable = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{List.map((e) => {
-						let row
+					{List.map(e => {
 						if (e.avail === true) {
-							row =
-								<tr key={e.id}>
-									<td className="price">{e.price}</td>
-									<td className="inv">99{e.id}</td>
-									<td className="name">{e.name}</td>
-									<td className="buysell-cell"><button className="buysell-button">buy</button></td>
-									<td className="buysell-cell"><button className="buysell-button">sell</button></td>
-								</tr>
-						} 
-						else {
-							row = <tr key={e.id}>
+							return (<tr key={e.id}>
+								<td className="price">{e.price}</td>
+								<td className="inv">99{e.id}</td>
+								<td className="name">{e.name}</td>
+								<td className="buysell-cell"><button className="buysell-button">buy</button></td>
+								<td className="buysell-cell"><button className="buysell-button">sell</button></td>
+							</tr>)
+						} else {
+							return (<tr key={e.id}>
 								<td className="price">&nbsp;</td>
 								<td className="inv">&nbsp;</td>
 								<td className="name">{e.name}</td>
 								<td className="buysell-cell">&nbsp;</td>
 								<td className="buysell-cell">&nbsp;</td>
-							</tr>
+							</tr>)
 						}
-						return row
 					}
 				</tbody>
 			</table>
