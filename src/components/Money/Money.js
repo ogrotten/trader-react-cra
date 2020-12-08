@@ -9,8 +9,8 @@ const Money = () => {
 	return (
 		<section className="money">
 			<div className="cash">Cash: $$$</div>
-			<div className="inv">Bank: ...</div>
-			<div className="week">Debt: ...</div>
+			<div className="bank">Bank: $$$</div>
+			<div className="week">Debt: $$$</div>
 		</section>
 	)
 }

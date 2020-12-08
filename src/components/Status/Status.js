@@ -8,8 +8,7 @@ import "./Status.scss"
 const Status = () => {
 	return (
 		<section className="status">
-			<div className="cash">Cash: $$$</div>
-			<div className="inv">Inv: ...</div>
+			<div className="inv">Inv: ### / ###</div>
 			<div className="week">Week: ...</div>
 			<div className="loc">Loc</div>
 		</section>

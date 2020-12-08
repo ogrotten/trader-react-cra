@@ -1,6 +1,6 @@
 .market {
-	display: flex;
-	// grid: 50px auto 50px / 1fr;
-	flex-direction: column;
+	display: grid;
+	grid: 50px min-content 50px / 1fr;
+	// flex-direction: column;
 	z-index: 10;
 }
