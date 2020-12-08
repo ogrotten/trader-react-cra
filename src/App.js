@@ -5,7 +5,7 @@ import Modal from "./components/Modal/Modal"
 import Market from "./components/Market/Market"
 import useModal from "./hooks/useModal"
 
-import './App.css';
+import './App.scss';
 
 const Main = styled.div`
 	// border: 1px solid black;
