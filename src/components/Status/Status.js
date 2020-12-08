@@ -5,12 +5,18 @@ import { d100, dAny, dRange } from "../../engines/dice"
 
 import "./Status.scss"
 
-const Status = () => {
+const Status = (props) => {
+	console.log(`Status.js 9: `, props.player)
+	const {inv, turns, current, location, space} = props.player
+
+	const totalInv = inv.reduce((total, current) => total + current)
+	// const totalInv=0
+
 	return (
 		<section className="status">
-			<div className="inv">Inv: ### / ###</div>
-			<div className="week">Week: ...</div>
-			<div className="loc">Loc</div>
+			<div className="inv">Inv: {totalInv} / {space} </div>
+			<div className="week">Week: {current} / {turns} </div>
+			<div className="loc">{location}</div>
 		</section>
 	)
 }

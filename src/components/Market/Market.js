@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styled from "styled-components";
 
 import MarketTable from "./MarketTable"
@@ -6,6 +6,7 @@ import Status from "../Status/Status"
 import Money from "../Money/Money"
 
 import { d100, dAny, dRange } from "../../engines/dice"
+import ITEMS from "../../data/items.json"
 
 import "./Market.scss"
 
@@ -19,13 +20,14 @@ const {
 
 const initPlayer = {
 	turns: TURNS,
+	current: 1,
 	cash: START_MONEY,
 	debt: 0,
 	space: START_INVENTORY,
 	location: LOCATIONS[0],
-	
+
 	// array index = item.id
-	inv: []
+	inv: Array(ITEMS.length).fill(0)
 }
 
 const Market = () => {
@@ -33,9 +35,9 @@ const Market = () => {
 
 	return (
 		<div className="market">
-			<Status week={player.week} inv={player.inv} loc={player.location} />
+			<Status	player={player} />
 			<MarketTable />
-			<Money />
+			<Money player={player}/>
 		</div>
 	)
 }
