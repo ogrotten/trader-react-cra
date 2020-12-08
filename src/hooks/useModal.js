@@ -6,12 +6,6 @@ const useModal = () => {
 
 	function toggleShow() {
 		setIsShowing(!isShowing)
-		// if (isShowing === true) {
-		// 	setIsShowing(false)
-		// 	setIsSmall(false)
-		// } else {
-		// 	setIsShowing(true)
-		// }
 	}
 
 	function toggleSmall() {

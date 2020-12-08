@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react'
 
+import useModal from "../../hooks/useModal"
+
+import Modal from "../Modal/Modal"
 import ITEMS from "../../data/items.json"
 import RANGES from "../../data/pricerange.json"
 import { d100, dRange } from "../../engines/dice"
@@ -7,11 +10,11 @@ import { d100, dRange } from "../../engines/dice"
 import "./MarketTable.scss"
 
 // Set the minimum count of available items from global config
-const {MINIMUM_AVAILABLE} = require("../../data/config")
+const { MINIMUM_AVAILABLE } = require("../../data/config")
 
 const MarketTable = () => {
-	// let b = 
 	const [List, setList] = useState([])
+	const { isShowing, toggleShow, isSmall, toggleSmall } = useModal()
 
 	const marketGet = useCallback((allItems, allRanges) => {
 		// list array that will be set into state
@@ -122,6 +125,12 @@ const MarketTable = () => {
 
 	}
 
+	const buysell = (e) => {
+		toggleShow()
+		toggleSmall()
+		console.log(`MarketTable.js 131: `, e.target.value)
+	}
+
 	useEffect(() => {
 		marketGet(ITEMS, RANGES)
 	}, [marketGet])
@@ -145,8 +154,12 @@ const MarketTable = () => {
 								<td className="price">{e.price}</td>
 								<td className="inv">99{e.id}</td>
 								<td className="name">{e.name}</td>
-								<td className="buysell-cell"><button className="buysell-button">buy</button></td>
-								<td className="buysell-cell"><button className="buysell-button">sell</button></td>
+								<td className="buysell-cell">
+									<button value="buy" className="buysell-button" onClick={buysell}>buy</button>
+								</td>
+								<td className="buysell-cell">
+									<button value="sell" className="buysell-button" onClick={buysell}>sell</button>
+								</td>
 							</tr>)
 						} else {
 							return (<tr key={e.id}>
@@ -160,6 +173,7 @@ const MarketTable = () => {
 					})}
 				</tbody>
 			</table>
+			<Modal isShowing={isShowing} hide={toggleShow} isSmall={isSmall} normal={toggleSmall} />
 		</section>
 	)
 }
