@@ -13,5 +13,15 @@
 	"DEBT_INTEREST": "10",
 	"TURNS": "52",
 	"START_MONEY": "2000",
-	"START_DEBT": "5000"
+	"START_DEBT": "5000",
+	"START_INVENTORY": "20",
+	"LOCATIONS": [
+		"Heywood",
+		"North Oak",
+		"Pacifica",
+		"Westbrook",
+		"Night City Univ",
+		"Corporate Plaza",
+		"City Center"
+	]
 }
