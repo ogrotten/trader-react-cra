@@ -5,12 +5,15 @@ import { d100, dAny, dRange } from "../../engines/dice"
 
 import "./Money.scss"
 
-const Money = () => {
+const Money = (props) => {
+	console.log(`Money.js 9: `, props.player)
+	const {cash, debt, bank} = props.player
+
 	return (
 		<section className="money">
-			<div className="cash">Cash: $$$</div>
-			<div className="bank">Bank: $$$</div>
-			<div className="week">Debt: $$$</div>
+			<div className="cash">Cash: {cash}</div>
+			<div className="bank">Bank: {bank}</div>
+			<div className="debt">Debt: {debt}</div>
 		</section>
 	)
 }

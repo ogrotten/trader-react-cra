@@ -21,8 +21,10 @@ const {
 const initPlayer = {
 	turns: TURNS,
 	current: 1,
+
 	cash: START_MONEY,
-	debt: 0,
+	bank: 0,
+	debt: START_DEBT,
 	space: START_INVENTORY,
 	location: LOCATIONS[0],
 
