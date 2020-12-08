@@ -23,5 +23,18 @@
 		"Night City Univ",
 		"Corporate Plaza",
 		"City Center"
+	],
+	"TRAVEL": ["Jet","Split","Bounce","Jam","Mosey","Sneak","Creep","Holla", 
+		"Out","Audi","Outticus","Boogie","Dip","Book","Run","Break","Bust a move", 
+		"Bust it", "Chip", "Dash", "Ditch", "Cruise", "Cut", "Fuck off", "Git", 
+		"GTFO", "Groove", "Haul", "Head", "Hit it", "Juke", "Jump", "Kick it", 
+		"Make tracks", "Motor", "Outie", "Peace", "Peace out", "Piss off", 
+		"Pull out", "Ramble", "Ride", "Ride out", "Rock n roll", "Roll", "Roll out", 
+		"Roll up", "Scat", "Scram", "Skate", "Step", "Step off", "Take off", 
+		"Tear", "Tear ass", "Truck", "Truck it", "Vamoose", "Walk", "Go time",
+		"Bizounce", "Bolt", "Later", "Toodles", "Yo", "Be easy", "kthnxbai", "BBL",
+		"BRB", "Smoke", "Rip", "Bail", "Leave", "Check out", "Hit up", "Ping",
+		"Kick off", 
+		"Go", "Leave", "Travel", "Go", "Leave", "Travel", "Go", "Leave", "Travel", "Go", "Leave", "Travel"
 	]
 }

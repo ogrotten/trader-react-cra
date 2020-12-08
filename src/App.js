@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from "styled-components";
 
 import Modal from "./components/Modal/Modal"
@@ -7,6 +7,8 @@ import useModal from "./hooks/useModal"
 
 import './App.scss';
 
+const { MINIMUM_AVAILABLE, TRAVEL } = require("./data/config")
+
 const Main = styled.div`
 	// border: 1px solid black;
 	width: 432px;
@@ -14,17 +16,23 @@ const Main = styled.div`
 	`
 
 const App = () => {
-	const {isShowing, toggleShow, isSmall, toggleSmall } = useModal()
+	const { isShowing, toggleShow, isSmall, toggleSmall } = useModal()
+
+	const traveltext = () => {
+		// if (current === 1) {return "Travel"}
+		// else {
+		return TRAVEL[Math.floor(Math.random() * TRAVEL.length)]
+		// }
+	}
 
 	return (
 		<div className="container">
 			<Main id="main" className="main">
 				<Market />
 				<div className="mainFooter">
-					<button onClick={toggleShow}>Modal</button>
-					<button onClick={() => {toggleShow(); toggleSmall();}}>Small Modal</button>
+					<button onClick={toggleShow}>{traveltext()}. . .</button>
 				</div>
-				<Modal isShowing={isShowing} hide={toggleShow} isSmall={isSmall} normal={toggleSmall}/>
+				<Modal isShowing={isShowing} hide={toggleShow} isSmall={isSmall} normal={toggleSmall} />
 			</Main>
 		</div>
 	)
