@@ -14,16 +14,17 @@ const Main = styled.div`
 	`
 
 const App = () => {
-	const {isShowing, toggle} = useModal()
+	const {isShowing, toggleShow, isSmall, toggleSmall } = useModal()
 
 	return (
 		<div className="container">
 			<Main id="main" className="main">
 				<Market />
 				<div className="mainFooter">
-					<button onClick={toggle}>Modal</button>
+					<button onClick={toggleShow}>Modal</button>
+					<button onClick={() => {toggleShow(); toggleSmall();}}>Small Modal</button>
 				</div>
-				<Modal isShowing={isShowing} hide={toggle} />
+				<Modal isShowing={isShowing} hide={toggleShow} isSmall={isSmall} normal={toggleSmall}/>
 			</Main>
 		</div>
 	)
