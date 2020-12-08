@@ -4,6 +4,8 @@ import ITEMS from "../../data/items.json"
 import RANGES from "../../data/pricerange.json"
 import { d100, dRange } from "../../engines/dice"
 
+import "./MarketTable.scss"
+
 // Set the minimum count of available items
 const MINIMUM_AVAILABLE = 4
 

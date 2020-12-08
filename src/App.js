@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 import Modal from "./components/Modal/Modal"
 import Market from "./components/Market/Market"
-import Infobar from "./components/Infobar/Infobar"
 import useModal from "./hooks/useModal"
 
 import './App.css';
@@ -20,7 +19,6 @@ const App = () => {
 	return (
 		<div className="container">
 			<Main id="main" className="main">
-				<Infobar />
 				<Market />
 				<div className="mainFooter">
 					<button onClick={toggleShow}>Modal</button>

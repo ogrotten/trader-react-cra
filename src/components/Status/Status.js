@@ -3,11 +3,11 @@ import styled from "styled-components";
 
 import { d100, dAny, dRange } from "../../engines/dice"
 
-import "./Infobar.scss"
+import "./Status.scss"
 
-const Infobar = () => {
+const Status = () => {
 	return (
-		<section className="infobar">
+		<section className="status">
 			<div className="cash">Cash: $$$</div>
 			<div className="inv">Inv: ...</div>
 			<div className="week">Week: ...</div>
@@ -16,4 +16,4 @@ const Infobar = () => {
 	)
 }
 
-export default Infobar
+export default Status
