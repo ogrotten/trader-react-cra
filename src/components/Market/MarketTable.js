@@ -6,8 +6,8 @@ import { d100, dRange } from "../../engines/dice"
 
 import "./MarketTable.scss"
 
-// Set the minimum count of available items
-const MINIMUM_AVAILABLE = 4
+// Set the minimum count of available items from global config
+const {MINIMUM_AVAILABLE} = require("../../data/config")
 
 const MarketTable = () => {
 	// let b = 

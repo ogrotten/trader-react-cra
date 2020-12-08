@@ -12,11 +12,11 @@ import "./Market.scss"
 
 const Market = () => {
 	return (
-	<div className="market">
-		<Status />
-		<MarketTable />
-		<Money />
-	</div>
+		<div className="market">
+			<Status />
+			<MarketTable />
+			<Money />
+		</div>
 	)
 }
 

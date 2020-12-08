@@ -1,0 +1,17 @@
+{
+	"documentation": {
+		"Use example": "const {MINIMUM_AVAILABLE} = require('../../data/config')",
+		"MINIMUM_AVAILABLE": "Minimum number of items available in the market",
+		"BANK_INTEREST": "Percent interest rate for bank",
+		"DEBT_INTEREST": "Percent interest rate for debt",
+		"TURNS": "52",
+		"START_MONEY": "Money you start with",
+		"START_DEBT": "Money and debt you start with if you take debt"
+	},
+	"MINIMUM_AVAILABLE": "4",
+	"BANK_INTEREST": "5",
+	"DEBT_INTEREST": "10",
+	"TURNS": "52",
+	"START_MONEY": "2000",
+	"START_DEBT": "5000"
+}
