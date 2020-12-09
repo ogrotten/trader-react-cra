@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import { useRecoilState } from "recoil"
+import { player, stateBuysell } from "../../recoil/atoms"
 
 import useModal from "../../hooks/useModal"
 
@@ -13,6 +15,7 @@ import "./MarketTable.scss"
 const { MINIMUM_AVAILABLE } = require("../../data/config")
 
 const MarketTable = () => {
+	const [buysell, setBuysell] = useRecoilState(stateBuysell)
 	const [List, setList] = useState([])
 	const { isShowing, toggleShow, isSmall, toggleSmall } = useModal()
 
@@ -93,9 +96,10 @@ const MarketTable = () => {
 		return Math.round(randn_bm(pricemin, pricemax, skewdir));
 	}
 
-	const buysell = (e) => {
+	const buysellButton = (e) => {
 		toggleShow()
 		toggleSmall()
+		setBuysell(e.target.value)
 	}
 
 	useEffect(() => {
@@ -122,10 +126,10 @@ const MarketTable = () => {
 								<td className="inv">99{e.id}</td>
 								<td className="name">{e.name}</td>
 								<td className="buysell-cell">
-									<button value="buy" className="buysell-button" onClick={buysell}>buy</button>
+									<button value="buy" className="buysell-button" onClick={buysellButton}>buy</button>
 								</td>
 								<td className="buysell-cell">
-									<button value="sell" className="buysell-button" onClick={buysell}>sell</button>
+									<button value="sell" className="buysell-button" onClick={buysellButton}>sell</button>
 								</td>
 							</tr>)
 						} else {
