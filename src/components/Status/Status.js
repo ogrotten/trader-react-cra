@@ -1,12 +1,11 @@
 import React from 'react';
-import styled from "styled-components";
+// import styled from "styled-components";
 
-import { d100, dAny, dRange } from "../../engines/dice"
+// import { d100, dAny, dRange } from "../../engines/dice"
 
 import "./Status.scss"
 
 const Status = (props) => {
-	console.log(`Status.js 9: `, props.player)
 	const {inv, turns, current, location, space} = props.player
 
 	const totalInv = inv.reduce((total, current) => total + current)

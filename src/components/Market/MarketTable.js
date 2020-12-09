@@ -93,42 +93,9 @@ const MarketTable = () => {
 		return Math.round(randn_bm(pricemin, pricemax, skewdir));
 	}
 
-	const pricerange = (one, all) => {
-
-		// for random priceranges rerolled per city!
-		// Must change the pricerange.json to the old format
-		/* 
-			[
-				{
-					"NAR_LO":{
-					"description": "narrow range, skew low",
-					"width": -1.2,
-					"side": 1.6
-					}
-				},
-				{
-					"NAR_HI":{
-					"description": "narrow range, skew high",
-					"width": -1.2,
-					"side": 0.6
-					}
-				}
-			]
-		 */
-
-		if (one === -1) {
-			return dRange(0, all[all.length - 1])
-
-		} else {
-			return all[one]
-		}
-
-	}
-
 	const buysell = (e) => {
 		toggleShow()
 		toggleSmall()
-		console.log(`MarketTable.js 131: `, e.target.value)
 	}
 
 	useEffect(() => {
@@ -179,3 +146,35 @@ const MarketTable = () => {
 }
 
 export default MarketTable;
+
+// const pricerange = (one, all) => {
+
+// 	// for random priceranges rerolled per city!
+// 	// Must change the pricerange.json to the old format
+// 	/* 
+// 		[
+// 			{
+// 				"NAR_LO":{
+// 				"description": "narrow range, skew low",
+// 				"width": -1.2,
+// 				"side": 1.6
+// 				}
+// 			},
+// 			{
+// 				"NAR_HI":{
+// 				"description": "narrow range, skew high",
+// 				"width": -1.2,
+// 				"side": 0.6
+// 				}
+// 			}
+// 		]
+// 	 */
+
+// 	if (one === -1) {
+// 		return dRange(0, all[all.length - 1])
+
+// 	} else {
+// 		return all[one]
+// 	}
+
+// }

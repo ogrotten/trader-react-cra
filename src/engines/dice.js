@@ -18,7 +18,6 @@ export const dRange = (lo, hi) => {
 }
 
 export function dicetest(lo, hi) {
-	console.log(`dice.js 17: `, lo, hi)
 	/* 
 	
 	For dicetest output, put this in the component return.

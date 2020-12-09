@@ -1,12 +1,11 @@
 import React from 'react';
-import styled from "styled-components";
+// import styled from "styled-components";
 
-import { d100, dAny, dRange } from "../../engines/dice"
+// import { d100, dAny, dRange } from "../../engines/dice"
 
 import "./Money.scss"
 
 const Money = (props) => {
-	console.log(`Money.js 9: `, props.player)
 	const {cash, debt, bank} = props.player
 
 	return (

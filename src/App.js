@@ -1,4 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import {
+	RecoilRoot,
+	atom,
+	selector,
+	useRecoilState,
+	useRecoilValue,
+} from 'recoil';
 import styled from "styled-components";
 
 import Modal from "./components/Modal/Modal"
@@ -26,15 +33,17 @@ const App = () => {
 	}
 
 	return (
-		<div className="container">
-			<Main id="main" className="main">
-				<Market />
-				<div className="mainFooter">
-					<button onClick={toggleShow}>{traveltext()}. . .</button>
-				</div>
-				<Modal isShowing={isShowing} hide={toggleShow} isSmall={isSmall} normal={toggleSmall} />
-			</Main>
-		</div>
+		<RecoilRoot>
+			<div className="container">
+				<Main id="main" className="main">
+					<Market />
+					<div className="mainFooter">
+						<button onClick={toggleShow}>{traveltext()}. . .</button>
+					</div>
+					<Modal isShowing={isShowing} hide={toggleShow} isSmall={isSmall} normal={toggleSmall} />
+				</Main>
+			</div>
+		</RecoilRoot>
 	)
 }
 
