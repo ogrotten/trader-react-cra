@@ -1,10 +1,10 @@
 import {selector} from "recoil"
 
-import { player, stateBuysell } from "./atoms"
+import { player, smallModalInfo } from "./atoms"
 
-export const whichBuysell = selector({
-	key: "whichBuysell",
+export const getModalInfo = selector({
+	key: "getModalInfo",
 	get: ({get}) => {
-		return get(stateBuysell)
+		return get(smallModalInfo)
 	},
 })

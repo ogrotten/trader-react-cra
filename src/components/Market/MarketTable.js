@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { useRecoilState } from "recoil"
-import { player, stateBuysell } from "../../recoil/atoms"
+import { player, smallModalInfo } from "../../recoil/atoms"
 
 import useModal from "../../hooks/useModal"
 
@@ -15,7 +15,7 @@ import "./MarketTable.scss"
 const { MINIMUM_AVAILABLE } = require("../../data/config")
 
 const MarketTable = () => {
-	const [buysell, setBuysell] = useRecoilState(stateBuysell)
+	const [buysell, setBuysell] = useRecoilState(smallModalInfo)
 	const [List, setList] = useState([])
 	const { isShowing, toggleShow, isSmall, toggleSmall } = useModal()
 

@@ -9,8 +9,8 @@ const {
 	TURNS
 } = require("../data/config")
 
-export const stateBuysell = atom ({
-	key: "stateBuysell",
+export const smallModalInfo = atom ({
+	key: "smallModalInfo",
 	default: "buy"
 })
 
