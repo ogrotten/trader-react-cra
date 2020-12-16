@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { useRecoilState } from "recoil"
-import { player, smallModalInfo } from "../../recoil/atoms"
+import { smallModalInfo } from "../../recoil/atoms"
 
 import useModal from "../../hooks/useModal"
 
@@ -97,7 +97,7 @@ const MarketTable = () => {
 	}
 
 	const buysellButton = (e) => {
-		toggleShow()
+		toggleShow(buysell)
 		toggleSmall()
 		setBuysell(e.target.value)
 	}
