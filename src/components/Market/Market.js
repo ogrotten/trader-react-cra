@@ -31,7 +31,7 @@ const initPlayer = {
 }
 
 const Market = () => {
-	const [player, setPlayer] = useState(initPlayer)
+	const [player] = useState(initPlayer)
 
 	return (
 		<div className="market">
