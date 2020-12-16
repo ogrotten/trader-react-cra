@@ -1,11 +1,5 @@
-import React, { useState } from 'react';
-import {
-	RecoilRoot,
-	atom,
-	selector,
-	useRecoilState,
-	useRecoilValue,
-} from 'recoil';
+import React from 'react';
+import { RecoilRoot } from 'recoil';
 import styled from "styled-components";
 
 import Modal from "./components/Modal/Modal"
@@ -14,7 +8,7 @@ import useModal from "./hooks/useModal"
 
 import './App.scss';
 
-const { MINIMUM_AVAILABLE, TRAVEL } = require("./data/config")
+const {  TRAVEL } = require("./data/config")
 
 const Main = styled.div`
 	// border: 1px solid black;

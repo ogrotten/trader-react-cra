@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import styled from "styled-components";
 
 import MarketTable from "./MarketTable"
 import Status from "../Status/Status"
 import Money from "../Money/Money"
 
-import { d100, dAny, dRange } from "../../engines/dice"
 import ITEMS from "../../data/items.json"
 
 import "./Market.scss"

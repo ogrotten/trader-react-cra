@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { selector, useRecoilState, useRecoilValue } from "recoil"
-import { player, smallModalInfo } from "../../recoil/atoms"
+import { useRecoilValue } from "recoil"
 import { getModalInfo } from '../../recoil/selectors';
 
 import "./Modal.scss"
