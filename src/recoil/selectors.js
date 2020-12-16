@@ -1,6 +1,6 @@
 import {selector} from "recoil"
 
-import { player, smallModalInfo } from "./atoms"
+import { smallModalInfo } from "./atoms"
 
 export const getModalInfo = selector({
 	key: "getModalInfo",
