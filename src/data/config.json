@@ -16,13 +16,15 @@
 	"START_DEBT": "5000",
 	"START_INVENTORY": "20",
 	"LOCATIONS": [
-		"Heywood",
-		"North Oak",
-		"Pacifica",
+		"Watson",
+		"City Center",
 		"Westbrook",
-		"Night City Univ",
-		"Corporate Plaza",
-		"City Center"
+		"Lizzie's",
+		"Heywood",
+		"Pacifica",
+		"The Afterlife",
+		"Santo Domingo",
+		"Badlands"
 	],
 	"TRAVEL": ["Jet","Split","Bounce","Jam","Mosey","Sneak","Creep","Holla", 
 		"Out","Audi","Outticus","Boogie","Dip","Book","Run","Break","Bust a move", 
@@ -35,6 +37,7 @@
 		"Bizounce", "Bolt", "Later", "Toodles", "Yo", "Be easy", "kthnxbai", "BBL",
 		"BRB", "Smoke", "Rip", "Bail", "Leave", "Check out", "Hit up", "Ping",
 		"Kick off", 
-		"Go", "Leave", "Travel", "Go", "Leave", "Travel", "Go", "Leave", "Travel", "Go", "Leave", "Travel"
+		"Go", "Leave", "Travel", "Go", "Leave", "Travel", "Go", "Leave", "Travel",
+		"Go", "Leave", "Travel"
 	]
 }

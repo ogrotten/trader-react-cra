@@ -36,7 +36,6 @@ const Modal = ({ isShowing, hide, isSmall, normal, children }) => {
 						<h1 style={{ padding: 0, margin: 0 }}>{title()}</h1>
 					</div>
 					<div className="modal-content">
-						<p>content</p>
 						{children}
 					</div>
 					<div className="modal-footer">

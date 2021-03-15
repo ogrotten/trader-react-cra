@@ -39,9 +39,7 @@ const App = () => {
 					<div className="mainFooter">
 						<button onClick={toggleShow}>{traveltext()}. . .</button>
 					</div>
-					<Location isShowing={isShowing} hide={toggleShow} isSmall={isSmall} normal={toggleSmall}>
-						<div>a child of the thing</div>
-					</Location>
+					<Location isShowing={isShowing} toggleShow={toggleShow} isSmall={isSmall} toggleSmall={toggleSmall} />
 				</Main>
 			</div>
 		</RecoilRoot>
