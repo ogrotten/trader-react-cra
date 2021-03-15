@@ -1,21 +1,20 @@
 import React from 'react';
-// import styled from "styled-components";
-
-// import { d100, dAny, dRange } from "../../engines/dice"
+import { useRecoilState } from "recoil"
+import { playerState } from '../../recoil/atoms';
 
 import "./Status.scss"
 
-const Status = (props) => {
-	const {inv, turns, current, location, space} = props.player
+const { LOCATIONS } = require("../../data/config")
 
-	const totalInv = inv.reduce((total, current) => total + current)
-	// const totalInv=0
+const Status = () => {
+	const [player, setPlayer] = useRecoilState(playerState)
+	// const totalInv = inv.reduce((total, current) => total + current)
 
 	return (
 		<section className="status">
-			<div className="inv">Inv: {totalInv} / {space} </div>
-			<div className="week">Week: {current} / {turns} </div>
-			<div className="loc">{location}</div>
+			<div className="inv">Inv: * / * </div>
+			<div className="week">Week: {player.current} / {player.turns} </div>
+			<div className="loc">{LOCATIONS[player.location]}</div>
 		</section>
 	)
 }

@@ -11,8 +11,9 @@ export const getModalInfo = selector({
 
 export const doLocation = selector({
 	key: "doLocation",
-	get: ({ get }) => {
-		return get(location)
-	},
-	set: ({ set }, newLoc) => set(location, newLoc)
+	get: ({ get }) => get(location),
+	set: ({ set }, newLoc) => {
+		console.log(`conlog: doLocation`, newLoc)
+		set(location, newLoc)
+	}
 })

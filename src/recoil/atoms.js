@@ -14,7 +14,7 @@ export const smallModalInfo = atom({
 	default: "buy"
 })
 
-export const player = atom({
+export const playerState = atom({
 	key: "player",
 	default: {
 		turns: TURNS,
@@ -24,7 +24,7 @@ export const player = atom({
 		bank: 0,
 		debt: START_DEBT,
 		space: START_INVENTORY,
-		location: LOCATIONS[0],
+		location: 1,
 
 		// array index = item.id
 		inv: Array(ITEMS.length).fill(0)
@@ -33,5 +33,5 @@ export const player = atom({
 
 export const location = atom({
 	key: "location",
-	default: LOCATIONS[0]
+	default: 0,
 })
