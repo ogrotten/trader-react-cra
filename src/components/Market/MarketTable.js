@@ -4,7 +4,7 @@ import { player, smallModalInfo } from "../../recoil/atoms"
 
 import useModal from "../../hooks/useModal"
 
-import Modal from "../Modal/Modal"
+import Modal from "../Modal"
 import ITEMS from "../../data/items.json"
 import RANGES from "../../data/pricerange.json"
 import { d100, dRange } from "../../engines/dice"
@@ -97,8 +97,15 @@ const MarketTable = () => {
 	}
 
 	const buysellButton = (e) => {
-		toggleShow()
+		/**
+		 * the next line switches the size of the modal everytime it's clicked,
+		 * even when the modal is being closed.
+		 * 
+		 * FIX: set a default size, then toggle it when necessary.
+		 */
 		toggleSmall()
+
+		toggleShow()
 		setBuysell(e.target.value)
 	}
 

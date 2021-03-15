@@ -9,26 +9,29 @@ const {
 	TURNS
 } = require("../data/config")
 
-export const smallModalInfo = atom ({
+export const smallModalInfo = atom({
 	key: "smallModalInfo",
 	default: "buy"
 })
 
 export const player = atom({
 	key: "player",
-	default: [
-		{
-			turns: TURNS,
-			current: 1,
+	default: {
+		turns: TURNS,
+		current: 1,
 
-			cash: START_MONEY,
-			bank: 0,
-			debt: START_DEBT,
-			space: START_INVENTORY,
-			location: LOCATIONS[0],
+		cash: START_MONEY,
+		bank: 0,
+		debt: START_DEBT,
+		space: START_INVENTORY,
+		location: LOCATIONS[0],
 
-			// array index = item.id
-			inv: Array(ITEMS.length).fill(0)
-		}
-	]
+		// array index = item.id
+		inv: Array(ITEMS.length).fill(0)
+	}
+})
+
+export const location = atom({
+	key: "location",
+	default: LOCATIONS[0]
 })
