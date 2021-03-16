@@ -31,13 +31,18 @@ const App = () => {
 		return TRAVEL[Math.floor(Math.random() * TRAVEL.length)]
 	}
 
+	const doTravel = () => {
+		toggleSmall()
+		toggleShow()
+	}
+
 	return (
 		<RecoilRoot>
 			<div className="container">
 				<Main id="main" className="main">
 					<Market />
 					<div className="mainFooter">
-						<button onClick={toggleShow}>{traveltext()}. . .</button>
+						<button onClick={doTravel}>{traveltext()}. . .</button>
 					</div>
 					<Location isShowing={isShowing} toggleShow={toggleShow} isSmall={isSmall} toggleSmall={toggleSmall} />
 				</Main>
