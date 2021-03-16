@@ -10,13 +10,10 @@ import "./Modal.scss"
  * 1. import useModal methods in the component where the button is placed
  * 2. use toggleShow() on the button element
  * 3. pass the other methods as props to the modal content component.
- * 4. use this component to wrap the content to show in the modal.
- * 
- * toggleShow(): onClick method to show the modal
- * 
+ * 4. use this component to wrap the content for show in the modal.
  */
 
-const Modal = ({ isShowing, hide, isSmall, normal, children }) => {
+const Modal = ({ isShowing, hide, isSmall, children, okAction }) => {
 	const incoming = useRecoilValue(getModalInfo)
 
 	const title = () => {
@@ -25,7 +22,6 @@ const Modal = ({ isShowing, hide, isSmall, normal, children }) => {
 		if (incoming === "sell") return "Sell"
 		return "!"
 	}
-
 
 	return isShowing ? ReactDOM.createPortal(
 		<React.Fragment>
@@ -39,13 +35,16 @@ const Modal = ({ isShowing, hide, isSmall, normal, children }) => {
 						{children}
 					</div>
 					<div className="modal-footer">
+						{okAction
+							? <button data-dismiss="modal" aria-label="Close"
+								onClick={okAction}
+							>
+								<span aria-hidden="true">OK</span>
+							</button>
+							: null
+						}
 						<button data-dismiss="modal" aria-label="Close"
-							onClick={() => { if (isSmall) normal(); hide(); }}
-						>
-							<span aria-hidden="true">OK</span>
-						</button>
-						<button data-dismiss="modal" aria-label="Close"
-							onClick={() => { if (isSmall) normal(); hide(); }}
+							onClick={hide}
 						>
 							<span aria-hidden="true">Cancel</span>
 						</button>

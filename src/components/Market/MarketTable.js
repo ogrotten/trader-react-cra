@@ -95,16 +95,12 @@ const MarketTable = () => {
 
 		return Math.round(randn_bm(pricemin, pricemax, skewdir));
 	}
+	const closeSale = () => {
+		console.log(`conlog: close sale`,)
+		toggleShow()
+	}
 
 	const buysellButton = (e) => {
-		/**
-		 * the next line switches the size of the modal everytime it's clicked,
-		 * even when the modal is being closed.
-		 * 
-		 * FIX: set a default size, then toggle it when necessary.
-		 */
-		toggleSmall()
-
 		toggleShow()
 		setBuysell(e.target.value)
 	}
@@ -151,7 +147,9 @@ const MarketTable = () => {
 					})}
 				</tbody>
 			</table>
-			<Modal isShowing={isShowing} hide={toggleShow} isSmall={isSmall} normal={toggleSmall} />
+			<Modal isShowing={isShowing} hide={toggleShow} isSmall={isSmall} normal={toggleSmall} okAction={closeSale}>
+				<div>sliders n stuff go here</div>
+			</Modal>
 		</section>
 	)
 }
