@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useRecoilState } from "recoil"
+import { playerState } from '../../recoil/atoms';
+
 import styled from "styled-components";
 
 import MarketTable from "./MarketTable"
@@ -33,13 +36,13 @@ const initPlayer = {
 }
 
 const Market = () => {
-	const [player, setPlayer] = useState(initPlayer)
+	const [player, setPlayer] = useRecoilState(playerState)
 
 	return (
 		<div className="market">
-			<Status	player={player} />
+			<Status />
 			<MarketTable />
-			<Money player={player}/>
+			<Money player={player} />
 		</div>
 	)
 }

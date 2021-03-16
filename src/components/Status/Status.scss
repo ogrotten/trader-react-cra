@@ -2,11 +2,16 @@
 	width: 100%;
 	min-height: 50px;
 
-	display: grid;
-	grid: 1fr / 1fr 1fr 1fr;
+	// display: grid;
+	// grid: 1fr / 1fr 1fr 1fr;
+	display: flex;
+	justify-content: space-around;
 }
 
-.cash, .inv, .week, .loc {
+.cash,
+.inv,
+.week,
+.loc {
 	// border: 1px solid red;
 	align-self: center;
 }

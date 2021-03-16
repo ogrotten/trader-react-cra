@@ -8,9 +8,11 @@ import {
 } from 'recoil';
 import styled from "styled-components";
 
-import Modal from "./components/Modal/Modal"
-import Market from "./components/Market/Market"
+import Modal from "./components/Modal"
 import useModal from "./hooks/useModal"
+
+import Market from "./components/Market/Market"
+import Location from "./components/Location"
 
 import './App.scss';
 
@@ -26,10 +28,7 @@ const App = () => {
 	const { isShowing, toggleShow, isSmall, toggleSmall } = useModal()
 
 	const traveltext = () => {
-		// if (current === 1) {return "Travel"}
-		// else {
 		return TRAVEL[Math.floor(Math.random() * TRAVEL.length)]
-		// }
 	}
 
 	return (
@@ -40,7 +39,7 @@ const App = () => {
 					<div className="mainFooter">
 						<button onClick={toggleShow}>{traveltext()}. . .</button>
 					</div>
-					<Modal isShowing={isShowing} hide={toggleShow} isSmall={isSmall} normal={toggleSmall} />
+					<Location isShowing={isShowing} toggleShow={toggleShow} isSmall={isSmall} toggleSmall={toggleSmall} />
 				</Main>
 			</div>
 		</RecoilRoot>
