@@ -7,6 +7,7 @@ import {
 	useRecoilValue,
 } from 'recoil';
 import styled from "styled-components";
+import panache from "panache-react"
 
 import Modal from "./components/Modal"
 import useModal from "./hooks/useModal"
@@ -18,11 +19,17 @@ import './App.scss';
 
 const { MINIMUM_AVAILABLE, TRAVEL } = require("./data/config")
 
-const Main = styled.div`
-	// border: 1px solid black;
-	width: 432px;
-	height: 768px;
-	`
+// const Main = styled.div`
+// 	// border: 1px solid black;
+// 	width: 432px;
+// 	height: 768px;
+// 	`
+
+const Main = panache.div({
+	width: 432,
+	height: 768,
+	backgroundColor: "white"
+})
 
 const App = () => {
 	const { isShowing, toggleShow, isSmall, toggleSmall } = useModal()
