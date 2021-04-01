@@ -6,10 +6,11 @@ import {
 	useRecoilState,
 	useRecoilValue,
 } from 'recoil';
-import styled from "styled-components";
+// import styled from "styled-components";
 import panache from "panache-react"
+import { GameProvider } from "./contexts/GameContext"
 
-import Modal from "./components/Modal"
+// import Modal from "./components/Modal"
 import useModal from "./hooks/useModal"
 
 import Market from "./components/Market/Market"
@@ -45,15 +46,17 @@ const App = () => {
 
 	return (
 		<RecoilRoot>
-			<div className="container">
-				<Main id="main" className="main">
-					<Market />
-					<div className="mainFooter">
-						<button onClick={doTravel}>{traveltext()}. . .</button>
-					</div>
-					<Location isShowing={isShowing} toggleShow={toggleShow} isSmall={isSmall} toggleSmall={toggleSmall} />
-				</Main>
-			</div>
+			<GameProvider>
+				<div className="container">
+					<Main id="main" className="main">
+						<Market />
+						<div className="mainFooter">
+							<button onClick={doTravel}>{traveltext()}. . .</button>
+						</div>
+						<Location isShowing={isShowing} toggleShow={toggleShow} isSmall={isSmall} toggleSmall={toggleSmall} />
+					</Main>
+				</div>
+			</GameProvider>
 		</RecoilRoot>
 	)
 }
