@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useContext } from 'react'
+
 import { useRecoilState } from "recoil"
 import { player, smallModalInfo } from "../../recoil/atoms"
 import { GameContext } from "../../contexts/GameContext"
@@ -16,9 +17,9 @@ import "./MarketTable.scss"
 const { MINIMUM_AVAILABLE } = require("../../data/config")
 
 const MarketTable = () => {
-	const [buysell, setBuysell] = useRecoilState(smallModalInfo)
 	const [List, setList] = useState([])
 	const [data, setData] = useState({})
+	const { playerState } = useContext(GameContext)
 
 	const { isShowing, toggleShow, isSmall, toggleSmall } = useModal()
 
