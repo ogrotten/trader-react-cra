@@ -13,7 +13,7 @@ import "./Modal.scss"
  * 4. use this component to wrap the content for show in the modal.
  */
 
-const Modal = ({ isShowing, hide, isSmall, children, okAction }) => {
+const Modal = ({ data, isShowing, hide, isSmall, children, okAction }) => {
 	const incoming = useRecoilValue(getModalInfo)
 
 	const title = () => {
@@ -29,10 +29,16 @@ const Modal = ({ isShowing, hide, isSmall, children, okAction }) => {
 			<div className={`modal-wrapper ${isSmall === true ? "modal-wrapper-small" : "modal-wrapper-regular"}`} aria-modal aria-hidden tabIndex={-1} role="dialog">
 				<div className="modal">
 					<div className="modal-header">
-						<h1 style={{ padding: 0, margin: 0 }}>{title()}</h1>
+						<h1 style={{ padding: 0, margin: 0 }}>
+							{data.type === "buy"
+								? `Buy ${data.name}`
+								: `Sell ${data.name}`
+							}
+						</h1>
 					</div>
 					<div className="modal-content">
-						{children}
+						<div>MOVED sliders n stuff go here</div>
+						<div>price: {data.price}</div>
 					</div>
 					<div className="modal-footer">
 						{okAction
