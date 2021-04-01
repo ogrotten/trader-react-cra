@@ -1,8 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import ReactDOM from 'react-dom';
-import { selector, useRecoilState, useRecoilValue } from "recoil"
-import { player, smallModalInfo } from "../../recoil/atoms"
-import { getModalInfo } from '../../recoil/selectors';
+import { GameContext } from "../../contexts/GameContext"
 
 import "./Modal.scss"
 
@@ -13,14 +11,12 @@ import "./Modal.scss"
  * 4. use this component to wrap the content for show in the modal.
  */
 
-const Modal = ({ data, isShowing, hide, isSmall, children, okAction }) => {
-	const incoming = useRecoilValue(getModalInfo)
+const Modal = ({ data, isShowing, hide, isSmall, okAction }) => {
+	const { buy } = useContext(GameContext)
 
-	const title = () => {
-		// uses `incoming` to determin the title of small modal
-		if (incoming === "buy") return "Buy"
-		if (incoming === "sell") return "Sell"
-		return "!"
+	const salesAction = () => {
+		buy(data.price, 2)
+		okAction()
 	}
 
 	return isShowing ? ReactDOM.createPortal(
@@ -43,7 +39,7 @@ const Modal = ({ data, isShowing, hide, isSmall, children, okAction }) => {
 					<div className="modal-footer">
 						{okAction
 							? <button data-dismiss="modal" aria-label="Close"
-								onClick={okAction}
+								onClick={salesAction}
 							>
 								<span aria-hidden="true">OK</span>
 							</button>

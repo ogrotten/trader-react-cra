@@ -21,7 +21,6 @@ const MarketTable = () => {
 	const [data, setData] = useState({})
 
 	const { isShowing, toggleShow, isSmall, toggleSmall } = useModal()
-	const { check } = GameContext
 
 	const marketGet = useCallback((allItems, allRanges) => {
 		// list array that will be set into state
