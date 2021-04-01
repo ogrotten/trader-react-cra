@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { useRecoilState } from "recoil"
 import { player, smallModalInfo } from "../../recoil/atoms"
+import { GameContext } from "../../contexts/GameContext"
 
 import useModal from "../../hooks/useModal"
 
@@ -17,7 +18,10 @@ const { MINIMUM_AVAILABLE } = require("../../data/config")
 const MarketTable = () => {
 	const [buysell, setBuysell] = useRecoilState(smallModalInfo)
 	const [List, setList] = useState([])
+	const [data, setData] = useState({})
+
 	const { isShowing, toggleShow, isSmall, toggleSmall } = useModal()
+	const { check } = GameContext
 
 	const marketGet = useCallback((allItems, allRanges) => {
 		// list array that will be set into state
@@ -92,17 +96,17 @@ const MarketTable = () => {
 			console.error(`PROBLEM >>> items.js 51 overmax ${overmax}`)
 		}
 
-
 		return Math.round(randn_bm(pricemin, pricemax, skewdir));
 	}
+
 	const closeSale = () => {
 		console.log(`conlog: close sale`,)
 		toggleShow()
 	}
 
-	const buysellButton = (e) => {
+	const buysellButton = (data) => {
 		toggleShow()
-		setBuysell(e.target.value)
+		setData({ ...data.data, type: data.type })
 	}
 
 	useEffect(() => {
@@ -129,10 +133,20 @@ const MarketTable = () => {
 								<td className="inv">99{e.id}</td>
 								<td className="name">{e.name}</td>
 								<td className="buysell-cell">
-									<button value="buy" className="buysell-button" onClick={buysellButton}>buy</button>
+									<button className="buysell-button" onClick={
+										() => buysellButton({
+											type: "buy",
+											data: e,
+										})
+									}>buy</button>
 								</td>
 								<td className="buysell-cell">
-									<button value="sell" className="buysell-button" onClick={buysellButton}>sell</button>
+									<button className="buysell-button" onClick={
+										() => buysellButton({
+											type: "sell",
+											data: e,
+										})
+									}>sell</button>
 								</td>
 							</tr>)
 						} else {
@@ -147,9 +161,7 @@ const MarketTable = () => {
 					})}
 				</tbody>
 			</table>
-			<Modal isShowing={isShowing} hide={toggleShow} isSmall={isSmall} normal={toggleSmall} okAction={closeSale}>
-				<div>sliders n stuff go here</div>
-			</Modal>
+			<Modal data={data} isShowing={isShowing} hide={toggleShow} isSmall={isSmall} normal={toggleSmall} okAction={closeSale} />
 		</section>
 	)
 }
