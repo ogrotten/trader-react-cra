@@ -13,7 +13,7 @@ import "./MarketTable.scss"
 import { BuyModal } from './BuyModal'
 
 // Set the minimum count of available items from global config
-const { MINIMUM_AVAILABLE } = require("../../data/config")
+const { MINIMUM_AVAILABLE } = require("../../data/gameConfig")
 const defaultData = {
 	avail: false,
 	id: null,

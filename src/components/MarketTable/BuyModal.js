@@ -6,7 +6,7 @@ export const BuyModal = ({ data: { price, name }, transaction: { transactionCoun
 	const { playerState: { cash } } = useContext(GameContext)
 
 	const getCount = (e) => {
-		setTransactionCount(e.target.value)
+		setTransactionCount(+e.target.value)
 	}
 
 	return (

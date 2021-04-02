@@ -1,5 +1,6 @@
 import React, { useState, useEffect, createContext } from 'react'
 import ITEMS from "../data/items.json"
+import gameConfig from "../data/gameConfig"
 
 const GameContext = createContext()
 
@@ -9,7 +10,9 @@ const {
 	START_INVENTORY,
 	LOCATIONS,
 	TURNS
-} = require("../data/config")
+} = gameConfig
+
+console.log(`gameConfig: `, gameConfig)
 
 const GameProvider = ({ children }) => {
 	const [playerState, setPlayerState] = useState({
@@ -53,7 +56,7 @@ const GameProvider = ({ children }) => {
 		setPlayerState((current) => {
 			return {
 				...current,
-				inv: current.inv[id] += count
+				inv: newInv
 			}
 		})
 	}
