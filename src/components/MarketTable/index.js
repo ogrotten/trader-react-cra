@@ -36,6 +36,7 @@ const MarketTable = () => {
 		console.log(`conlog: endTransaction`,)
 		buyItem(data.price, transactionCount)
 		changeInventory(data.id, transactionCount)
+		setTransactionCount(0)
 		toggleShow()
 	}
 
