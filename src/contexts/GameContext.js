@@ -37,6 +37,7 @@ const GameProvider = ({ children }) => {
 			})
 			return true
 		} else {
+			console.log(`conlog: not enuf money!!`,)
 			return false
 		}
 	}

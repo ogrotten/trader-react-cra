@@ -12,14 +12,7 @@ import "./Modal.scss"
  */
 
 const Modal = ({ data, isShowing, hide, normal, okAction, children }) => {
-	const { buy } = useContext(GameContext)
-
-	const doOk = () => {
-		buy(data.price, 2)
-		okAction()
-	}
-
-	return isShowing ? ReactDOM.createPortal(
+	return isShowing && ReactDOM.createPortal(
 		<React.Fragment>
 			<div className="modal-overlay" />
 			<div className={`modal-wrapper ${normal ? "modal-wrapper-regular" : "modal-wrapper-small"}`} aria-modal aria-hidden tabIndex={-1} role="dialog">
@@ -35,7 +28,7 @@ const Modal = ({ data, isShowing, hide, normal, okAction, children }) => {
 					<div className="modal-footer">
 						{okAction
 							? <button data-dismiss="modal" aria-label="Close"
-								onClick={doOk}
+								onClick={okAction}
 							>
 								<span aria-hidden="true">OK</span>
 							</button>
@@ -50,7 +43,7 @@ const Modal = ({ data, isShowing, hide, normal, okAction, children }) => {
 				</div>
 			</div>
 		</React.Fragment>, document.getElementById("main")
-	) : null
+	)
 }
 
 export default Modal;

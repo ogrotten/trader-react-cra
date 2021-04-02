@@ -17,13 +17,14 @@ const { MINIMUM_AVAILABLE } = require("../../data/config")
 const MarketTable = () => {
 	const [List, setList] = useState([])
 	const [data, setData] = useState({})
-	const { playerState } = useContext(GameContext)
+	const { buyItem } = useContext(GameContext)
 	const { isShowing, toggleShow, isSmall, toggleSmall } = useModal()
 
 	const marketGet = useCallback(marketMath(ITEMS, RANGES), [])
 
-	const closeSale = () => {
+	const doSale = () => {
 		console.log(`conlog: close sale`,)
+		buyItem(data.price, 2)
 		toggleShow()
 	}
 
@@ -84,7 +85,7 @@ const MarketTable = () => {
 					})}
 				</tbody>
 			</table>
-			<Modal data={data} isShowing={isShowing} hide={toggleShow} normal={false} okAction={closeSale}>
+			<Modal data={data} isShowing={isShowing} hide={toggleShow} normal={false} okAction={doSale}>
 				<div>MOVED sliders n stuff go here</div>
 				<div>price: {data.price}</div>
 			</Modal>
