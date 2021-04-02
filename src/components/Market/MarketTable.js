@@ -135,7 +135,7 @@ const MarketTable = () => {
 								<td className="buysell-cell">
 									<button className="buysell-button" onClick={
 										() => buysellButton({
-											type: "buy",
+											type: "Buy",
 											data: e,
 										})
 									}>buy</button>
@@ -143,7 +143,7 @@ const MarketTable = () => {
 								<td className="buysell-cell">
 									<button className="buysell-button" onClick={
 										() => buysellButton({
-											type: "sell",
+											type: "Sell",
 											data: e,
 										})
 									}>sell</button>
@@ -161,7 +161,10 @@ const MarketTable = () => {
 					})}
 				</tbody>
 			</table>
-			<Modal data={data} isShowing={isShowing} hide={toggleShow} isSmall={isSmall} normal={toggleSmall} okAction={closeSale} />
+			<Modal data={data} isShowing={isShowing} hide={toggleShow} isSmall={isSmall} normal={toggleSmall} okAction={closeSale}>
+				<div>MOVED sliders n stuff go here</div>
+				<div>price: {data.price}</div>
+			</Modal>
 		</section>
 	)
 }
