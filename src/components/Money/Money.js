@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { GameContext } from "../../contexts/GameContext"
+
 // import styled from "styled-components";
 
 // import { d100, dAny, dRange } from "../../engines/dice"
@@ -6,7 +8,7 @@ import React from 'react';
 import "./Money.scss"
 
 const Money = (props) => {
-	const {cash, debt, bank} = props.player
+	const { playerState: { cash, bank, debt } } = useContext(GameContext)
 
 	return (
 		<section className="money">
