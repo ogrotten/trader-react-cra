@@ -6,14 +6,15 @@ import "./Location.scss"
 
 const { LOCATIONS } = require("../../data/config")
 
-const Location = ({ isShowing, toggleShow, isSmall, toggleSmall }) => {
+const Location = ({ title, isShowing, toggleShow }) => {
 	const { changeLocation } = useContext(GameContext)
 	const doTravel = (e) => {
 		changeLocation(e.target.value)
 		toggleShow()
 	}
 	return (
-		<Modal data={{ type: "Travel" }} isShowing={isShowing} hide={toggleShow} normal={true}>
+		<Modal data={{ type: title }} isShowing={isShowing} hide={toggleShow} normal={true}>
+			<div>Where do you want to go?</div>
 			<div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between" }}>
 				{
 					LOCATIONS.map((item, i) => {

@@ -33,11 +33,12 @@ const Main = panache.div({
 })
 
 const App = () => {
+	const [traveltext, setTraveltext] = useState(TRAVEL[Math.floor(Math.random() * TRAVEL.length)])
 	const { isShowing, toggleShow, isSmall, toggleSmall } = useModal()
 
-	const traveltext = () => {
-		return TRAVEL[Math.floor(Math.random() * TRAVEL.length)]
-	}
+	// const gettraveltext = () => {
+	// 	return TRAVEL[Math.floor(Math.random() * TRAVEL.length)]
+	// }
 
 	const doTravel = () => {
 		toggleSmall()
@@ -51,9 +52,9 @@ const App = () => {
 					<Main id="main" className="main">
 						<Market />
 						<div className="mainFooter">
-							<button onClick={doTravel}>{traveltext()}. . .</button>
+							<button onClick={doTravel}>{traveltext}. . .</button>
 						</div>
-						<Location isShowing={isShowing} toggleShow={toggleShow} isSmall={isSmall} toggleSmall={toggleSmall} />
+						<Location title={traveltext} isShowing={isShowing} toggleShow={toggleShow} />
 					</Main>
 				</div>
 			</GameProvider>

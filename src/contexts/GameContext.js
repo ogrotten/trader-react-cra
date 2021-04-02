@@ -66,7 +66,19 @@ const GameProvider = ({ children }) => {
 	}
 
 	const changeLocation = (newLoc) => {
-		setPlayerState({ ...playerState, location: newLoc })
+		if (playerState.location === newLoc) {
+			let nextTurn = playerState.current
+			if ((nextTurn + 1) > playerState.turns) {
+				console.log(`conlog: END GAME CONDITION`,)
+			} else {
+				nextTurn++
+			}
+			setPlayerState({
+				...playerState,
+				location: newLoc,
+				current: nextTurn
+			})
+		}
 	}
 
 	return (
