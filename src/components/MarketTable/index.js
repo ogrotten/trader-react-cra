@@ -10,6 +10,7 @@ import RANGES from "../../data/pricerange.json"
 import { d100, dRange } from "../../engines/dice"
 
 import "./MarketTable.scss"
+import { BuyModal } from './BuyModal'
 
 // Set the minimum count of available items from global config
 const { MINIMUM_AVAILABLE } = require("../../data/config.json")
@@ -86,8 +87,7 @@ const MarketTable = () => {
 				</tbody>
 			</table>
 			<Modal data={data} isShowing={isShowing} hide={toggleShow} normal={false} okAction={doSale}>
-				<div>MOVED sliders n stuff go here</div>
-				<div>price: {data.price}</div>
+				<BuyModal data={data} />
 			</Modal>
 		</section>
 	)
