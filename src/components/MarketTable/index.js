@@ -13,26 +13,35 @@ import "./MarketTable.scss"
 import { BuyModal } from './BuyModal'
 
 // Set the minimum count of available items from global config
-const { MINIMUM_AVAILABLE } = require("../../data/config.json")
+const { MINIMUM_AVAILABLE } = require("../../data/config")
+const defaultData = {
+	avail: false,
+	id: null,
+	marketorder: null,
+	name: null,
+	price: 0,
+	type: null,
+}
 
 const MarketTable = () => {
 	const [List, setList] = useState([])
-	const [data, setData] = useState({})
-	const [transationCount, setTransationCount] = useState(0)
-	const { buyItem } = useContext(GameContext)
+	const [data, setData] = useState(defaultData)
+	const [transactionCount, setTransactionCount] = useState(0)
+	const { buyItem, changeInventory } = useContext(GameContext)
 	const { isShowing, toggleShow } = useModal()
 
 	const marketGet = useCallback(() => marketMath(ITEMS, RANGES), [])
 
-	const doSale = () => {
-		console.log(`conlog: close sale`,)
-		buyItem(data.price, transationCount)
+	const endTransaction = () => {
+		console.log(`conlog: endTransaction`,)
+		buyItem(data.price, transactionCount)
+		changeInventory(data.id, transactionCount)
 		toggleShow()
 	}
 
-	const handleTransaction = (data) => {
+	const beginTransaction = (data, type) => {
 		toggleShow()
-		setData({ ...data.data, type: data.type })
+		setData({ ...data, type })
 	}
 
 	useEffect(() => {
@@ -60,18 +69,12 @@ const MarketTable = () => {
 								<td className="name">{el.name}</td>
 								<td className="buysell-cell">
 									<button className="buysell-button" onClick={
-										() => handleTransaction({
-											type: "Buy",
-											data: el,
-										})
+										() => beginTransaction(el, "Buy")
 									}>buy</button>
 								</td>
 								<td className="buysell-cell">
 									<button className="buysell-button" onClick={
-										() => handleTransaction({
-											type: "Sell",
-											data: el,
-										})
+										() => beginTransaction(el, "Sell")
 									}>sell</button>
 								</td>
 							</tr>)
@@ -87,8 +90,8 @@ const MarketTable = () => {
 					})}
 				</tbody>
 			</table>
-			<Modal data={data} isShowing={isShowing} hide={toggleShow} normal={false} okAction={doSale}>
-				<BuyModal data={data} transaction={{ transationCount, setTransationCount }} />
+			<Modal data={data} isShowing={isShowing} hide={toggleShow} normal={false} okAction={endTransaction}>
+				<BuyModal data={data} transaction={{ transactionCount, setTransactionCount }} />
 			</Modal>
 		</section>
 	)

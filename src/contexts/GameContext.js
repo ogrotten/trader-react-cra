@@ -26,6 +26,10 @@ const GameProvider = ({ children }) => {
 		inv: Array(ITEMS.length).fill(0)
 	})
 
+	useEffect(() => {
+		console.log(`PLAYERSTATE: `, playerState)
+	}, [playerState])
+
 	const buyItem = (price, amount) => {
 		const cost = price * amount
 		if (playerState.cash >= price) {
@@ -42,13 +46,25 @@ const GameProvider = ({ children }) => {
 		}
 	}
 
-	const changeLoc = (newLoc) => {
+	const changeInventory = (id, count) => {
+		console.log(`conlog: `, id, count)
+		const newInv = [...playerState.inv]
+		newInv[id] += count
+		setPlayerState((current) => {
+			return {
+				...current,
+				inv: current.inv[id] += count
+			}
+		})
+	}
+
+	const changeLocation = (newLoc) => {
 		setPlayerState({ ...playerState, location: newLoc })
 	}
 
 	return (
 		<GameContext.Provider
-			value={{ playerState, buyItem, changeLoc }}
+			value={{ playerState, buyItem, changeLocation, changeInventory }}
 		>
 			{children}
 		</GameContext.Provider>
