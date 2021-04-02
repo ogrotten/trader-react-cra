@@ -10,27 +10,38 @@ import RANGES from "../../data/pricerange.json"
 import { d100, dRange } from "../../engines/dice"
 
 import "./MarketTable.scss"
+import { BuyModal } from './BuyModal'
 
 // Set the minimum count of available items from global config
-const { MINIMUM_AVAILABLE } = require("../../data/config.json")
+const { MINIMUM_AVAILABLE } = require("../../data/gameConfig")
+const defaultData = {
+	avail: false,
+	id: null,
+	marketorder: null,
+	name: null,
+	price: 0,
+	type: null,
+}
 
 const MarketTable = () => {
 	const [List, setList] = useState([])
-	const [data, setData] = useState({})
-	const { buyItem } = useContext(GameContext)
+	const [data, setData] = useState(defaultData)
+	const [transactionCount, setTransactionCount] = useState(0)
+	const { buyItem, changeInventory, playerState } = useContext(GameContext)
 	const { isShowing, toggleShow } = useModal()
 
 	const marketGet = useCallback(() => marketMath(ITEMS, RANGES), [])
 
-	const doSale = () => {
-		console.log(`conlog: close sale`,)
-		buyItem(data.price, 2)
+	const endTransaction = () => {
+		console.log(`conlog: endTransaction`,)
+		buyItem(data.price, transactionCount)
+		changeInventory(data.id, transactionCount)
 		toggleShow()
 	}
 
-	const handleTransaction = (data) => {
+	const beginTransaction = (data, type) => {
 		toggleShow()
-		setData({ ...data.data, type: data.type })
+		setData({ ...data, type })
 	}
 
 	useEffect(() => {
@@ -50,26 +61,20 @@ const MarketTable = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{List.map(el => {
+					{List.map((el, i) => {
 						if (el.avail === true) {
 							return (<tr key={el.id} className="market-row">
 								<td className="price">{el.price}</td>
-								<td className="inv">99{el.id}</td>
+								<td className="inv">{playerState.inv[i]}</td>
 								<td className="name">{el.name}</td>
 								<td className="buysell-cell">
 									<button className="buysell-button" onClick={
-										() => handleTransaction({
-											type: "Buy",
-											data: el,
-										})
+										() => beginTransaction(el, "Buy")
 									}>buy</button>
 								</td>
 								<td className="buysell-cell">
 									<button className="buysell-button" onClick={
-										() => handleTransaction({
-											type: "Sell",
-											data: el,
-										})
+										() => beginTransaction(el, "Sell")
 									}>sell</button>
 								</td>
 							</tr>)
@@ -85,9 +90,8 @@ const MarketTable = () => {
 					})}
 				</tbody>
 			</table>
-			<Modal data={data} isShowing={isShowing} hide={toggleShow} normal={false} okAction={doSale}>
-				<div>MOVED sliders n stuff go here</div>
-				<div>price: {data.price}</div>
+			<Modal data={data} isShowing={isShowing} hide={toggleShow} normal={false} okAction={endTransaction}>
+				<BuyModal data={data} transaction={{ transactionCount, setTransactionCount }} />
 			</Modal>
 		</section>
 	)

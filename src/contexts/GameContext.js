@@ -1,5 +1,6 @@
 import React, { useState, useEffect, createContext } from 'react'
 import ITEMS from "../data/items.json"
+import gameConfig from "../data/gameConfig"
 
 const GameContext = createContext()
 
@@ -9,7 +10,9 @@ const {
 	START_INVENTORY,
 	LOCATIONS,
 	TURNS
-} = require("../data/config")
+} = gameConfig
+
+console.log(`gameConfig: `, gameConfig)
 
 const GameProvider = ({ children }) => {
 	const [playerState, setPlayerState] = useState({
@@ -25,6 +28,10 @@ const GameProvider = ({ children }) => {
 		// array index = item.id
 		inv: Array(ITEMS.length).fill(0)
 	})
+
+	useEffect(() => {
+		console.log(`PLAYERSTATE: `, playerState)
+	}, [playerState])
 
 	const buyItem = (price, amount) => {
 		const cost = price * amount
@@ -42,13 +49,25 @@ const GameProvider = ({ children }) => {
 		}
 	}
 
-	const changeLoc = (newLoc) => {
+	const changeInventory = (id, count) => {
+		console.log(`conlog: `, id, count)
+		const newInv = [...playerState.inv]
+		newInv[id] += count
+		setPlayerState((current) => {
+			return {
+				...current,
+				inv: newInv
+			}
+		})
+	}
+
+	const changeLocation = (newLoc) => {
 		setPlayerState({ ...playerState, location: newLoc })
 	}
 
 	return (
 		<GameContext.Provider
-			value={{ playerState, buyItem, changeLoc }}
+			value={{ playerState, buyItem, changeLocation, changeInventory }}
 		>
 			{children}
 		</GameContext.Provider>

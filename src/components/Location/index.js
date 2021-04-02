@@ -7,9 +7,9 @@ import "./Location.scss"
 const { LOCATIONS } = require("../../data/config")
 
 const Location = ({ isShowing, toggleShow, isSmall, toggleSmall }) => {
-	const { changeLoc } = useContext(GameContext)
+	const { changeLocation } = useContext(GameContext)
 	const doTravel = (e) => {
-		changeLoc(e.target.value)
+		changeLocation(e.target.value)
 		toggleShow()
 	}
 	return (
