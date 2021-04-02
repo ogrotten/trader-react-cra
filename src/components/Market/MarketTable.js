@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react'
 
-import { useRecoilState } from "recoil"
-import { player, smallModalInfo } from "../../recoil/atoms"
 import { GameContext } from "../../contexts/GameContext"
 
 import useModal from "../../hooks/useModal"
@@ -20,84 +18,9 @@ const MarketTable = () => {
 	const [List, setList] = useState([])
 	const [data, setData] = useState({})
 	const { playerState } = useContext(GameContext)
-
 	const { isShowing, toggleShow, isSmall, toggleSmall } = useModal()
 
-	const marketGet = useCallback((allItems, allRanges) => {
-		// list array that will be set into state
-		let pricelist = []
-		// count available items
-		let availcount = 0
-		allItems.forEach(e => {
-			// see const pricerange at the bottom
-			// const rangeNew = pricerange(+e.pricerange, allRanges);
-			const rangeNew = allRanges[e.pricerange]
-
-			let avail = {
-				price: price(+e.pricemin, +e.pricemax, rangeNew.width, rangeNew.side),
-				name: e.name,
-				id: e.id
-			}
-			if (d100() < e.availability) {
-				avail.avail = true
-				pricelist.unshift(avail)
-				availcount += 1
-			} else {
-				avail.avail = false
-				pricelist.push(avail)
-			}
-		})
-
-		pricelist.forEach(e => {
-			e.marketorder = pricelist.indexOf(e)
-		})
-
-		pricelist.sort((a, b) => (a.id > b.id) ? 1 : -1)
-
-		if (availcount < MINIMUM_AVAILABLE) {
-			console.log(`Short...`,)
-			const cutoff = dRange(MINIMUM_AVAILABLE, pricelist.length)
-			pricelist.forEach((e, i) => {
-				(e.marketorder < cutoff) ? e.avail = true : e.avail = false
-			});
-		}
-
-		setList(pricelist)
-	}, [])
-
-	const price = (pricemin, pricemax, skewwidth, skewdir) => {
-
-		let overmax = 0
-
-		const randn_bm = (min, max, skew) => {
-			var u = 0,
-				v = 0;
-			while (u === 0) u = Math.random(); //Converting [0,1) to (0,1)
-			while (v === 0) v = Math.random();
-			let num = Math.sqrt(skewwidth * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
-			num = num / 10.0 + 0.5; // Translate to 0 -> 1
-			if (num > max) {
-			}
-
-			if ((num > 1 || num < 0) || u < 0.001) num = randn_bm(min, max, skew); // resample between 0 and 1 if out of range
-
-			num = Math.pow(num, skew); // Skew
-			num *= max - min; // Stretch to fill range
-			num += min; // offset to min
-			if (num > max) {
-				overmax++
-				console.error(`PROBLEM >>> items.js 44 ${num} > ${max}`)
-				num = randn_bm(min, max, skew)
-			}
-			return num;
-		}
-
-		if (overmax > 0) {
-			console.error(`PROBLEM >>> items.js 51 overmax ${overmax}`)
-		}
-
-		return Math.round(randn_bm(pricemin, pricemax, skewdir));
-	}
+	const marketGet = useCallback(marketMath(ITEMS, RANGES), [])
 
 	const closeSale = () => {
 		console.log(`conlog: close sale`,)
@@ -110,7 +33,7 @@ const MarketTable = () => {
 	}
 
 	useEffect(() => {
-		marketGet(ITEMS, RANGES)
+		setList(marketGet)
 	}, [marketGet])
 
 	return (
@@ -171,34 +94,79 @@ const MarketTable = () => {
 
 export default MarketTable;
 
-// const pricerange = (one, all) => {
 
-// 	// for random priceranges rerolled per city!
-// 	// Must change the pricerange.json to the old format
-// 	/* 
-// 		[
-// 			{
-// 				"NAR_LO":{
-// 				"description": "narrow range, skew low",
-// 				"width": -1.2,
-// 				"side": 1.6
-// 				}
-// 			},
-// 			{
-// 				"NAR_HI":{
-// 				"description": "narrow range, skew high",
-// 				"width": -1.2,
-// 				"side": 0.6
-// 				}
-// 			}
-// 		]
-// 	 */
+function marketMath(allItems, allRanges) {
+	// list array that will be set into state
+	let pricelist = []
+	// count available items
+	let availcount = 0
+	allItems.forEach(e => {
+		// see const pricerange at the bottom
+		// const rangeNew = pricerange(+e.pricerange, allRanges);
+		const rangeNew = allRanges[e.pricerange]
 
-// 	if (one === -1) {
-// 		return dRange(0, all[all.length - 1])
+		let avail = {
+			price: price(+e.pricemin, +e.pricemax, rangeNew.width, rangeNew.side),
+			name: e.name,
+			id: e.id
+		}
+		if (d100() < e.availability) {
+			avail.avail = true
+			pricelist.unshift(avail)
+			availcount += 1
+		} else {
+			avail.avail = false
+			pricelist.push(avail)
+		}
+	})
 
-// 	} else {
-// 		return all[one]
-// 	}
+	pricelist.forEach(e => {
+		e.marketorder = pricelist.indexOf(e)
+	})
 
-// }
+	pricelist.sort((a, b) => (a.id > b.id) ? 1 : -1)
+
+	if (availcount < MINIMUM_AVAILABLE) {
+		console.log(`Short...`,)
+		const cutoff = dRange(MINIMUM_AVAILABLE, pricelist.length)
+		pricelist.forEach((e, i) => {
+			(e.marketorder < cutoff) ? e.avail = true : e.avail = false
+		});
+	}
+
+	return pricelist
+}
+
+function price(pricemin, pricemax, skewwidth, skewdir) {
+
+	let overmax = 0
+
+	const randn_bm = (min, max, skew) => {
+		var u = 0,
+			v = 0;
+		while (u === 0) u = Math.random(); //Converting [0,1) to (0,1)
+		while (v === 0) v = Math.random();
+		let num = Math.sqrt(skewwidth * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+		num = num / 10.0 + 0.5; // Translate to 0 -> 1
+		if (num > max) {
+		}
+
+		if ((num > 1 || num < 0) || u < 0.001) num = randn_bm(min, max, skew); // resample between 0 and 1 if out of range
+
+		num = Math.pow(num, skew); // Skew
+		num *= max - min; // Stretch to fill range
+		num += min; // offset to min
+		if (num > max) {
+			overmax++
+			console.error(`PROBLEM >>> items.js 44 ${num} > ${max}`)
+			num = randn_bm(min, max, skew)
+		}
+		return num;
+	}
+
+	if (overmax > 0) {
+		console.error(`PROBLEM >>> items.js 51 overmax ${overmax}`)
+	}
+
+	return Math.round(randn_bm(pricemin, pricemax, skewdir));
+}

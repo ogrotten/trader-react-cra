@@ -14,7 +14,7 @@ import "./Modal.scss"
 const Modal = ({ data, isShowing, hide, isSmall, okAction, children }) => {
 	const { buy } = useContext(GameContext)
 
-	const salesAction = () => {
+	const doOk = () => {
 		buy(data.price, 2)
 		okAction()
 	}
@@ -35,7 +35,7 @@ const Modal = ({ data, isShowing, hide, isSmall, okAction, children }) => {
 					<div className="modal-footer">
 						{okAction
 							? <button data-dismiss="modal" aria-label="Close"
-								onClick={salesAction}
+								onClick={doOk}
 							>
 								<span aria-hidden="true">OK</span>
 							</button>
