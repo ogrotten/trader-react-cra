@@ -12,15 +12,15 @@ import { d100, dRange } from "../../engines/dice"
 import "./MarketTable.scss"
 
 // Set the minimum count of available items from global config
-const { MINIMUM_AVAILABLE } = require("../../data/config")
+const { MINIMUM_AVAILABLE } = require("../../data/config.json")
 
 const MarketTable = () => {
 	const [List, setList] = useState([])
 	const [data, setData] = useState({})
 	const { buyItem } = useContext(GameContext)
-	const { isShowing, toggleShow, isSmall, toggleSmall } = useModal()
+	const { isShowing, toggleShow } = useModal()
 
-	const marketGet = useCallback(marketMath(ITEMS, RANGES), [])
+	const marketGet = useCallback(() => marketMath(ITEMS, RANGES), [])
 
 	const doSale = () => {
 		console.log(`conlog: close sale`,)

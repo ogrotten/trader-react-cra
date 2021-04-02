@@ -13,7 +13,7 @@ import { GameProvider } from "./contexts/GameContext"
 // import Modal from "./components/Modal"
 import useModal from "./hooks/useModal"
 
-import Market from "./components/Market/Market"
+import Market from "./components/Market"
 import Location from "./components/Location"
 
 import './App.scss';
