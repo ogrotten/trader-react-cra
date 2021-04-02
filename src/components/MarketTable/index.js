@@ -27,7 +27,7 @@ const MarketTable = () => {
 	const [List, setList] = useState([])
 	const [data, setData] = useState(defaultData)
 	const [transactionCount, setTransactionCount] = useState(0)
-	const { buyItem, changeInventory } = useContext(GameContext)
+	const { buyItem, changeInventory, playerState } = useContext(GameContext)
 	const { isShowing, toggleShow } = useModal()
 
 	const marketGet = useCallback(() => marketMath(ITEMS, RANGES), [])
@@ -61,11 +61,11 @@ const MarketTable = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{List.map(el => {
+					{List.map((el, i) => {
 						if (el.avail === true) {
 							return (<tr key={el.id} className="market-row">
 								<td className="price">{el.price}</td>
-								<td className="inv">99{el.id}</td>
+								<td className="inv">{playerState.inv[i]}</td>
 								<td className="name">{el.name}</td>
 								<td className="buysell-cell">
 									<button className="buysell-button" onClick={
