@@ -35,18 +35,22 @@ const GameProvider = ({ children }) => {
 
 	const buyItem = (price, amount) => {
 		const cost = price * amount
-		if (playerState.cash >= price) {
-			setPlayerState((current) => {
-				return {
-					...current,
-					cash: current.cash - cost
-				}
-			})
-			return true
-		} else {
-			console.log(`conlog: not enuf money!!`,)
-			return false
-		}
+		setPlayerState((current) => {
+			return {
+				...current,
+				cash: current.cash - cost
+			}
+		})
+	}
+
+	const sellItem = (price, amount) => {
+		const profit = price * amount
+		setPlayerState((current) => {
+			return {
+				...current,
+				cash: current.cash + profit
+			}
+		})
 	}
 
 	const changeInventory = (id, count) => {
@@ -67,7 +71,11 @@ const GameProvider = ({ children }) => {
 
 	return (
 		<GameContext.Provider
-			value={{ playerState, buyItem, changeLocation, changeInventory }}
+			value={{
+				playerState,
+				buyItem, sellItem,
+				changeLocation, changeInventory
+			}}
 		>
 			{children}
 		</GameContext.Provider>
