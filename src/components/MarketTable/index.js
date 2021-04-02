@@ -18,6 +18,7 @@ const { MINIMUM_AVAILABLE } = require("../../data/config.json")
 const MarketTable = () => {
 	const [List, setList] = useState([])
 	const [data, setData] = useState({})
+	const [transationCount, setTransationCount] = useState(0)
 	const { buyItem } = useContext(GameContext)
 	const { isShowing, toggleShow } = useModal()
 
@@ -25,7 +26,7 @@ const MarketTable = () => {
 
 	const doSale = () => {
 		console.log(`conlog: close sale`,)
-		buyItem(data.price, 2)
+		buyItem(data.price, transationCount)
 		toggleShow()
 	}
 
@@ -87,7 +88,7 @@ const MarketTable = () => {
 				</tbody>
 			</table>
 			<Modal data={data} isShowing={isShowing} hide={toggleShow} normal={false} okAction={doSale}>
-				<BuyModal data={data} />
+				<BuyModal data={data} transaction={{ transationCount, setTransationCount }} />
 			</Modal>
 		</section>
 	)
