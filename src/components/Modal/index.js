@@ -11,7 +11,7 @@ import "./Modal.scss"
  * 4. use this component to wrap the content for show in the modal.
  */
 
-const Modal = ({ data, isShowing, hide, isSmall, okAction, children }) => {
+const Modal = ({ data, isShowing, hide, normal, okAction, children }) => {
 	const { buy } = useContext(GameContext)
 
 	const doOk = () => {
@@ -22,7 +22,7 @@ const Modal = ({ data, isShowing, hide, isSmall, okAction, children }) => {
 	return isShowing ? ReactDOM.createPortal(
 		<React.Fragment>
 			<div className="modal-overlay" />
-			<div className={`modal-wrapper ${isSmall === true ? "modal-wrapper-small" : "modal-wrapper-regular"}`} aria-modal aria-hidden tabIndex={-1} role="dialog">
+			<div className={`modal-wrapper ${normal ? "modal-wrapper-regular" : "modal-wrapper-small"}`} aria-modal aria-hidden tabIndex={-1} role="dialog">
 				<div className="modal">
 					<div className="modal-header">
 						<h1 style={{ padding: 0, margin: 0 }}>

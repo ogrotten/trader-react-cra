@@ -16,7 +16,7 @@ const Location = ({ isShowing, toggleShow, isSmall, toggleSmall }) => {
 		toggleShow()
 	}
 	return (
-		<Modal isShowing={isShowing} hide={toggleShow} isSmall={isSmall} normal={toggleSmall}>
+		<Modal data={{ type: "Travel" }} isShowing={isShowing} hide={toggleShow} normal={true}>
 			<div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between" }}>
 				{
 					LOCATIONS.map((item, i) => {

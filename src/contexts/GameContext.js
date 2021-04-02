@@ -26,9 +26,9 @@ const GameProvider = ({ children }) => {
 		inv: Array(ITEMS.length).fill(0)
 	})
 
-	const buy = (price, amount) => {
+	const buyItem = (price, amount) => {
 		const cost = price * amount
-		if (playerState.cash >= buy) {
+		if (playerState.cash >= price) {
 			setPlayerState((current) => {
 				return {
 					...current,
@@ -43,7 +43,7 @@ const GameProvider = ({ children }) => {
 
 	return (
 		<GameContext.Provider
-			value={{ playerState, buy }}
+			value={{ playerState, buyItem }}
 		>
 			{children}
 		</GameContext.Provider>

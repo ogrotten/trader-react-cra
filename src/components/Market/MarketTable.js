@@ -27,7 +27,7 @@ const MarketTable = () => {
 		toggleShow()
 	}
 
-	const buysellButton = (data) => {
+	const handleTransaction = (data) => {
 		toggleShow()
 		setData({ ...data.data, type: data.type })
 	}
@@ -49,34 +49,34 @@ const MarketTable = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{List.map(e => {
-						if (e.avail === true) {
-							return (<tr key={e.id} className="market-row">
-								<td className="price">{e.price}</td>
-								<td className="inv">99{e.id}</td>
-								<td className="name">{e.name}</td>
+					{List.map(el => {
+						if (el.avail === true) {
+							return (<tr key={el.id} className="market-row">
+								<td className="price">{el.price}</td>
+								<td className="inv">99{el.id}</td>
+								<td className="name">{el.name}</td>
 								<td className="buysell-cell">
 									<button className="buysell-button" onClick={
-										() => buysellButton({
+										() => handleTransaction({
 											type: "Buy",
-											data: e,
+											data: el,
 										})
 									}>buy</button>
 								</td>
 								<td className="buysell-cell">
 									<button className="buysell-button" onClick={
-										() => buysellButton({
+										() => handleTransaction({
 											type: "Sell",
-											data: e,
+											data: el,
 										})
 									}>sell</button>
 								</td>
 							</tr>)
 						} else {
-							return (<tr key={e.id}>
+							return (<tr key={el.id}>
 								<td className="price">&nbsp;</td>
 								<td className="inv">&nbsp;</td>
-								<td className="name">{e.name}</td>
+								<td className="name">{el.name}</td>
 								<td className="buysell-cell">&nbsp;</td>
 								<td className="buysell-cell">&nbsp;</td>
 							</tr>)
@@ -84,7 +84,7 @@ const MarketTable = () => {
 					})}
 				</tbody>
 			</table>
-			<Modal data={data} isShowing={isShowing} hide={toggleShow} isSmall={isSmall} normal={toggleSmall} okAction={closeSale}>
+			<Modal data={data} isShowing={isShowing} hide={toggleShow} normal={false} okAction={closeSale}>
 				<div>MOVED sliders n stuff go here</div>
 				<div>price: {data.price}</div>
 			</Modal>
