@@ -42,9 +42,13 @@ const GameProvider = ({ children }) => {
 		}
 	}
 
+	const changeLoc = (newLoc) => {
+		setPlayerState({ ...playerState, location: newLoc })
+	}
+
 	return (
 		<GameContext.Provider
-			value={{ playerState, buyItem }}
+			value={{ playerState, buyItem, changeLoc }}
 		>
 			{children}
 		</GameContext.Provider>
