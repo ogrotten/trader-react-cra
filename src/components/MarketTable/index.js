@@ -11,6 +11,7 @@ import { d100, dRange } from "../../engines/dice"
 
 import "./MarketTable.scss"
 import { BuyModal } from './BuyModal'
+import { SellModal } from './SellModal'
 
 // Set the minimum count of available items from global config
 const { MINIMUM_AVAILABLE } = require("../../data/gameConfig")
@@ -27,15 +28,21 @@ const MarketTable = () => {
 	const [List, setList] = useState([])
 	const [data, setData] = useState(defaultData)
 	const [transactionCount, setTransactionCount] = useState(0)
-	const { buyItem, changeInventory, playerState } = useContext(GameContext)
 	const { isShowing, toggleShow } = useModal()
+	const { buyItem, sellItem, changeInventory, playerState } = useContext(GameContext)
 
 	const marketGet = useCallback(() => marketMath(ITEMS, RANGES), [])
 
 	const endTransaction = () => {
 		console.log(`conlog: endTransaction`,)
-		buyItem(data.price, transactionCount)
-		changeInventory(data.id, transactionCount)
+		if (data.type === "Buy") {
+			buyItem(data.price, transactionCount)
+			changeInventory(data.id, transactionCount)
+		} else if (data.type === "Sell") {
+			sellItem(data.price, transactionCount)
+			changeInventory(data.id, transactionCount * -1)
+		} else { console.warn(`BUY SELL PROBLEM: `, data.type) }
+
 		setTransactionCount(0)
 		toggleShow()
 	}
@@ -92,7 +99,12 @@ const MarketTable = () => {
 				</tbody>
 			</table>
 			<Modal data={data} isShowing={isShowing} hide={toggleShow} normal={false} okAction={endTransaction}>
-				<BuyModal data={data} transaction={{ transactionCount, setTransactionCount }} />
+				{
+					{
+						"Buy": <BuyModal data={data} transaction={{ transactionCount, setTransactionCount }} />,
+						"Sell": <SellModal data={data} transaction={{ transactionCount, setTransactionCount }} />
+					}[data.type]
+				}
 			</Modal>
 		</section>
 	)
