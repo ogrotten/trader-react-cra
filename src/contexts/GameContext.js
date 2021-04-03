@@ -30,7 +30,7 @@ const GameProvider = ({ children }) => {
 	})
 
 	useEffect(() => {
-		console.log(`PLAYERSTATE: `, playerState)
+		console.table(playerState)
 	}, [playerState])
 
 	const endGame = () => {
@@ -72,11 +72,17 @@ const GameProvider = ({ children }) => {
 		})
 	}
 
+	const remainingSpace = () => {
+		return playerState.inv.reduce(
+			(acc, curr) => acc + curr
+		)
+	}
+
 	const changeLocation = (newLoc) => {
-		if (playerState.location !== newLoc) {
+		if (playerState.location !== +newLoc) {
 			setPlayerState({
 				...playerState,
-				location: newLoc,
+				location: +newLoc,
 				current: playerState.current + 1
 			})
 		}
@@ -88,7 +94,8 @@ const GameProvider = ({ children }) => {
 				playerState,
 				endGame,
 				buyItem, sellItem,
-				changeLocation, changeInventory
+				changeInventory, remainingSpace,
+				changeLocation,
 			}}
 		>
 			{children}
