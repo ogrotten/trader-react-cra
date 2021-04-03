@@ -1,21 +1,17 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react'
-import gameConfig from "../../data/gameConfig"
 
 import { GameContext } from "../../contexts/GameContext"
 
 import useModal from "../../hooks/useModal"
-
 import Modal from "../Modal"
-import ITEMS from "../../data/items.json"
-import RANGES from "../../data/pricerange.json"
 import { d100, dRange } from "../../engines/dice"
-
-import "./MarketTable.scss"
 import { BuyModal } from './BuyModal'
 import { SellModal } from './SellModal'
 
+import "./MarketTable.scss"
+
 // Set the minimum count of available items from global config
-const { MINIMUM_AVAILABLE } = gameConfig
+
 const defaultData = {
 	avail: false,
 	id: null,
@@ -25,18 +21,15 @@ const defaultData = {
 	type: null,
 }
 
-ITEMS.map(e => {
-	console.table(e.name, e.pricemin, e.pricemax)
-})
-
 const MarketTable = () => {
 	const [List, setList] = useState([])
 	const [data, setData] = useState(defaultData)
 	const [transactionCount, setTransactionCount] = useState(0)
 	const { isShowing, toggleShow } = useModal()
-	const { buyItem, sellItem, changeInventory, playerState } = useContext(GameContext)
+	const { buyItem, sellItem, changeInventory, playerState, gameConfig: { ITEMS, RANGES, MINIMUM_AVAILABLE } } = useContext(GameContext)
 
-	const marketGet = useCallback(() => marketMath(ITEMS, RANGES), [])
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	const marketGet = useCallback(() => marketMath(ITEMS, RANGES, MINIMUM_AVAILABLE), [])
 
 	const endTransaction = () => {
 		console.log(`conlog: endTransaction`,)
@@ -59,10 +52,12 @@ const MarketTable = () => {
 
 	useEffect(() => {
 		setList(marketGet)
+		// console.table(marketGet())
 	}, [marketGet])
 
 	useEffect(() => {
 		setList(marketGet)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [playerState.current])
 
 	return (
@@ -80,7 +75,7 @@ const MarketTable = () => {
 				<tbody>
 					{List.map((el, i) => {
 						if (el.avail === true) {
-							return (<tr key={el.id} className="market-row">
+							return (<tr key={el.id} className={el.event ? "event-row" : "market-row"}>
 								<td className="price">{el.price}</td>
 								<td className="inv">{playerState.inv[i]}</td>
 								<td className="name">{el.name}</td>
@@ -126,7 +121,7 @@ const MarketTable = () => {
 export default MarketTable;
 
 
-function marketMath(allItems, allRanges) {
+function marketMath(allItems, allRanges, MINIMUM_AVAILABLE) {
 	// list array that will be set into state
 	let pricelist = []
 	// count available items
@@ -158,12 +153,21 @@ function marketMath(allItems, allRanges) {
 	pricelist.sort((a, b) => (a.id > b.id) ? 1 : -1)
 
 	if (availcount < MINIMUM_AVAILABLE) {
-		console.log(`Short...`,)
+		// console.log(`Short...`,)
 		const cutoff = dRange(MINIMUM_AVAILABLE, pricelist.length)
 		pricelist.forEach((e, i) => {
 			(e.marketorder < cutoff) ? e.avail = true : e.avail = false
 		});
 	}
+
+	allItems.forEach((e, i) => {
+		if (d100() < e.spikeChance) {
+			pricelist[i].price = price(+e.spikemin, +e.spikemax, -11, 1) // "normal, wide"
+			pricelist[i].event = true
+			pricelist[i].avail = true
+			// console.log(`conlog: EVENT`,)
+		}
+	})
 
 	return pricelist
 }
@@ -189,14 +193,14 @@ function price(pricemin, pricemax, skewwidth, skewdir) {
 		num += min; // offset to min
 		if (num > max) {
 			overmax++
-			console.error(`PROBLEM >>> items.js 44 ${num} > ${max}`)
+			// console.error(`PROBLEM >>> items.js 44 ${num} > ${max}`)
 			num = randn_bm(min, max, skew)
 		}
 		return num;
 	}
 
 	if (overmax > 0) {
-		console.error(`PROBLEM >>> items.js 51 overmax ${overmax}`)
+		// console.error(`PROBLEM >>> items.js 51 overmax ${overmax}`)
 	}
 
 	return Math.round(randn_bm(pricemin, pricemax, skewdir));
