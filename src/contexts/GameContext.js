@@ -1,32 +1,28 @@
 import React, { useState, useEffect, createContext } from 'react'
-import ITEMS from "../data/items.json"
+
 import gameConfig from "../data/gameConfig"
+import ITEMS from "../data/items"
+import RANGES from "../data/pricerange"
+gameConfig.ITEMS = ITEMS
+gameConfig.RANGES = RANGES
 
 const GameContext = createContext()
 
-const {
-	START_MONEY,
-	START_DEBT,
-	START_INVENTORY,
-	LOCATIONS,
-	TURNS
-} = gameConfig
-
-console.log(`gameConfig: `, gameConfig)
+console.table(gameConfig.ITEMS)
 
 const GameProvider = ({ children }) => {
 	const [playerState, setPlayerState] = useState({
-		turns: TURNS,
+		turns: gameConfig.TURNS,
 		current: 1,
 
-		cash: START_MONEY,
+		cash: gameConfig.START_MONEY,
 		bank: 0,
-		debt: START_DEBT,
-		space: START_INVENTORY,
+		debt: gameConfig.START_DEBT,
+		space: gameConfig.START_INVENTORY,
 		location: 1,
 
 		// array index = item.id
-		inv: Array(ITEMS.length).fill(0)
+		inv: Array(gameConfig.ITEMS.length).fill(0)
 	})
 
 	useEffect(() => {
@@ -91,6 +87,7 @@ const GameProvider = ({ children }) => {
 	return (
 		<GameContext.Provider
 			value={{
+				gameConfig,
 				playerState,
 				endGame,
 				buyItem, sellItem,
