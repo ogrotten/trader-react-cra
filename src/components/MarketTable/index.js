@@ -9,7 +9,6 @@ import { BuyModal } from './BuyModal'
 import { SellModal } from './SellModal'
 
 import "./MarketTable.scss"
-import gameConfig from '../../data/gameConfig'
 
 // Set the minimum count of available items from global config
 
@@ -29,6 +28,7 @@ const MarketTable = () => {
 	const { isShowing, toggleShow } = useModal()
 	const { buyItem, sellItem, changeInventory, playerState, gameConfig: { ITEMS, RANGES, MINIMUM_AVAILABLE } } = useContext(GameContext)
 
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const marketGet = useCallback(() => marketMath(ITEMS, RANGES, MINIMUM_AVAILABLE), [])
 
 	const endTransaction = () => {
@@ -52,10 +52,12 @@ const MarketTable = () => {
 
 	useEffect(() => {
 		setList(marketGet)
+		// console.table(marketGet())
 	}, [marketGet])
 
 	useEffect(() => {
 		setList(marketGet)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [playerState.current])
 
 	return (
@@ -73,7 +75,7 @@ const MarketTable = () => {
 				<tbody>
 					{List.map((el, i) => {
 						if (el.avail === true) {
-							return (<tr key={el.id} className="market-row">
+							return (<tr key={el.id} className={el.event ? "event-row" : "market-row"}>
 								<td className="price">{el.price}</td>
 								<td className="inv">{playerState.inv[i]}</td>
 								<td className="name">{el.name}</td>
@@ -151,24 +153,21 @@ function marketMath(allItems, allRanges, MINIMUM_AVAILABLE) {
 	pricelist.sort((a, b) => (a.id > b.id) ? 1 : -1)
 
 	if (availcount < MINIMUM_AVAILABLE) {
-		console.log(`Short...`,)
+		// console.log(`Short...`,)
 		const cutoff = dRange(MINIMUM_AVAILABLE, pricelist.length)
 		pricelist.forEach((e, i) => {
 			(e.marketorder < cutoff) ? e.avail = true : e.avail = false
 		});
 	}
 
-	const event = true
-	if (event) {
-		const eventItem = makeEvent(gameConfig.ITEMS[8])
-		pricelist.forEach((e, i) => {
-			if (e.id === eventItem.id) {
-				e.price = eventItem.price
-				e.event = true
-				e.avail = true
-			}
-		})
-	}
+	allItems.forEach((e, i) => {
+		if (d100() < e.spikeChance) {
+			pricelist[i].price = price(+e.spikemin, +e.spikemax, -11, 1) // "normal, wide"
+			pricelist[i].event = true
+			pricelist[i].avail = true
+			// console.log(`conlog: EVENT`,)
+		}
+	})
 
 	return pricelist
 }
@@ -194,23 +193,15 @@ function price(pricemin, pricemax, skewwidth, skewdir) {
 		num += min; // offset to min
 		if (num > max) {
 			overmax++
-			console.error(`PROBLEM >>> items.js 44 ${num} > ${max}`)
+			// console.error(`PROBLEM >>> items.js 44 ${num} > ${max}`)
 			num = randn_bm(min, max, skew)
 		}
 		return num;
 	}
 
 	if (overmax > 0) {
-		console.error(`PROBLEM >>> items.js 51 overmax ${overmax}`)
+		// console.error(`PROBLEM >>> items.js 51 overmax ${overmax}`)
 	}
 
 	return Math.round(randn_bm(pricemin, pricemax, skewdir));
-}
-
-function makeEvent(item) {
-	const event = {
-		id: item.id,
-		price: price(+item.spikemin, +item.spikemax, -11, 1), // "normal, wide"
-	}
-	return event
 }

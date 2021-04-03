@@ -25,9 +25,9 @@ const GameProvider = ({ children }) => {
 		inv: Array(gameConfig.ITEMS.length).fill(0)
 	})
 
-	useEffect(() => {
-		console.table(playerState)
-	}, [playerState])
+	// useEffect(() => {
+	// 	console.table(playerState)
+	// }, [playerState])
 
 	const endGame = () => {
 		if (playerState.current >= playerState.turns) {
