@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import panache from "panache-react"
 import { GameContext } from "./contexts/GameContext"
 
@@ -19,14 +19,24 @@ const Main = panache.div({
 })
 
 const App = () => {
-	const [traveltext, setTraveltext] = useState(TRAVEL[Math.floor(Math.random() * TRAVEL.length)])
+	const [traveltext, setTraveltext] = useState("")
 	const { isShowing, toggleShow, isSmall, toggleSmall } = useModal()
-	const { endGame } = useContext(GameContext)
+	const { endGame, playerState } = useContext(GameContext)
 
 	const doTravel = () => {
 		toggleSmall()
 		toggleShow()
 	}
+
+	useEffect(() => {
+		if (playerState.current === 1) {
+			setTraveltext("Leave")
+		} else if (endGame()) {
+			setTraveltext("End game")
+		} else {
+			setTraveltext(TRAVEL[Math.floor(Math.random() * TRAVEL.length)])
+		}
+	}, [playerState.current])
 
 	return (
 		<div className="container">

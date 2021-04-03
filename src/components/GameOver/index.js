@@ -4,7 +4,7 @@ import { GameContext } from "../../contexts/GameContext"
 
 import "./GameOver.scss"
 
-const GameOver = ({ title, isShowing, toggleShow }) => {
+const GameOver = ({ isShowing, toggleShow }) => {
 	console.log(`conlog: gameover `,)
 	return (
 		<Modal data={{ type: "Game Over" }} isShowing={isShowing} hide={toggleShow} normal={true}>

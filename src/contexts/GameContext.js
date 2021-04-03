@@ -62,7 +62,6 @@ const GameProvider = ({ children }) => {
 	}
 
 	const changeInventory = (id, count) => {
-		console.log(`conlog: `, id, count)
 		const newInv = [...playerState.inv]
 		newInv[id] += count
 		setPlayerState((current) => {

@@ -12,13 +12,8 @@ import "./Modal.scss"
  */
 
 const Modal = ({ data, isShowing, hide, normal, okAction, children }, props) => {
-	console.log(`conlog: `, props)
 	const handleOK = () => {
-		console.log(`conlog: click ok`,)
 		okAction()
-	}
-	if (data.type === "Game Over") {
-		console.log(`conlog: stop here`,)
 	}
 	return isShowing && ReactDOM.createPortal(
 		<React.Fragment>
