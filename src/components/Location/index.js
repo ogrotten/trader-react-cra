@@ -8,7 +8,7 @@ import "./Location.scss"
 const { LOCATIONS } = gameConfig
 
 const Location = ({ title, isShowing, toggleShow }) => {
-	const { changeLocation } = useContext(GameContext)
+	const { changeLocation, playerState } = useContext(GameContext)
 	const doTravel = (e) => {
 		changeLocation(e.target.value)
 		toggleShow()
@@ -21,6 +21,7 @@ const Location = ({ title, isShowing, toggleShow }) => {
 					LOCATIONS.map((item, i) => {
 						return (
 							<button key={i} value={i}
+								disabled={i === playerState.location}
 								style={{ width: "28%", margin: "8px 0", height: 64 }}
 								onClick={doTravel}
 							>
