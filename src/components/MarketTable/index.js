@@ -24,6 +24,10 @@ const defaultData = {
 	type: null,
 }
 
+ITEMS.map(e => {
+	console.table(e.name, e.pricemin, e.pricemax)
+})
+
 const MarketTable = () => {
 	const [List, setList] = useState([])
 	const [data, setData] = useState(defaultData)
@@ -55,6 +59,10 @@ const MarketTable = () => {
 	useEffect(() => {
 		setList(marketGet)
 	}, [marketGet])
+
+	useEffect(() => {
+		setList(marketGet)
+	}, [playerState.current])
 
 	return (
 		<section className="market-table">
