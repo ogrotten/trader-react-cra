@@ -1,21 +1,18 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react'
-import gameConfig from "../../data/gameConfig"
 
 import { GameContext } from "../../contexts/GameContext"
 
 import useModal from "../../hooks/useModal"
-
 import Modal from "../Modal"
-import ITEMS from "../../data/items.json"
-import RANGES from "../../data/pricerange.json"
 import { d100, dRange } from "../../engines/dice"
-
-import "./MarketTable.scss"
 import { BuyModal } from './BuyModal'
 import { SellModal } from './SellModal'
 
+import "./MarketTable.scss"
+import gameConfig from '../../data/gameConfig'
+
 // Set the minimum count of available items from global config
-const { MINIMUM_AVAILABLE } = gameConfig
+
 const defaultData = {
 	avail: false,
 	id: null,
@@ -25,18 +22,14 @@ const defaultData = {
 	type: null,
 }
 
-ITEMS.map(e => {
-	console.table(e.name, e.pricemin, e.pricemax)
-})
-
 const MarketTable = () => {
 	const [List, setList] = useState([])
 	const [data, setData] = useState(defaultData)
 	const [transactionCount, setTransactionCount] = useState(0)
 	const { isShowing, toggleShow } = useModal()
-	const { buyItem, sellItem, changeInventory, playerState } = useContext(GameContext)
+	const { buyItem, sellItem, changeInventory, playerState, gameConfig: { ITEMS, RANGES, MINIMUM_AVAILABLE } } = useContext(GameContext)
 
-	const marketGet = useCallback(() => marketMath(ITEMS, RANGES), [])
+	const marketGet = useCallback(() => marketMath(ITEMS, RANGES, MINIMUM_AVAILABLE), [])
 
 	const endTransaction = () => {
 		console.log(`conlog: endTransaction`,)
@@ -126,7 +119,7 @@ const MarketTable = () => {
 export default MarketTable;
 
 
-function marketMath(allItems, allRanges) {
+function marketMath(allItems, allRanges, MINIMUM_AVAILABLE) {
 	// list array that will be set into state
 	let pricelist = []
 	// count available items
@@ -165,6 +158,18 @@ function marketMath(allItems, allRanges) {
 		});
 	}
 
+	const event = true
+	if (event) {
+		const eventItem = makeEvent(gameConfig.ITEMS[8])
+		pricelist.forEach((e, i) => {
+			if (e.id === eventItem.id) {
+				e.price = eventItem.price
+				e.event = true
+				e.avail = true
+			}
+		})
+	}
+
 	return pricelist
 }
 
@@ -200,4 +205,12 @@ function price(pricemin, pricemax, skewwidth, skewdir) {
 	}
 
 	return Math.round(randn_bm(pricemin, pricemax, skewdir));
+}
+
+function makeEvent(item) {
+	const event = {
+		id: item.id,
+		price: price(+item.spikemin, +item.spikemax, -11, 1), // "normal, wide"
+	}
+	return event
 }
