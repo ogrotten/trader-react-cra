@@ -11,9 +11,8 @@ import "./Modal.scss"
  * 4. use this component to wrap the content for show in the modal.
  */
 
-const Modal = ({ data, isShowing, hide, normal, okAction, children }) => {
+const Modal = ({ data, isShowing, hide, normal, okAction, children }, props) => {
 	const handleOK = () => {
-		console.log(`conlog: click ok`,)
 		okAction()
 	}
 	return isShowing && ReactDOM.createPortal(
