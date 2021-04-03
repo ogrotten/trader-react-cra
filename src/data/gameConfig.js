@@ -8,7 +8,7 @@ const gameConfig = {
 		"START_MONEY": "Money you start with",
 		"START_DEBT": "Money and debt you start with if you take debt"
 	},
-	"MINIMUM_AVAILABLE": 4,
+	"MINIMUM_AVAILABLE": 5,
 	"BANK_INTEREST": 5,
 	"DEBT_INTEREST": 10,
 	"TURNS": 52,

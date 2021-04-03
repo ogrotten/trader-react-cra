@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react'
+import gameConfig from "../../data/gameConfig"
 
 import { GameContext } from "../../contexts/GameContext"
 
@@ -14,7 +15,7 @@ import { BuyModal } from './BuyModal'
 import { SellModal } from './SellModal'
 
 // Set the minimum count of available items from global config
-const { MINIMUM_AVAILABLE } = require("../../data/gameConfig")
+const { MINIMUM_AVAILABLE } = gameConfig
 const defaultData = {
 	avail: false,
 	id: null,
