@@ -1,10 +1,11 @@
 import React, { useState, useContext } from 'react'
 import Modal from "../Modal"
 import { GameContext } from "../../contexts/GameContext"
+import gameConfig from "../../data/gameConfig"
 
 import "./Location.scss"
 
-const { LOCATIONS } = require("../../data/config")
+const { LOCATIONS } = gameConfig
 
 const Location = ({ title, isShowing, toggleShow }) => {
 	const { changeLocation } = useContext(GameContext)

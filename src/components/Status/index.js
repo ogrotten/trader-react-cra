@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { GameContext } from "../../contexts/GameContext"
+import gameConfig from "../../data/gameConfig"
 
 import "./Status.scss"
-
-const { LOCATIONS } = require("../../data/config")
+const { LOCATIONS } = gameConfig
 
 const Status = () => {
 	// const [totalInv, setTotalInv] = useState(0)

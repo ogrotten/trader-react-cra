@@ -97,7 +97,11 @@ const MarketTable = () => {
 						} else {
 							return (<tr key={el.id}>
 								<td className="price">&nbsp;</td>
-								<td className="inv">&nbsp;</td>
+								<td className="inv">{
+									playerState.inv[i] > 0
+										? playerState.inv[i]
+										: <span>&nbsp;</span>
+								}</td>
 								<td className="name">{el.name}</td>
 								<td className="buysell-cell">&nbsp;</td>
 								<td className="buysell-cell">&nbsp;</td>

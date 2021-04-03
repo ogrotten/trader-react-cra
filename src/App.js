@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import panache from "panache-react"
 import { GameContext } from "./contexts/GameContext"
+import gameConfig from "./data/gameConfig"
 
 import useModal from "./hooks/useModal"
 
@@ -10,7 +11,8 @@ import GameOver from "./components/GameOver"
 
 import './App.scss';
 
-const { TRAVEL } = require("./data/config")
+const { TRAVEL } = gameConfig
+
 
 const Main = panache.div({
 	width: 432,
