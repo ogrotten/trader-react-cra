@@ -1,30 +1,16 @@
-import React, { useState } from 'react';
-import {
-	RecoilRoot,
-	atom,
-	selector,
-	useRecoilState,
-	useRecoilValue,
-} from 'recoil';
-// import styled from "styled-components";
+import React, { useState, useContext } from 'react';
 import panache from "panache-react"
-import { GameProvider } from "./contexts/GameContext"
+import { GameContext } from "./contexts/GameContext"
 
-// import Modal from "./components/Modal"
 import useModal from "./hooks/useModal"
 
 import Market from "./components/Market"
 import Location from "./components/Location"
+import GameOver from "./components/GameOver"
 
 import './App.scss';
 
-const { MINIMUM_AVAILABLE, TRAVEL } = require("./data/config")
-
-// const Main = styled.div`
-// 	// border: 1px solid black;
-// 	width: 432px;
-// 	height: 768px;
-// 	`
+const { TRAVEL } = require("./data/config")
 
 const Main = panache.div({
 	width: 432,
@@ -35,10 +21,7 @@ const Main = panache.div({
 const App = () => {
 	const [traveltext, setTraveltext] = useState(TRAVEL[Math.floor(Math.random() * TRAVEL.length)])
 	const { isShowing, toggleShow, isSmall, toggleSmall } = useModal()
-
-	// const gettraveltext = () => {
-	// 	return TRAVEL[Math.floor(Math.random() * TRAVEL.length)]
-	// }
+	const { endGame } = useContext(GameContext)
 
 	const doTravel = () => {
 		toggleSmall()
@@ -46,19 +29,18 @@ const App = () => {
 	}
 
 	return (
-		<RecoilRoot>
-			<GameProvider>
-				<div className="container">
-					<Main id="main" className="main">
-						<Market />
-						<div className="mainFooter">
-							<button onClick={doTravel}>{traveltext}. . .</button>
-						</div>
-						<Location title={traveltext} isShowing={isShowing} toggleShow={toggleShow} />
-					</Main>
+		<div className="container">
+			<Main id="main" className="main">
+				<Market />
+				<div className="mainFooter">
+					<button onClick={doTravel}>{traveltext}. . .</button>
 				</div>
-			</GameProvider>
-		</RecoilRoot>
+				{endGame()
+					? <GameOver title="Game Over" isShowing={isShowing} toggleShow={toggleShow}>HI</GameOver>
+					: <Location title={traveltext} isShowing={isShowing} toggleShow={toggleShow} />
+				}
+			</Main>
+		</div>
 	)
 }
 

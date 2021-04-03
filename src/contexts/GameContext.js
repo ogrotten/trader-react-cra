@@ -33,6 +33,14 @@ const GameProvider = ({ children }) => {
 		console.log(`PLAYERSTATE: `, playerState)
 	}, [playerState])
 
+	const endGame = () => {
+		if (playerState.current >= playerState.turns) {
+			return true
+		} else {
+			return false
+		}
+	}
+
 	const buyItem = (price, amount) => {
 		const cost = price * amount
 		setPlayerState((current) => {
@@ -66,17 +74,11 @@ const GameProvider = ({ children }) => {
 	}
 
 	const changeLocation = (newLoc) => {
-		if (playerState.location === newLoc) {
-			let nextTurn = playerState.current
-			if ((nextTurn + 1) > playerState.turns) {
-				console.log(`conlog: END GAME CONDITION`,)
-			} else {
-				nextTurn++
-			}
+		if (playerState.location !== newLoc) {
 			setPlayerState({
 				...playerState,
 				location: newLoc,
-				current: nextTurn
+				current: playerState.current + 1
 			})
 		}
 	}
@@ -85,6 +87,7 @@ const GameProvider = ({ children }) => {
 		<GameContext.Provider
 			value={{
 				playerState,
+				endGame,
 				buyItem, sellItem,
 				changeLocation, changeInventory
 			}}
