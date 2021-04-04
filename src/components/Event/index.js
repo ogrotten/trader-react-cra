@@ -6,11 +6,15 @@ import "./Event.scss"
 
 const Event = () => {
 	const [currEvent, setCurrEvent] = useState({})
+	const [localEventList, setlocalEventList] = useState([])
 	const { eventList, remvEvent } = GameContext
 
 	useEffect(() => {
-		setCurrEvent({ ...eventList[0] })
-		remvEvent(0)
+		(async () => {
+			console.log(`conlog: Event USEE`, eventList)
+			setCurrEvent({ ...eventList[0] })
+			remvEvent(0)
+		})
 	}, [eventList])
 
 	useEffect(() => {

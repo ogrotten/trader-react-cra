@@ -27,7 +27,7 @@ const GameProvider = ({ children }) => {
 	const [eventList, setEventList] = useState([])
 
 	const addEvent = (newEvent) => {
-		setEventList([...eventList, ...newEvent])
+		setEventList([...eventList, newEvent])
 	}
 
 	const remvEvent = (index) => {

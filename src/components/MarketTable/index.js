@@ -15,10 +15,11 @@ import "./MarketTable.scss"
 const defaultData = {
 	avail: false,
 	id: null,
-	marketorder: null,
-	name: null,
+	marketorder: [],
+	name: "",
 	price: 0,
-	type: null,
+	type: "",
+	title: ""
 }
 
 const MarketTable = () => {
@@ -60,10 +61,14 @@ const MarketTable = () => {
 	}, [])
 
 	useEffect(() => {
-		const events = List.filter(item => item.event === true)
-		if (events?.length > 0) {
-			console.log(`conlog: `, events)
-		}
+		List.forEach((item, i) => {
+			if (item.event === true) {
+				addEvent({
+					type: "price",
+					title: `${item.name} prices are really ${ITEMS[i].spikeType}!`
+				})
+			}
+		})
 		console.log(`conlog: List render`,)
 	}, [List])
 

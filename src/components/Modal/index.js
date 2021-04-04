@@ -20,7 +20,7 @@ const Modal = ({ data, isShowing, hide, normal, okAction, children }, props) => 
 				<div className="modal">
 					<div className="modal-header">
 						<h1 style={{ padding: 0, margin: 0 }}>
-							{data.title} {data?.name}
+							{data.title || data.type} {data?.name}
 						</h1>
 					</div>
 					<div className="modal-content">
