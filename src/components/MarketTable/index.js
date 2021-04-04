@@ -22,14 +22,18 @@ const defaultData = {
 }
 
 const MarketTable = () => {
+	const [marketGet, setMarketGet] = useState({})
 	const [List, setList] = useState([])
 	const [data, setData] = useState(defaultData)
 	const [transactionCount, setTransactionCount] = useState(0)
 	const { isShowing, toggleShow } = useModal()
-	const { buyItem, sellItem, changeInventory, playerState, gameConfig: { ITEMS, RANGES, MINIMUM_AVAILABLE } } = useContext(GameContext)
-
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	const marketGet = useCallback(() => marketMath(ITEMS, RANGES, MINIMUM_AVAILABLE), [])
+	const {
+		playerState,
+		addEvent,
+		buyItem, sellItem,
+		changeInventory,
+		gameConfig: { ITEMS, RANGES, MINIMUM_AVAILABLE }
+	} = useContext(GameContext)
 
 	const endTransaction = () => {
 		console.log(`conlog: endTransaction`,)
@@ -51,14 +55,24 @@ const MarketTable = () => {
 	}
 
 	useEffect(() => {
-		setList(marketGet)
-		// console.table(marketGet())
-	}, [marketGet])
+		setMarketGet(marketMath(ITEMS, RANGES, MINIMUM_AVAILABLE))
+		console.log(`conlog: first render`,)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 
 	useEffect(() => {
-		setList(marketGet)
+		setList(marketGet.pricelist)
+		if (marketGet?.events?.length > 0) {
+			addEvent(marketGet.events)
+		}
+		console.log(`conlog: marketGet render`,)
+		// console.table(marketGet())
+	}, [marketGet, playerState.current])
+
+	useEffect(() => {
+		setList(marketGet.pricelist)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [playerState.current])
+	}, [marketGet])
 
 	return (
 		<section className="market-table">
@@ -73,7 +87,7 @@ const MarketTable = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{List.map((el, i) => {
+					{marketGet.pricelist.map((el, i) => {
 						if (el.avail === true) {
 							return (<tr key={el.id} className={el.event ? "event-row" : "market-row"}>
 								<td className="price">{el.price}</td>
@@ -122,10 +136,15 @@ export default MarketTable;
 
 
 function marketMath(allItems, allRanges, MINIMUM_AVAILABLE) {
+	// list of price events on the pricelist
+	let events = []
+
 	// list array that will be set into state
 	let pricelist = []
+
 	// count available items
 	let availcount = 0
+
 	allItems.forEach(e => {
 		// see const pricerange at the bottom
 		// const rangeNew = pricerange(+e.pricerange, allRanges);
@@ -163,13 +182,16 @@ function marketMath(allItems, allRanges, MINIMUM_AVAILABLE) {
 	allItems.forEach((e, i) => {
 		if (d100() < e.spikeChance) {
 			pricelist[i].price = price(+e.spikemin, +e.spikemax, -11, 1) // "normal, wide"
-			pricelist[i].event = true
 			pricelist[i].avail = true
-			// console.log(`conlog: EVENT`,)
+			pricelist[i].event = true
+			events.push({
+				type: "Event",
+				body: `${e.name} price event!`
+			})
 		}
 	})
 
-	return pricelist
+	return { pricelist, events }
 }
 
 function price(pricemin, pricemax, skewwidth, skewdir) {

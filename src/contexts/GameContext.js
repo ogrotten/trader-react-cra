@@ -7,27 +7,34 @@ gameConfig.ITEMS = ITEMS
 gameConfig.RANGES = RANGES
 
 const GameContext = createContext()
+const defaultPlayerState = {
+	turns: gameConfig.TURNS,
+	current: 1,
 
+	cash: gameConfig.START_MONEY,
+	bank: 0,
+	debt: gameConfig.START_DEBT,
+	space: gameConfig.START_INVENTORY,
+	location: 1,
+
+	// array index = item.id
+	inv: Array(gameConfig.ITEMS.length).fill(0)
+}
 console.table(gameConfig.ITEMS)
 
 const GameProvider = ({ children }) => {
-	const [playerState, setPlayerState] = useState({
-		turns: gameConfig.TURNS,
-		current: 1,
+	const [playerState, setPlayerState] = useState(defaultPlayerState)
+	const [eventList, setEventList] = useState([])
 
-		cash: gameConfig.START_MONEY,
-		bank: 0,
-		debt: gameConfig.START_DEBT,
-		space: gameConfig.START_INVENTORY,
-		location: 1,
+	const addEvent = (newEvent) => {
+		setEventList([...eventList, ...newEvent])
+	}
 
-		// array index = item.id
-		inv: Array(gameConfig.ITEMS.length).fill(0)
-	})
-
-	// useEffect(() => {
-	// 	console.table(playerState)
-	// }, [playerState])
+	const remvEvent = (index) => {
+		const newList = [...eventList]
+		newList.splice(index, 1)
+		setEventList([...newList])
+	}
 
 	const endGame = () => {
 		if (playerState.current >= playerState.turns) {
@@ -89,6 +96,7 @@ const GameProvider = ({ children }) => {
 			value={{
 				gameConfig,
 				playerState,
+				eventList, addEvent, remvEvent,
 				endGame,
 				buyItem, sellItem,
 				changeInventory, remainingSpace,
