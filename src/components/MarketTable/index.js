@@ -22,7 +22,6 @@ const defaultData = {
 }
 
 const MarketTable = () => {
-	const [marketGet, setMarketGet] = useState({})
 	const [List, setList] = useState([])
 	const [data, setData] = useState(defaultData)
 	const [transactionCount, setTransactionCount] = useState(0)
@@ -55,24 +54,23 @@ const MarketTable = () => {
 	}
 
 	useEffect(() => {
-		setMarketGet(marketMath(ITEMS, RANGES, MINIMUM_AVAILABLE))
+		setList(marketMath(ITEMS, RANGES, MINIMUM_AVAILABLE))
 		console.log(`conlog: first render`,)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	useEffect(() => {
-		setList(marketGet.pricelist)
-		if (marketGet?.events?.length > 0) {
-			addEvent(marketGet.events)
+		const events = List.filter(item => item.event === true)
+		if (events?.length > 0) {
+			console.log(`conlog: `, events)
 		}
-		console.log(`conlog: marketGet render`,)
-		// console.table(marketGet())
-	}, [marketGet, playerState.current])
+		console.log(`conlog: List render`,)
+	}, [List])
 
 	useEffect(() => {
-		setList(marketGet.pricelist)
+		setList(marketMath(ITEMS, RANGES, MINIMUM_AVAILABLE))
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [marketGet])
+	}, [playerState.current])
 
 	return (
 		<section className="market-table">
@@ -87,7 +85,7 @@ const MarketTable = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{marketGet.pricelist.map((el, i) => {
+					{List.map((el, i) => {
 						if (el.avail === true) {
 							return (<tr key={el.id} className={el.event ? "event-row" : "market-row"}>
 								<td className="price">{el.price}</td>
@@ -184,14 +182,10 @@ function marketMath(allItems, allRanges, MINIMUM_AVAILABLE) {
 			pricelist[i].price = price(+e.spikemin, +e.spikemax, -11, 1) // "normal, wide"
 			pricelist[i].avail = true
 			pricelist[i].event = true
-			events.push({
-				type: "Event",
-				body: `${e.name} price event!`
-			})
 		}
 	})
 
-	return { pricelist, events }
+	return pricelist
 }
 
 function price(pricemin, pricemax, skewwidth, skewdir) {
