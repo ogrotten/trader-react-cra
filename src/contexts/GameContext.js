@@ -27,12 +27,12 @@ const GameProvider = ({ children }) => {
 	const [eventList, setEventList] = useState([])
 
 	const addEvent = (newEvent) => {
-		setEventList([...eventList, newEvent])
+		setEventList((oldlist) => [...oldlist, newEvent])
 	}
 
-	const remvEvent = (index) => {
+	const remvEvent = () => {
 		const newList = [...eventList]
-		newList.splice(index, 1)
+		newList.splice(0, 1)
 		setEventList([...newList])
 	}
 

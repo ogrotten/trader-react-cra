@@ -61,6 +61,7 @@ const MarketTable = () => {
 	}, [])
 
 	useEffect(() => {
+		console.log("List: ", List.filter(x => x.event === true).length)
 		List.forEach((item, i) => {
 			if (item.event === true) {
 				addEvent({
