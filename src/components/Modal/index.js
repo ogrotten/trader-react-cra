@@ -12,9 +12,7 @@ import "./Modal.scss"
  */
 
 const Modal = ({ data, isShowing, hide, normal, okAction, children }, props) => {
-	const handleOK = () => {
-		okAction()
-	}
+
 	return isShowing && ReactDOM.createPortal(
 		<React.Fragment>
 			<div className="modal-overlay" />
@@ -31,7 +29,7 @@ const Modal = ({ data, isShowing, hide, normal, okAction, children }, props) => 
 					<div className="modal-footer">
 						{okAction &&
 							<button data-dismiss="modal" aria-label="Close"
-								onClick={handleOK}
+								onClick={okAction}
 							>
 								<span aria-hidden="true">OK</span>
 							</button>
@@ -39,7 +37,10 @@ const Modal = ({ data, isShowing, hide, normal, okAction, children }, props) => 
 						<button data-dismiss="modal" aria-label="Close"
 							onClick={hide}
 						>
-							<span aria-hidden="true">Cancel</span>
+							{data.type === "Event"
+								? <span aria-hidden="true">OK!</span>
+								: <span aria-hidden="true">Cancel</span>
+							}
 						</button>
 					</div>
 				</div>
