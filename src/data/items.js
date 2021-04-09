@@ -2,7 +2,7 @@ const items = [
 	{
 		id: 0, name: "Fluxnet", pricemin: 2500, pricemax: 9900, pricerange: "NORMAL", availability: 70,
 
-		spikeChance: 100, spikeBase: 0, spikemin: 0, spikemax: 0, spikeType: "TESTOR", bonusChance: 0, bonusAmount: 0
+		spikeChance: 0, spikeBase: 0, spikemin: 0, spikemax: 0, spikeType: "TESTOR", bonusChance: 0, bonusAmount: 0
 	},
 	{
 		id: 1, name: "Hytek", pricemin: 1000, pricemax: 4500, pricerange: "NAR_HI", availability: 65,
@@ -12,7 +12,7 @@ const items = [
 	{
 		id: 2, name: "Smash", pricemin: 15, pricemax: 80, pricerange: "WIDE_HI", availability: 55,
 
-		spikeChance: 100, spikeBase: 0, spikemin: 0, spikemax: 0, spikeType: "2nd Test", bonusChance: 0, bonusAmount: 0
+		spikeChance: 0, spikeBase: 0, spikemin: 0, spikemax: 0, spikeType: "2nd Test", bonusChance: 0, bonusAmount: 0
 	},
 	{
 		id: 3, name: "Valeradone", pricemin: 450, pricemax: 1300, pricerange: "NORMAL", availability: 60,
@@ -22,7 +22,7 @@ const items = [
 	{
 		id: 4, name: "Altered Calm", pricemin: 7400, pricemax: 18000, pricerange: "WIDE_LO", availability: 65,
 
-		spikeChance: 0, spikeBase: 0, spikemin: 0, spikemax: 0, spikeType: "", bonusChance: 0, bonusAmount: 0
+		spikeChance: 80, spikeBase: 0, spikemin: 0, spikemax: 0, spikeType: "", bonusChance: 0, bonusAmount: 0
 	},
 	{
 		id: 5, name: "Black Lace", pricemin: 190, pricemax: 700, pricerange: "NAR_HI", availability: 50,

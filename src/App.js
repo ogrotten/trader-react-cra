@@ -22,12 +22,12 @@ const Main = panache.div({
 
 const App = () => {
 	const [traveltext, setTraveltext] = useState("")
-	const { isShowing, toggleShow, isSmall, toggleSmall } = useModal()
+	const { modalHide, modalShow, modalLarge, isShowing } = useModal()
 	const { endGame, playerState } = useContext(GameContext)
 
 	const doTravel = () => {
-		toggleSmall()
-		toggleShow()
+		modalLarge()
+		modalShow()
 	}
 
 	useEffect(() => {
@@ -48,8 +48,8 @@ const App = () => {
 					<button onClick={doTravel}>{traveltext}. . .</button>
 				</div>
 				{endGame()
-					? <GameOver title="Game Over" isShowing={isShowing} toggleShow={toggleShow}>HI</GameOver>
-					: <Location title={traveltext} isShowing={isShowing} toggleShow={toggleShow} />
+					? <GameOver title="Game Over" isShowing={isShowing} hide={modalHide}>HI</GameOver>
+					: <Location title={traveltext} isShowing={isShowing} hide={modalHide} />
 				}
 			</Main>
 		</div>

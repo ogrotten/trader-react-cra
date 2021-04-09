@@ -3,16 +3,19 @@ import Modal from "../Modal"
 import { GameContext } from "../../contexts/GameContext"
 
 import "./Location.scss"
+import useModal from '../../hooks/useModal'
 
 
-const Location = ({ title, isShowing, toggleShow }) => {
+const Location = ({ title, isShowing, hide }) => {
 	const { changeLocation, playerState, gameConfig: { LOCATIONS } } = useContext(GameContext)
+	// const { isShowing } = useModal()
+
 	const doTravel = (e) => {
 		changeLocation(e.target.value)
-		toggleShow()
+		hide()
 	}
 	return (
-		<Modal data={{ type: title }} isShowing={isShowing} hide={toggleShow} normal={true}>
+		<Modal data={{ type: title }} isShowing={isShowing} hide={hide} normal={true}>
 			<div>Where do you want to go?</div>
 			<div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between" }}>
 				{
