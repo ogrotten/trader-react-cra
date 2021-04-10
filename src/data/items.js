@@ -22,7 +22,7 @@ const items = [
 	{
 		id: 4, name: "Altered Calm", pricemin: 7400, pricemax: 18000, pricerange: "WIDE_LO", availability: 65,
 
-		spikeChance: 80, spikeBase: 0, spikemin: 0, spikemax: 0, spikeType: "", bonusChance: 0, bonusAmount: 0
+		spikeChance: 50, spikeBase: 0, spikemin: 0, spikemax: 0, spikeType: "", bonusChance: 0, bonusAmount: 0
 	},
 	{
 		id: 5, name: "Black Lace", pricemin: 190, pricemax: 700, pricerange: "NAR_HI", availability: 50,

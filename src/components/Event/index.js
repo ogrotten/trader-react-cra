@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { GameContext } from "../../contexts/GameContext"
 import useModal from "../../hooks/useModal"
 
@@ -6,25 +6,39 @@ import Modal from "../Modal"
 
 import "./Event.scss"
 
-const Event = ({ event, okAction }) => {
-	const { eventList } = useContext(GameContext)
+const Event = () => {
+	const [currEvent, setCurrEvent] = useState({})
+	const { eventList, remvEvent } = useContext(GameContext)
 	const { modalShow, modalHide, isShowing } = useModal()
 
-	useEffect(() => {
-		console.log(`conlog: Event RESET`, eventList)
-		if (!eventList.length > 0) {
-			modalHide()
+	const okAction = () => {
+		console.log(`conlog: next plz`,)
+		remvEvent()
+		modalHide()
+	}
+
+	const modalNext = () => {
+		if (eventList?.length > 0) {
+			setCurrEvent({ ...eventList[0], type: "Event" })
+			modalShow()
 		}
+		if (!eventList.length) {
+			// modalHide()
+		}
+	}
+
+	useEffect(() => {
+		modalNext()
 	}, [eventList])
 
 	useEffect(() => {
-		modalShow()
+		modalNext()
 	}, [])
 
 	return (
 		// <Modal data={data} isShowing={isShowing} hide={toggleShow} normal={false} okAction={endTransaction}>
-		<Modal data={event} isShowing={isShowing} hide={modalHide} normal={false} okAction={okAction}>
-			{event.body}
+		<Modal data={currEvent} isShowing={isShowing} hide={modalHide} normal={false} okAction={okAction}>
+			{currEvent.body}
 		</Modal>
 	)
 }
