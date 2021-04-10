@@ -34,14 +34,13 @@ const Modal = ({ data, isShowing, hide, normal, okAction, children }, props) => 
 								<span aria-hidden="true">OK</span>
 							</button>
 						}
-						<button data-dismiss="modal" aria-label="Close"
-							onClick={hide}
-						>
-							{data.type === "Event"
-								? <span aria-hidden="true">OK!</span>
-								: <span aria-hidden="true">Cancel</span>
-							}
-						</button>
+						{data.type !== "Event" &&
+							<button data-dismiss="modal" aria-label="Close"
+								onClick={hide}
+							>
+								<span aria-hidden="true">Cancel</span>
+							</button>
+						}
 					</div>
 				</div>
 			</div>

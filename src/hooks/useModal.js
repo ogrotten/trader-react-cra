@@ -4,20 +4,26 @@ const useModal = () => {
 	const [isShowing, setIsShowing] = useState(false)
 	const [isSmall, setIsSmall] = useState(true)
 
-	function toggleShow() {
-		setIsShowing(!isShowing)
+	function modalShow() {
+		setIsShowing(true)
 	}
 
-	//* use toggleSmall when you want the Big Modal
-	function toggleSmall() {
-		setIsSmall(!isSmall)
+	function modalHide() {
+		setIsShowing(false)
+	}
+
+	function modalSmall() {
+		setIsSmall(true)
+	}
+
+	function modalLarge() {
+		setIsSmall(false)
 	}
 
 	return {
-		isShowing,
-		toggleShow,
-		isSmall,
-		toggleSmall
+		isShowing, isSmall,
+		modalShow, modalHide,
+		modalSmall, modalLarge
 	}
 }
 

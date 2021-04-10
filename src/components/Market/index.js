@@ -13,12 +13,12 @@ import "./Market.scss"
 const Market = () => {
 	const [currEvent, setCurrEvent] = useState({})
 	const { eventList, remvEvent } = useContext(GameContext)
-	const { toggleShow } = useModal()
+	const { modalShow, modalHide, modalSmall } = useModal()
 
 	const nextEvent = () => {
 		console.log(`conlog: next plz`,)
 		remvEvent()
-		toggleShow()
+		modalHide()
 	}
 
 	useEffect(() => {
