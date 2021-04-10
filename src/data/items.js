@@ -12,7 +12,7 @@ const items = [
 	{
 		id: 2, name: "Smash", pricemin: 15, pricemax: 80, pricerange: "WIDE_HI", availability: 55,
 
-		spikeChance: 100, spikeBase: 0, spikemin: 0, spikemax: 0, spikeType: "", bonusChance: 0, bonusAmount: 0
+		spikeChance: 100, spikeBase: 0, spikemin: 0, spikemax: 0, spikeType: "2nd Test", bonusChance: 0, bonusAmount: 0
 	},
 	{
 		id: 3, name: "Valeradone", pricemin: 450, pricemax: 1300, pricerange: "NORMAL", availability: 60,
