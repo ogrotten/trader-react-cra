@@ -26,7 +26,7 @@ const MarketTable = () => {
 	const [List, setList] = useState([])
 	const [data, setData] = useState(defaultData)
 	const [transactionCount, setTransactionCount] = useState(0)
-	const { isShowing, toggleShow } = useModal()
+	const { modalShow, modalHide, isShowing } = useModal()
 	const {
 		playerState,
 		addEvent,
@@ -46,11 +46,11 @@ const MarketTable = () => {
 		} else { console.warn(`BUY SELL PROBLEM: `, data.type) }
 
 		setTransactionCount(0)
-		toggleShow()
+		modalHide()
 	}
 
 	const beginTransaction = (data, type) => {
-		toggleShow()
+		modalShow()
 		setData({ ...data, type })
 	}
 
@@ -124,7 +124,7 @@ const MarketTable = () => {
 					})}
 				</tbody>
 			</table>
-			<Modal data={data} isShowing={isShowing} hide={toggleShow} normal={false} okAction={endTransaction}>
+			<Modal data={data} isShowing={isShowing} hide={modalHide} normal={false} okAction={endTransaction}>
 				{
 					{
 						"Buy": <BuyModal data={data} transaction={{ transactionCount, setTransactionCount }} />,
