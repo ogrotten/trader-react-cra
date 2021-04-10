@@ -66,7 +66,8 @@ const MarketTable = () => {
 			if (item.event === true) {
 				addEvent({
 					type: "price",
-					title: `${item.name} prices are really ${ITEMS[i].spikeType}!`
+					title: "[price event]",
+					body: `${item.name} prices are really ${ITEMS[i].spikeType}!`
 				})
 			}
 		})

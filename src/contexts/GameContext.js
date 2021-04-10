@@ -9,7 +9,7 @@ gameConfig.RANGES = RANGES
 const GameContext = createContext()
 const defaultPlayerState = {
 	turns: gameConfig.TURNS,
-	current: 1,
+	current: 0,
 
 	cash: gameConfig.START_MONEY,
 	bank: 0,

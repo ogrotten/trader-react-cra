@@ -47,10 +47,11 @@ const App = () => {
 				<div className="mainFooter">
 					<button onClick={doTravel}>{traveltext}. . .</button>
 				</div>
-				{endGame()
+				{/* {endGame()
 					? <GameOver title="Game Over" isShowing={isShowing} hide={modalHide}>HI</GameOver>
 					: <Location title={traveltext} isShowing={isShowing} hide={modalHide} />
-				}
+				} */}
+				<Location title={traveltext} isShowing={isShowing} hide={modalHide} />
 			</Main>
 		</div>
 	)
