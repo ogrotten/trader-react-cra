@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 
 import { GameContext } from "../../contexts/GameContext"
 
@@ -29,6 +29,7 @@ const MarketTable = () => {
 	const { modalShow, modalHide, isShowing } = useModal()
 	const {
 		playerState,
+		playerState: { current, inv },
 		addEvent,
 		buyItem, sellItem,
 		changeInventory,
@@ -36,7 +37,6 @@ const MarketTable = () => {
 	} = useContext(GameContext)
 
 	const endTransaction = () => {
-		console.log(`conlog: endTransaction`,)
 		if (data.type === "Buy") {
 			buyItem(data.price, transactionCount)
 			changeInventory(data.id, transactionCount)
@@ -56,12 +56,10 @@ const MarketTable = () => {
 
 	useEffect(() => {
 		setList(marketMath(ITEMS, RANGES, MINIMUM_AVAILABLE))
-		console.log(`conlog: first render`,)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	useEffect(() => {
-		console.log("List: ", List.filter(x => x.event === true).length)
 		List.forEach((item, i) => {
 			if (item.event === true) {
 				addEvent({
@@ -71,13 +69,13 @@ const MarketTable = () => {
 				})
 			}
 		})
-		console.log(`conlog: List render`,)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [List])
 
 	useEffect(() => {
 		setList(marketMath(ITEMS, RANGES, MINIMUM_AVAILABLE))
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [playerState.current])
+	}, [current])
 
 	return (
 		<section className="market-table">
@@ -96,7 +94,7 @@ const MarketTable = () => {
 						if (el.avail === true) {
 							return (<tr key={el.id} className={el.event ? "event-row" : "market-row"}>
 								<td className="price">{el.price}</td>
-								<td className="inv">{playerState.inv[i]}</td>
+								<td className="inv">{inv[i]}</td>
 								<td className="name">{el.name}</td>
 								<td className="buysell-cell">
 									<button className="buysell-button" onClick={
@@ -113,8 +111,8 @@ const MarketTable = () => {
 							return (<tr key={el.id}>
 								<td className="price">&nbsp;</td>
 								<td className="inv">{
-									playerState.inv[i] > 0
-										? playerState.inv[i]
+									inv[i] > 0
+										? inv[i]
 										: <span>&nbsp;</span>
 								}</td>
 								<td className="name">{el.name}</td>
@@ -141,9 +139,6 @@ export default MarketTable;
 
 
 function marketMath(allItems, allRanges, MINIMUM_AVAILABLE) {
-	// list of price events on the pricelist
-	let events = []
-
 	// list array that will be set into state
 	let pricelist = []
 
@@ -177,7 +172,6 @@ function marketMath(allItems, allRanges, MINIMUM_AVAILABLE) {
 	pricelist.sort((a, b) => (a.id > b.id) ? 1 : -1)
 
 	if (availcount < MINIMUM_AVAILABLE) {
-		// console.log(`Short...`,)
 		const cutoff = dRange(MINIMUM_AVAILABLE, pricelist.length)
 		pricelist.forEach((e, i) => {
 			(e.marketorder < cutoff) ? e.avail = true : e.avail = false

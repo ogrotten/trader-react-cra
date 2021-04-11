@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import Modal from "../Modal"
+import GameOver from "../GameOver"
 import { GameContext } from "../../contexts/GameContext"
 
 import "./Location.scss"
@@ -7,19 +8,20 @@ import useModal from '../../hooks/useModal'
 
 
 const Location = () => {
-	const { changeLocation, playerState, endGame, advanceTurn, gameConfig: { LOCATIONS, TRAVEL } } = useContext(GameContext)
+	const { changeLocation, playerState, playerState: { current }, endGame, advanceTurn, gameConfig: { LOCATIONS, TRAVEL } } = useContext(GameContext)
 	const [traveltext, setTraveltext] = useState("")
 	const { modalHide, modalShow, modalLarge, isShowing } = useModal()
 
 	useEffect(() => {
-		if (playerState.current === 1) {
+		if (current === 1) {
 			setTraveltext("Leave")
 		} else if (endGame()) {
 			setTraveltext("End game")
 		} else {
 			setTraveltext(TRAVEL[Math.floor(Math.random() * TRAVEL.length)])
 		}
-	}, [playerState.current])
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [current])
 
 
 	const doTravel = (e) => {
@@ -60,9 +62,7 @@ const Location = () => {
 					</div>
 				</Modal>
 
-				: <Modal data={{ title: traveltext, type: "Event" }} isShowing={isShowing} hide={modalHide} normal={true} okAction={okAction}>
-					<div>Game Over</div>
-				</Modal>
+				: <GameOver isShowing={isShowing} />
 			}
 		</>
 	)

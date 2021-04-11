@@ -1,17 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import panache from "panache-react"
 import { GameContext } from "./contexts/GameContext"
-import gameConfig from "./data/gameConfig"
-
-import useModal from "./hooks/useModal"
 
 import Market from "./components/Market"
 import Location from "./components/Location"
-import GameOver from "./components/GameOver"
 
 import './App.scss';
 
-const { TRAVEL } = gameConfig
 
 
 const Main = panache.div({
@@ -21,7 +16,7 @@ const Main = panache.div({
 })
 
 const App = () => {
-	const { startGame, advanceTurn, playerState: { current } } = useContext(GameContext)
+	const { startGame, advanceTurn, } = useContext(GameContext)
 
 	const begin = () => {
 		advanceTurn()

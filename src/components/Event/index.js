@@ -12,7 +12,6 @@ const Event = () => {
 	const { modalShow, modalHide, isShowing } = useModal()
 
 	const okAction = () => {
-		console.log(`conlog: next plz`,)
 		remvEvent()
 		modalHide()
 	}
@@ -29,6 +28,7 @@ const Event = () => {
 
 	useEffect(() => {
 		modalNext()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [eventList])
 
 	useEffect(() => {
@@ -36,6 +36,7 @@ const Event = () => {
 		if (newEvents.length) {
 			addEvent(...newEvents)
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	return (
