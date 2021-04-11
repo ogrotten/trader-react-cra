@@ -9,22 +9,31 @@ gameConfig.RANGES = RANGES
 const GameContext = createContext()
 const defaultPlayerState = {
 	turns: gameConfig.TURNS,
-	current: -1,
+	currTurn: -1,
 
 	cash: gameConfig.START_MONEY,
 	bank: 0,
 	debt: gameConfig.START_DEBT,
 	space: gameConfig.START_INVENTORY,
-	location: 1,
+	position: 1,
 
 	// array index = item.id
 	inv: Array(gameConfig.ITEMS.length).fill(0)
 }
 console.table(gameConfig.ITEMS)
 
+
 const GameProvider = ({ children }) => {
 	const [playerState, setPlayerState] = useState(defaultPlayerState)
 	const [eventList, setEventList] = useState([])
+
+	useEffect(() => {
+		console.log(`conlog: `, gameConfig.LOCATIONS[playerState.position])
+	})
+
+	useEffect(() => {
+		console.log(`conlog: PLAYERSTATE`, gameConfig.LOCATIONS[playerState.position])
+	}, [playerState])
 
 	const addEvent = (newEvent) => {
 		setEventList((oldlist) => [...oldlist, newEvent])
@@ -97,20 +106,19 @@ const GameProvider = ({ children }) => {
 	}
 
 	const changeLocation = (newLoc) => {
-		if (playerState.location !== +newLoc) {
-			setPlayerState({
-				...playerState,
-				location: +newLoc,
-			})
-			advanceTurn()
+		const going = +newLoc
+		const newState = {
+			...playerState,
+			position: going
 		}
+		setPlayerState({ ...newState })
 	}
 
 	return (
 		<GameContext.Provider
 			value={{
 				gameConfig,
-				playerState,
+				playerState, setPlayerState,
 				eventList, addEvent, remvEvent,
 				startGame, endGame, advanceTurn,
 				buyItem, sellItem,

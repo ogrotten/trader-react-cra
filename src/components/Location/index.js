@@ -8,7 +8,7 @@ import useModal from '../../hooks/useModal'
 
 
 const Location = () => {
-	const { changeLocation, playerState, playerState: { current }, endGame, advanceTurn, gameConfig: { LOCATIONS, TRAVEL } } = useContext(GameContext)
+	const { changeLocation, playerState, playerState: { current, position }, endGame, advanceTurn, gameConfig: { LOCATIONS, TRAVEL } } = useContext(GameContext)
 	const [traveltext, setTraveltext] = useState("")
 	const { modalHide, modalShow, modalLarge, isShowing } = useModal()
 
@@ -33,37 +33,35 @@ const Location = () => {
 		modalLarge()
 		modalShow()
 	}
-	const okAction = () => {
-		console.log(`conlog: GAME OVER`,)
-	}
+
 	return (
 		<>
 			<div className="mainFooter">
-				<button onClick={travelButton}>{traveltext}. . .</button>
+				{endGame()
+					? <button value={1} onClick={doTravel}>{traveltext}. . .</button>
+					: <button onClick={travelButton}>{traveltext}. . .</button>
+				}
+				{/* <button onClick={travelButton}>{traveltext}. . .</button> */}
 			</div>
-			{!endGame()
-				? <Modal data={{ title: traveltext }} isShowing={isShowing} hide={modalHide} normal={true}>
+			<Modal data={{ title: traveltext }} isShowing={isShowing} hide={modalHide} normal={true}>
 
-					<div>Where do you want to go?</div>
-					<div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between" }}>
-						{
-							LOCATIONS.map((item, i) => {
-								return (
-									<button key={i} value={i}
-										disabled={i === playerState.location}
-										style={{ width: "28%", margin: "8px 0", height: 64 }}
-										onClick={doTravel}
-									>
-										{item}
-									</button>
-								)
-							})
-						}
-					</div>
-				</Modal>
-
-				: <GameOver isShowing={isShowing} />
-			}
+				<div>Where do you want to go?</div>
+				<div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between" }}>
+					{
+						LOCATIONS.map((item, i) => {
+							return (
+								<button key={i} value={i}
+									disabled={i === position}
+									style={{ width: "28%", margin: "8px 0", height: 64 }}
+									onClick={doTravel}
+								>
+									{item}
+								</button>
+							)
+						})
+					}
+				</div>
+			</Modal>
 		</>
 	)
 }
