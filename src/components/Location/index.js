@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Modal from "../Modal"
 import { GameContext } from "../../contexts/GameContext"
 
@@ -6,33 +6,65 @@ import "./Location.scss"
 import useModal from '../../hooks/useModal'
 
 
-const Location = ({ title, isShowing, hide }) => {
-	const { changeLocation, playerState, gameConfig: { LOCATIONS } } = useContext(GameContext)
-	// const { isShowing } = useModal()
+const Location = () => {
+	const { changeLocation, playerState, endGame, advanceTurn, gameConfig: { LOCATIONS, TRAVEL } } = useContext(GameContext)
+	const [traveltext, setTraveltext] = useState("")
+	const { modalHide, modalShow, modalLarge, isShowing } = useModal()
+
+	useEffect(() => {
+		if (playerState.current === 1) {
+			setTraveltext("Leave")
+		} else if (endGame()) {
+			setTraveltext("End game")
+		} else {
+			setTraveltext(TRAVEL[Math.floor(Math.random() * TRAVEL.length)])
+		}
+	}, [playerState.current])
+
 
 	const doTravel = (e) => {
 		changeLocation(e.target.value)
-		hide()
+		advanceTurn()
+		modalHide()
+	}
+	const travelButton = () => {
+		modalLarge()
+		modalShow()
+	}
+	const okAction = () => {
+		console.log(`conlog: GAME OVER`,)
 	}
 	return (
-		<Modal data={{ type: title }} isShowing={isShowing} hide={hide} normal={true}>
-			<div>Where do you want to go?</div>
-			<div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between" }}>
-				{
-					LOCATIONS.map((item, i) => {
-						return (
-							<button key={i} value={i}
-								disabled={i === playerState.location}
-								style={{ width: "28%", margin: "8px 0", height: 64 }}
-								onClick={doTravel}
-							>
-								{item}
-							</button>
-						)
-					})
-				}
+		<>
+			<div className="mainFooter">
+				<button onClick={travelButton}>{traveltext}. . .</button>
 			</div>
-		</Modal>
+			{!endGame()
+				? <Modal data={{ title: traveltext }} isShowing={isShowing} hide={modalHide} normal={true}>
+
+					<div>Where do you want to go?</div>
+					<div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between" }}>
+						{
+							LOCATIONS.map((item, i) => {
+								return (
+									<button key={i} value={i}
+										disabled={i === playerState.location}
+										style={{ width: "28%", margin: "8px 0", height: 64 }}
+										onClick={doTravel}
+									>
+										{item}
+									</button>
+								)
+							})
+						}
+					</div>
+				</Modal>
+
+				: <Modal data={{ title: traveltext, type: "Event" }} isShowing={isShowing} hide={modalHide} normal={true} okAction={okAction}>
+					<div>Game Over</div>
+				</Modal>
+			}
+		</>
 	)
 }
 

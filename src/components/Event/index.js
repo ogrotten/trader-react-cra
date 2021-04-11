@@ -8,7 +8,7 @@ import "./Event.scss"
 
 const Event = () => {
 	const [currEvent, setCurrEvent] = useState({})
-	const { eventList, addEvent, remvEvent, playerState } = useContext(GameContext)
+	const { eventList, addEvent, remvEvent, playerState, advanceTurn } = useContext(GameContext)
 	const { modalShow, modalHide, isShowing } = useModal()
 
 	const okAction = () => {
@@ -32,7 +32,7 @@ const Event = () => {
 	}, [eventList])
 
 	useEffect(() => {
-		const newEvents = checkEventConditions(playerState)
+		const newEvents = checkEventConditions(playerState, advanceTurn)
 		if (newEvents.length) {
 			addEvent(...newEvents)
 		}
@@ -47,7 +47,7 @@ const Event = () => {
 
 export default Event
 
-const checkEventConditions = (state) => {
+const checkEventConditions = (state, advanceTurn) => {
 	const events = []
 	/**
 	 * Game Start
@@ -64,11 +64,12 @@ const checkEventConditions = (state) => {
 				type: "game",
 				title: "Get started",
 				body: "Starting the game",
-				eventAction: function () { console.log(`conlog: START GAME`,) }
+				eventAction: advanceTurn()
 			}
 			events.push(gameStart)
 			break;
 
+		// End Game
 		case state.current >= state.turns:
 			const gameEnd = {
 				type: "game",
