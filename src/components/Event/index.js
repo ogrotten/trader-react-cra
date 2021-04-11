@@ -8,7 +8,7 @@ import "./Event.scss"
 
 const Event = () => {
 	const [currEvent, setCurrEvent] = useState({})
-	const { eventList, addEvent, remvEvent, playerState, playerState: { current }, advanceTurn } = useContext(GameContext)
+	const { eventList, addEvent, remvEvent, playerState, playerState: { currTurn }, advanceTurn } = useContext(GameContext)
 	const { modalShow, modalHide, isShowing } = useModal()
 
 	const okAction = () => {
@@ -37,7 +37,7 @@ const Event = () => {
 			addEvent(...newEvents)
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [current])
+	}, [currTurn])
 
 	return (
 		<Modal data={currEvent} isShowing={isShowing} hide={modalHide} normal={false} okAction={okAction}>
@@ -53,7 +53,7 @@ const checkEventConditions = (state, advanceTurn) => {
 
 	switch (true) {
 		// Game Start
-		case state.current === 0:
+		case state.currTurn === 0:
 			const gameStart = {
 				type: "game",
 				title: "Get started",
@@ -65,7 +65,7 @@ const checkEventConditions = (state, advanceTurn) => {
 
 		// End Game
 
-		case state.current > state.turns:
+		case state.currTurn > state.maxTurns:
 			const gameEnd = {
 				type: "game",
 				title: "Game Over",

@@ -8,7 +8,7 @@ gameConfig.RANGES = RANGES
 
 const GameContext = createContext()
 const defaultPlayerState = {
-	turns: gameConfig.TURNS,
+	maxTurns: gameConfig.TURNS,
 	currTurn: -1,
 
 	cash: gameConfig.START_MONEY,
@@ -28,11 +28,11 @@ const GameProvider = ({ children }) => {
 	const [eventList, setEventList] = useState([])
 
 	useEffect(() => {
-		console.log(`conlog: `, gameConfig.LOCATIONS[playerState.position])
+		console.log(`conlog: `, playerState)
 	})
 
 	useEffect(() => {
-		console.log(`conlog: PLAYERSTATE`, gameConfig.LOCATIONS[playerState.position])
+		console.log(`conlog: PLAYERSTATE`, playerState)
 	}, [playerState])
 
 	const addEvent = (newEvent) => {
@@ -46,7 +46,7 @@ const GameProvider = ({ children }) => {
 	}
 
 	const startGame = () => {
-		if (playerState.current < 0) {
+		if (playerState.currTurn < 0) {
 			return true
 		} else {
 			return false
@@ -54,7 +54,7 @@ const GameProvider = ({ children }) => {
 	}
 
 	const endGame = () => {
-		if (playerState.current >= playerState.turns) {
+		if (playerState.currTurn >= playerState.maxTurns) {
 			return true
 		} else {
 			return false
@@ -64,7 +64,7 @@ const GameProvider = ({ children }) => {
 	const advanceTurn = () => {
 		setPlayerState({
 			...playerState,
-			current: playerState.current + 1
+			currTurn: playerState.currTurn + 1
 		})
 	}
 
@@ -106,12 +106,11 @@ const GameProvider = ({ children }) => {
 	}
 
 	const changeLocation = (newLoc) => {
-		const going = +newLoc
-		const newState = {
+		setPlayerState({
 			...playerState,
-			position: going
-		}
-		setPlayerState({ ...newState })
+			position: +newLoc,
+			currTurn: playerState.currTurn + 1
+		})
 	}
 
 	return (
