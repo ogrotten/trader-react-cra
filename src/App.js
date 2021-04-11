@@ -21,35 +21,25 @@ const Main = panache.div({
 })
 
 const App = () => {
-	const [traveltext, setTraveltext] = useState("")
-	const { modalHide, modalShow, modalLarge, isShowing } = useModal()
-	const { endGame, playerState } = useContext(GameContext)
+	const { startGame, advanceTurn, playerState: { current } } = useContext(GameContext)
 
-	const doTravel = () => {
-		modalLarge()
-		modalShow()
+	const begin = () => {
+		advanceTurn()
 	}
-
-	useEffect(() => {
-		if (playerState.current === 1) {
-			setTraveltext("Leave")
-		} else if (endGame()) {
-			setTraveltext("End game")
-		} else {
-			setTraveltext(TRAVEL[Math.floor(Math.random() * TRAVEL.length)])
-		}
-	}, [playerState.current])
 
 	return (
 		<div className="container">
 			<Main id="main" className="main">
-				<Market />
-				<div className="mainFooter">
-					<button onClick={doTravel}>{traveltext}. . .</button>
-				</div>
-				{endGame()
-					? <GameOver title="Game Over" isShowing={isShowing} hide={modalHide}>HI</GameOver>
-					: <Location title={traveltext} isShowing={isShowing} hide={modalHide} />
+				{startGame()
+					? <div>
+						<button onClick={begin}>
+							git money
+						</button>
+					</div>
+					: <>
+						<Market />
+						<Location />
+					</>
 				}
 			</Main>
 		</div>

@@ -9,7 +9,7 @@ gameConfig.RANGES = RANGES
 const GameContext = createContext()
 const defaultPlayerState = {
 	turns: gameConfig.TURNS,
-	current: 1,
+	current: -1,
 
 	cash: gameConfig.START_MONEY,
 	bank: 0,
@@ -36,12 +36,27 @@ const GameProvider = ({ children }) => {
 		setEventList([...newList])
 	}
 
+	const startGame = () => {
+		if (playerState.current < 0) {
+			return true
+		} else {
+			return false
+		}
+	}
+
 	const endGame = () => {
 		if (playerState.current >= playerState.turns) {
 			return true
 		} else {
 			return false
 		}
+	}
+
+	const advanceTurn = () => {
+		setPlayerState({
+			...playerState,
+			current: playerState.current + 1
+		})
 	}
 
 	const buyItem = (price, amount) => {
@@ -86,8 +101,8 @@ const GameProvider = ({ children }) => {
 			setPlayerState({
 				...playerState,
 				location: +newLoc,
-				current: playerState.current + 1
 			})
+			advanceTurn()
 		}
 	}
 
@@ -97,10 +112,11 @@ const GameProvider = ({ children }) => {
 				gameConfig,
 				playerState,
 				eventList, addEvent, remvEvent,
-				endGame,
+				startGame, endGame, advanceTurn,
 				buyItem, sellItem,
 				changeInventory, remainingSpace,
 				changeLocation,
+
 			}}
 		>
 			{children}

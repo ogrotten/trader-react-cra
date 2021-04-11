@@ -1,6 +1,1 @@
-notes.txt
-change modal 'cancel' to a flag.
-	buymodal/sellmodal need cancel flag
-	Location needs cancel flag
-move eventlist logic to Market
-eventlist item 'okAction' does 'remvEvent'
+END GAME EVENT vs Location
