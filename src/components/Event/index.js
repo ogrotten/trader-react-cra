@@ -76,7 +76,7 @@ const checkEventConditions = (state, actionFunctions) => {
 				type: "game",
 				title: "Get started",
 				body: "Starting the game",
-				eventAction: actionFunctions["advanceTurn"]()
+				// eventAction: actionFunctions["advanceTurn"]()
 			}
 			events.push(gameStart)
 			break;
