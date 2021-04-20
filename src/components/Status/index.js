@@ -18,8 +18,8 @@ const Status = () => {
 	return (
 		<section className="status">
 			<div className="inv">Inv: {remainingSpace()} / {playerState.space} </div>
-			<div className="week">Week: {playerState.current} / {playerState.turns} </div>
-			<div className="loc">{LOCATIONS[playerState.location]}</div>
+			<div className="week">Week: {playerState.currTurn} / {playerState.maxTurns} </div>
+			<div className="loc">{LOCATIONS[playerState.position]}</div>
 		</section>
 	)
 }

@@ -29,7 +29,7 @@ const MarketTable = () => {
 	const { modalShow, modalHide, isShowing } = useModal()
 	const {
 		playerState,
-		playerState: { current, inv },
+		playerState: { currTurn, inv },
 		addEvent,
 		buyItem, sellItem,
 		changeInventory,
@@ -75,7 +75,7 @@ const MarketTable = () => {
 	useEffect(() => {
 		setList(marketMath(ITEMS, RANGES, MINIMUM_AVAILABLE))
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [current])
+	}, [currTurn])
 
 	return (
 		<section className="market-table">

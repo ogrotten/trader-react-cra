@@ -8,23 +8,32 @@ gameConfig.RANGES = RANGES
 
 const GameContext = createContext()
 const defaultPlayerState = {
-	turns: gameConfig.TURNS,
-	current: -1,
+	maxTurns: gameConfig.TURNS,
+	currTurn: -1,
 
 	cash: gameConfig.START_MONEY,
 	bank: 0,
 	debt: gameConfig.START_DEBT,
 	space: gameConfig.START_INVENTORY,
-	location: 1,
+	position: 1,
 
 	// array index = item.id
 	inv: Array(gameConfig.ITEMS.length).fill(0)
 }
 console.table(gameConfig.ITEMS)
 
+
 const GameProvider = ({ children }) => {
 	const [playerState, setPlayerState] = useState(defaultPlayerState)
 	const [eventList, setEventList] = useState([])
+
+	useEffect(() => {
+		console.log(`conlog: `, playerState)
+	})
+
+	useEffect(() => {
+		console.log(`conlog: PLAYERSTATE`, playerState)
+	}, [playerState])
 
 	const addEvent = (newEvent) => {
 		setEventList((oldlist) => [...oldlist, newEvent])
@@ -37,7 +46,7 @@ const GameProvider = ({ children }) => {
 	}
 
 	const startGame = () => {
-		if (playerState.current < 0) {
+		if (playerState.currTurn < 0) {
 			return true
 		} else {
 			return false
@@ -45,7 +54,7 @@ const GameProvider = ({ children }) => {
 	}
 
 	const endGame = () => {
-		if (playerState.current >= playerState.turns) {
+		if (playerState.currTurn >= playerState.maxTurns) {
 			return true
 		} else {
 			return false
@@ -55,7 +64,7 @@ const GameProvider = ({ children }) => {
 	const advanceTurn = () => {
 		setPlayerState({
 			...playerState,
-			current: playerState.current + 1
+			currTurn: playerState.currTurn + 1
 		})
 	}
 
@@ -97,20 +106,18 @@ const GameProvider = ({ children }) => {
 	}
 
 	const changeLocation = (newLoc) => {
-		if (playerState.location !== +newLoc) {
-			setPlayerState({
-				...playerState,
-				location: +newLoc,
-			})
-			advanceTurn()
-		}
+		setPlayerState({
+			...playerState,
+			position: +newLoc,
+			currTurn: playerState.currTurn + 1
+		})
 	}
 
 	return (
 		<GameContext.Provider
 			value={{
 				gameConfig,
-				playerState,
+				playerState, setPlayerState,
 				eventList, addEvent, remvEvent,
 				startGame, endGame, advanceTurn,
 				buyItem, sellItem,
