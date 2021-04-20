@@ -10,7 +10,7 @@ import "./Event.scss"
 
 const Event = () => {
 	const [currEvent, setCurrEvent] = useState({})
-	const { eventList, addEvent, remvEvent, playerState, playerState: { currTurn }, advanceTurn } = useContext(GameContext)
+	const { eventList, addEvent, remvEvent, playerState, playerState: { currTurn }, advanceTurn, addSpace } = useContext(GameContext)
 	const { modalShow, modalHide, isShowing } = useModal()
 
 	const okAction = () => {
@@ -20,7 +20,10 @@ const Event = () => {
 
 	const modalNext = () => {
 		if (eventList?.length > 0) {
-			setCurrEvent({ ...eventList[0], type: "Event" })
+			setCurrEvent({
+				...eventList[0],
+				type: eventList[0].type || "event"
+			})
 			modalShow()
 		}
 		if (!eventList.length) {
@@ -34,7 +37,11 @@ const Event = () => {
 	}, [eventList])
 
 	useEffect(() => {
-		const newEvents = checkEventConditions(playerState, advanceTurn)
+		const actionFunctions = {
+			advanceTurn,
+			addSpace
+		}
+		const newEvents = checkEventConditions(playerState, actionFunctions)
 		if (newEvents.length) {
 			addEvent(...newEvents)
 		}
@@ -50,7 +57,7 @@ const Event = () => {
 
 export default Event
 
-const checkEventConditions = (state, advanceTurn) => {
+const checkEventConditions = (state, actionFunctions) => {
 	/**
 	 * Game Start
 	 * Game Over
@@ -69,7 +76,7 @@ const checkEventConditions = (state, advanceTurn) => {
 				type: "game",
 				title: "Get started",
 				body: "Starting the game",
-				eventAction: advanceTurn()
+				eventAction: actionFunctions["advanceTurn"]()
 			}
 			events.push(gameStart)
 			break;
@@ -89,7 +96,8 @@ const checkEventConditions = (state, advanceTurn) => {
 		default:
 			eventConfig.forEach(item => {
 				if (d100() < item.chance) {
-					console.log(`conlog: `, item.title)
+					console.log(`Event Hit: `, item.title)
+					item.eventAction = actionFunctions[item.type]
 					events.push(item)
 				}
 			})

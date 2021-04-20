@@ -1,4 +1,5 @@
 import React, { useState, useEffect, createContext } from 'react'
+import { dAny } from "../engines/dice"
 
 import gameConfig from "../data/gameConfig"
 import ITEMS from "../data/items"
@@ -105,6 +106,13 @@ const GameProvider = ({ children }) => {
 		)
 	}
 
+	const addSpace = (x = dAny(4) + dAny(4) + dAny(4) + dAny(4)) => {
+		setPlayerState({
+			...playerState,
+			space: playerState.space + x
+		})
+	}
+
 	const changeLocation = (newLoc) => {
 		setPlayerState({
 			...playerState,
@@ -121,7 +129,8 @@ const GameProvider = ({ children }) => {
 				eventList, addEvent, remvEvent,
 				startGame, endGame, advanceTurn,
 				buyItem, sellItem,
-				changeInventory, remainingSpace,
+				changeInventory,
+				addSpace, remainingSpace,
 				changeLocation,
 
 			}}

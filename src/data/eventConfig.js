@@ -12,9 +12,11 @@ import { dAny } from "../engines/dice"
 export const eventConfig = [
 	{
 		chance: 50,
-		type: "storage",
+		type: "addSpace",
 		title: "Hidden Space",
 		body: "bla bla hidden space in your car. Do you accept?",
-		eventAction: function () { return dAny(4) + dAny(4) + dAny(4) + dAny(4) }
+		// eventAction: function () {
+		// 	console.log(`Add ${dAny(4) + dAny(4) + dAny(4) + dAny(4)} spaces!`)
+		// }
 	}
 ]
