@@ -93,7 +93,7 @@ const checkEventConditions = (state, actionFunctions) => {
 			events.push(gameEnd)
 			break;
 
-		default:
+		case (state.currTurn < state.maxTurns) && (state.currTurn !== 0):
 			eventConfig.forEach(item => {
 				if (d100() < item.chance) {
 					console.log(`Event Hit: `, item.title)
@@ -101,6 +101,10 @@ const checkEventConditions = (state, actionFunctions) => {
 					events.push(item)
 				}
 			})
+			break;
+
+		default:
+			break;
 	}
 
 
