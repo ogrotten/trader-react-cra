@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { GameContext } from "../../contexts/GameContext"
 import useModal from "../../hooks/useModal"
+import { d100 } from "../../engines/dice"
+import { eventConfig } from "../../data/eventConfig"
 
 import Modal from "../Modal"
 
@@ -49,6 +51,15 @@ const Event = () => {
 export default Event
 
 const checkEventConditions = (state, advanceTurn) => {
+	/**
+	 * Game Start
+	 * Game Over
+	 * More Storage
+	 * Random Text
+	 * Found Cache
+	 * Holiday
+	 */
+
 	const events = []
 
 	switch (true) {
@@ -76,7 +87,15 @@ const checkEventConditions = (state, advanceTurn) => {
 			break;
 
 		default:
-			break;
+			eventConfig.forEach(item => {
+				if (d100() < item.chance) {
+					console.log(`conlog: `, item.title)
+					events.push(item)
+				}
+			})
 	}
+
+
+
 	return events
 }
