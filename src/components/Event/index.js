@@ -11,6 +11,7 @@ import "./Event.scss"
 const Event = () => {
 	const [currEvent, setCurrEvent] = useState({})
 	const { eventList, addEvent, remvEvent, playerState, playerState: { currTurn }, advanceTurn, addSpace } = useContext(GameContext)
+	const contextObj = useContext(GameContext)
 	const { modalShow, modalHide, isShowing } = useModal()
 
 	const okAction = () => {
@@ -48,6 +49,61 @@ const Event = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currTurn])
 
+
+	/// CONTINUE WIRING IN THE BELOW.
+	const checkEventConditions = () => {
+		/**
+		 * Game Start
+		 * Game Over
+		 * More Storage
+		 * Random Text
+		 * Found Cache
+		 * Holiday
+		 */
+
+		const events = []
+
+		switch (true) {
+			// Game Start
+			case playerState.currTurn === 0:
+				const gameStart = {
+					type: "game",
+					title: "Get started",
+					body: "Starting the game",
+					// eventAction: actionFunctions["advanceTurn"]()
+				}
+				events.push(gameStart)
+			// break;
+
+			// End Game
+			case playerState.currTurn > playerState.maxTurns:
+				const gameEnd = {
+					type: "game",
+					title: "Game Over",
+					body: "Done.",
+					eventAction: function () { console.log(`conlog: END GAME`,) }
+				}
+				events.push(gameEnd)
+			// break;
+
+			case (playerState.currTurn < playerState.maxTurns) && (playerState.currTurn !== 0):
+				eventConfig.forEach(item => {
+					const check = d100()
+					console.log(`> Event ${item.title}: ${item.chance} / ${check}`, check)
+					if (check < item.chance) {
+						console.log(`> > Event Hit: `, item.title)
+						item.eventAction = contextObj[item.type]
+						events.push(item)
+					}
+				})
+				break;
+
+			default:
+				break;
+		}
+
+		return events
+	}
 	return (
 		<Modal data={currEvent} isShowing={isShowing} hide={modalHide} normal={false} okAction={okAction}>
 			{currEvent.body}
@@ -57,57 +113,3 @@ const Event = () => {
 
 export default Event
 
-const checkEventConditions = (state, actionFunctions) => {
-	/**
-	 * Game Start
-	 * Game Over
-	 * More Storage
-	 * Random Text
-	 * Found Cache
-	 * Holiday
-	 */
-
-	const events = []
-
-	switch (true) {
-		// Game Start
-		case state.currTurn === 0:
-			const gameStart = {
-				type: "game",
-				title: "Get started",
-				body: "Starting the game",
-				// eventAction: actionFunctions["advanceTurn"]()
-			}
-			events.push(gameStart)
-			break;
-
-		// End Game
-
-		case state.currTurn > state.maxTurns:
-			const gameEnd = {
-				type: "game",
-				title: "Game Over",
-				body: "Done.",
-				eventAction: function () { console.log(`conlog: END GAME`,) }
-			}
-			events.push(gameEnd)
-			break;
-
-		case (state.currTurn < state.maxTurns) && (state.currTurn !== 0):
-			eventConfig.forEach(item => {
-				if (d100() < item.chance) {
-					console.log(`Event Hit: `, item.title)
-					item.eventAction = actionFunctions[item.type]
-					events.push(item)
-				}
-			})
-			break;
-
-		default:
-			break;
-	}
-
-
-
-	return events
-}

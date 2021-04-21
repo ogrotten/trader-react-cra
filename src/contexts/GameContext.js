@@ -41,16 +41,6 @@ const GameProvider = ({ children }) => {
 		console.log(`Turn ${playerState.currTurn}`, updiff);
 	}, [playerState])
 
-	const addEvent = (newEvent) => {
-		setEventList((oldlist) => [...oldlist, newEvent])
-	}
-
-	const remvEvent = () => {
-		const newList = [...eventList]
-		newList.splice(0, 1)
-		setEventList([...newList])
-	}
-
 	const startGame = () => {
 		if (playerState.currTurn < 0) {
 			return true
@@ -65,6 +55,16 @@ const GameProvider = ({ children }) => {
 		} else {
 			return false
 		}
+	}
+
+	const addEvent = (newEvent) => {
+		setEventList((oldlist) => [...oldlist, newEvent])
+	}
+
+	const remvEvent = () => {
+		const newList = [...eventList]
+		newList.splice(0, 1)
+		setEventList([...newList])
 	}
 
 	const advanceTurn = () => {
@@ -152,3 +152,4 @@ const GameProvider = ({ children }) => {
 }
 
 export { GameContext, GameProvider }
+
