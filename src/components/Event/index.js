@@ -49,8 +49,6 @@ const Event = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currTurn])
 
-
-	/// CONTINUE WIRING IN THE BELOW.
 	const checkEventConditions = () => {
 		/**
 		 * Game Start
@@ -104,6 +102,7 @@ const Event = () => {
 
 		return events
 	}
+
 	return (
 		<Modal data={currEvent} isShowing={isShowing} hide={modalHide} normal={false} okAction={okAction}>
 			{currEvent.body}
