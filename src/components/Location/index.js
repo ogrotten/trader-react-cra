@@ -13,7 +13,7 @@ const Location = () => {
 	const { modalHide, modalShow, modalLarge, isShowing } = useModal()
 
 	useEffect(() => {
-		if (currTurn === 1) {
+		if (currTurn === 0) {
 			setTraveltext("Leave")
 		} else if (endGame()) {
 			setTraveltext("End game")

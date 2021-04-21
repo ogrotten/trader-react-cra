@@ -1,4 +1,6 @@
 import React, { useState, useEffect, createContext } from 'react'
+import { updatedDiff } from 'deep-object-diff'
+import { dAny } from "../engines/dice"
 
 import gameConfig from "../data/gameConfig"
 import ITEMS from "../data/items"
@@ -25,25 +27,19 @@ console.table(gameConfig.ITEMS)
 
 const GameProvider = ({ children }) => {
 	const [playerState, setPlayerState] = useState(defaultPlayerState)
+	const [oldPlayerState, setOldPlayerState] = useState(playerState)
 	const [eventList, setEventList] = useState([])
 
 	useEffect(() => {
-		console.log(`conlog: `, playerState)
+		// console.log(`conlog: `, playerState)
 	})
 
 	useEffect(() => {
-		console.log(`conlog: PLAYERSTATE`, playerState)
+		// console.table(playerState)
+		// console.table(oldPlayerState)
+		const updiff = updatedDiff(oldPlayerState, playerState)
+		console.log(`Turn ${playerState.currTurn}`, updiff);
 	}, [playerState])
-
-	const addEvent = (newEvent) => {
-		setEventList((oldlist) => [...oldlist, newEvent])
-	}
-
-	const remvEvent = () => {
-		const newList = [...eventList]
-		newList.splice(0, 1)
-		setEventList([...newList])
-	}
 
 	const startGame = () => {
 		if (playerState.currTurn < 0) {
@@ -61,7 +57,18 @@ const GameProvider = ({ children }) => {
 		}
 	}
 
+	const addEvent = (newEvent) => {
+		setEventList((oldlist) => [...oldlist, newEvent])
+	}
+
+	const remvEvent = () => {
+		const newList = [...eventList]
+		newList.splice(0, 1)
+		setEventList([...newList])
+	}
+
 	const advanceTurn = () => {
+		setOldPlayerState(playerState)
 		setPlayerState({
 			...playerState,
 			currTurn: playerState.currTurn + 1
@@ -70,6 +77,7 @@ const GameProvider = ({ children }) => {
 
 	const buyItem = (price, amount) => {
 		const cost = price * amount
+		setOldPlayerState(playerState)
 		setPlayerState((current) => {
 			return {
 				...current,
@@ -80,6 +88,7 @@ const GameProvider = ({ children }) => {
 
 	const sellItem = (price, amount) => {
 		const profit = price * amount
+		setOldPlayerState(playerState)
 		setPlayerState((current) => {
 			return {
 				...current,
@@ -91,6 +100,7 @@ const GameProvider = ({ children }) => {
 	const changeInventory = (id, count) => {
 		const newInv = [...playerState.inv]
 		newInv[id] += count
+		setOldPlayerState(playerState)
 		setPlayerState((current) => {
 			return {
 				...current,
@@ -105,7 +115,16 @@ const GameProvider = ({ children }) => {
 		)
 	}
 
+	const addSpace = (x = dAny(4) + dAny(4) + dAny(4) + dAny(4)) => {
+		setOldPlayerState(playerState)
+		setPlayerState({
+			...playerState,
+			space: playerState.space + x
+		})
+	}
+
 	const changeLocation = (newLoc) => {
+		setOldPlayerState(playerState)
 		setPlayerState({
 			...playerState,
 			position: +newLoc,
@@ -121,7 +140,8 @@ const GameProvider = ({ children }) => {
 				eventList, addEvent, remvEvent,
 				startGame, endGame, advanceTurn,
 				buyItem, sellItem,
-				changeInventory, remainingSpace,
+				changeInventory,
+				addSpace, remainingSpace,
 				changeLocation,
 
 			}}
@@ -132,3 +152,4 @@ const GameProvider = ({ children }) => {
 }
 
 export { GameContext, GameProvider }
+
