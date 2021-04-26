@@ -5,21 +5,10 @@ import useModal from '../../hooks/useModal'
 
 import "./GameOver.scss"
 
-const GameOver = ({ isShowing }) => {
-	const { modalHide } = useModal()
-
-	const okAction = () => {
-		console.log(`conlog: GAME OVER`,)
-	}
-
-	// useEffect(() => {
-	// 	modalShow()
-	// }, [])
+const GameOver = () => {
 
 	return (
-		<Modal data={{ title: "Game Over", type: "Event" }} isShowing={isShowing} hide={modalHide} normal={true} okAction={okAction}>
-			<div>Game Over</div>
-		</Modal>
+		<div>Game Over (component)</div>
 	)
 }
 
