@@ -16,11 +16,7 @@ const Main = panache.div({
 })
 
 const App = () => {
-	const { startGame, endGame, advanceTurn, } = useContext(GameContext)
-
-	const begin = () => {
-		advanceTurn()
-	}
+	const { startGame, endGame, } = useContext(GameContext)
 
 	return (
 		<div className="container">
