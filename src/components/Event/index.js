@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import { GameContext } from "../../contexts/GameContext"
 import useModal from "../../hooks/useModal"
 import { d100 } from "../../engines/dice"
+import { price } from "../MarketTable"
 import { eventConfig } from "../../data/eventConfig"
 
 import Modal from "../Modal"
@@ -90,7 +91,19 @@ const Event = () => {
 				console.log(`> Event ${item.title}: ${item.chance} / ${check}`, check)
 				if (check < item.chance) {
 					console.log(`> > Event Hit: `, item.title)
-					item.eventAction = contextObj[item.type]
+					item.eventAction = contextObj[item.eventAction]
+					if (item.cost.length) {
+						item.cost = price(
+							item.cost[0] * playerState.cash,
+							item.cost[1] * playerState.cash,
+							item.cost[2],
+							item.cost[3]
+						)
+						item.body = <div>
+							<p>{item.body}</p>
+							<p>Cost: ${item.cost}</p>
+						</div>
+					}
 					events.push(item)
 				}
 			})

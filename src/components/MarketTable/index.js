@@ -63,7 +63,7 @@ const MarketTable = () => {
 		List.forEach((item, i) => {
 			if (item.event === true) {
 				addEvent({
-					type: "price",
+					type: "event",
 					title: "[price event]",
 					body: `${item.name} prices are really ${ITEMS[i].spikeType}!`
 				})
@@ -189,7 +189,7 @@ function marketMath(allItems, allRanges, MINIMUM_AVAILABLE) {
 	return pricelist
 }
 
-function price(pricemin, pricemax, skewwidth, skewdir) {
+export function price(pricemin, pricemax, skewwidth, skewdir) {
 
 	let overmax = 0
 

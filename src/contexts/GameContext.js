@@ -20,7 +20,8 @@ const defaultPlayerState = {
 	position: 1,
 
 	// array index = item.id
-	inv: Array(gameConfig.ITEMS.length).fill(0)
+	inv: Array(gameConfig.ITEMS.length).fill(0),
+	invValue: gameConfig.START_MONEY,
 }
 console.table(gameConfig.ITEMS)
 
@@ -39,6 +40,7 @@ const GameProvider = ({ children }) => {
 		// console.table(oldPlayerState)
 		// const updiff = updatedDiff(oldPlayerState, playerState)
 		// console.log(`Turn ${playerState.currTurn}`, updiff);
+
 	}, [playerState])
 
 	const startGame = () => {
@@ -115,11 +117,13 @@ const GameProvider = ({ children }) => {
 		)
 	}
 
-	const addSpace = (x = dAny(4) + dAny(4) + dAny(4) + dAny(4)) => {
+	const addSpace = (cost) => {
+		const added = dAny(4) + dAny(4) + dAny(4) + dAny(4)
 		setOldPlayerState(playerState)
 		setPlayerState({
 			...playerState,
-			space: playerState.space + x
+			space: playerState.space + added,
+			cash: playerState.cash - cost
 		})
 	}
 
