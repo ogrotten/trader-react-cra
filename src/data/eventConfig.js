@@ -11,7 +11,7 @@ import { dAny } from "../engines/dice"
 
 export const eventConfig = [
 	{
-		chance: 50,
+		chance: 100,
 		type: "addSpace",
 		title: "Hidden Space",
 		body: "bla bla hidden space in your car. Do you accept?",

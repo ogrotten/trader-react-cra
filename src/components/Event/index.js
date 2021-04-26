@@ -44,7 +44,7 @@ const Event = () => {
 		}
 		const newEvents = checkEventConditions(playerState, actionFunctions)
 		if (newEvents.length) {
-			addEvent(...newEvents)
+			newEvents.forEach(ev => { addEvent(ev) })
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currTurn])
@@ -61,44 +61,41 @@ const Event = () => {
 
 		const events = []
 
-		switch (true) {
-			// Game Start
-			case playerState.currTurn === 0:
-				const gameStart = {
-					type: "game",
-					title: "Get started",
-					body: "Starting the game",
-					// eventAction: actionFunctions["advanceTurn"]()
-				}
-				events.push(gameStart)
-			// break;
-
-			// End Game
-			case playerState.currTurn > playerState.maxTurns:
-				const gameEnd = {
-					type: "game",
-					title: "Game Over",
-					body: "Done.",
-					eventAction: function () { console.log(`conlog: END GAME`,) }
-				}
-				events.push(gameEnd)
-			// break;
-
-			case (playerState.currTurn < playerState.maxTurns) && (playerState.currTurn !== 0):
-				eventConfig.forEach(item => {
-					const check = d100()
-					console.log(`> Event ${item.title}: ${item.chance} / ${check}`, check)
-					if (check < item.chance) {
-						console.log(`> > Event Hit: `, item.title)
-						item.eventAction = contextObj[item.type]
-						events.push(item)
-					}
-				})
-				break;
-
-			default:
-				break;
+		// Game Start
+		if (playerState.currTurn === 0) {
+			const gameStart = {
+				type: "game",
+				title: "Get started",
+				body: "Starting the game",
+				// eventAction: actionFunctions["advanceTurn"]()
+			}
+			events.push(gameStart)
 		}
+
+		// End Game
+		if (playerState.currTurn > playerState.maxTurns) {
+			const gameEnd = {
+				type: "game",
+				title: "Game Over",
+				body: "Done.",
+				eventAction: function () { console.log(`conlog: END GAME`,) }
+			}
+			events.push(gameEnd)
+		}
+
+		// Regular Game Turn
+		if ((playerState.currTurn < playerState.maxTurns) /* && (playerState.currTurn !== 0) */) {
+			eventConfig.forEach(item => {
+				const check = d100()
+				console.log(`> Event ${item.title}: ${item.chance} / ${check}`, check)
+				if (check < item.chance) {
+					console.log(`> > Event Hit: `, item.title)
+					item.eventAction = contextObj[item.type]
+					events.push(item)
+				}
+			})
+		}
+
 
 		return events
 	}
