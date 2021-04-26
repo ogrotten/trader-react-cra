@@ -37,8 +37,8 @@ const GameProvider = ({ children }) => {
 	useEffect(() => {
 		// console.table(playerState)
 		// console.table(oldPlayerState)
-		const updiff = updatedDiff(oldPlayerState, playerState)
-		console.log(`Turn ${playerState.currTurn}`, updiff);
+		// const updiff = updatedDiff(oldPlayerState, playerState)
+		// console.log(`Turn ${playerState.currTurn}`, updiff);
 	}, [playerState])
 
 	const startGame = () => {
@@ -50,7 +50,7 @@ const GameProvider = ({ children }) => {
 	}
 
 	const endGame = () => {
-		if (playerState.currTurn >= playerState.maxTurns) {
+		if (playerState.currTurn > playerState.maxTurns) {
 			return true
 		} else {
 			return false

@@ -6,8 +6,8 @@ import Market from "./components/Market"
 import Location from "./components/Location"
 
 import './App.scss';
-
-
+import GameOver from './components/GameOver';
+import GameStart from './components/GameStart';
 
 const Main = panache.div({
 	width: 432,
@@ -16,7 +16,7 @@ const Main = panache.div({
 })
 
 const App = () => {
-	const { startGame, advanceTurn, } = useContext(GameContext)
+	const { startGame, endGame, advanceTurn, } = useContext(GameContext)
 
 	const begin = () => {
 		advanceTurn()
@@ -25,13 +25,14 @@ const App = () => {
 	return (
 		<div className="container">
 			<Main id="main" className="main">
-				{startGame()
-					? <div>
-						<button onClick={begin}>
-							git money
-						</button>
-					</div>
-					: <>
+				{startGame() &&
+					<GameStart />
+				}
+				{endGame() &&
+					<GameOver />
+				}
+				{!startGame() && !endGame() &&
+					<>
 						<Market />
 						<Location />
 					</>

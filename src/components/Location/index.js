@@ -8,14 +8,14 @@ import useModal from '../../hooks/useModal'
 
 
 const Location = () => {
-	const { changeLocation, playerState, playerState: { currTurn, position }, endGame, advanceTurn, gameConfig: { LOCATIONS, TRAVEL } } = useContext(GameContext)
+	const { changeLocation, playerState, playerState: { currTurn, maxTurns, position }, endGame, advanceTurn, gameConfig: { LOCATIONS, TRAVEL } } = useContext(GameContext)
 	const [traveltext, setTraveltext] = useState("")
 	const { modalHide, modalShow, modalLarge, isShowing } = useModal()
 
 	useEffect(() => {
 		if (currTurn === 0) {
 			setTraveltext("Leave")
-		} else if (endGame()) {
+		} else if (maxTurns - currTurn === 0) {
 			setTraveltext("End game")
 		} else {
 			setTraveltext(TRAVEL[Math.floor(Math.random() * TRAVEL.length)])
@@ -36,7 +36,7 @@ const Location = () => {
 	return (
 		<>
 			<div className="mainFooter">
-				{endGame()
+				{maxTurns - currTurn === 0
 					? <button value={1} onClick={doTravel}>{traveltext}. . .</button>
 					: <button onClick={travelButton}>{traveltext}. . .</button>
 				}
