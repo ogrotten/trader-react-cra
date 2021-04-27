@@ -11,7 +11,7 @@ import "./Event.scss"
 
 const Event = () => {
 	const [currEvent, setCurrEvent] = useState({})
-	const { eventList, addEvent, remvEvent, playerState, playerState: { currTurn }, advanceTurn, addSpace } = useContext(GameContext)
+	const { eventList, addEvent, remvEvent, playerState, playerState: { currTurn, cash }, advanceTurn, addSpace } = useContext(GameContext)
 	const contextObj = useContext(GameContext)
 	const { modalShow, modalHide, isShowing } = useModal()
 
@@ -87,24 +87,35 @@ const Event = () => {
 		// Regular Game Turn
 		if ((playerState.currTurn < playerState.maxTurns) /* && (playerState.currTurn !== 0) */) {
 			eventConfig.forEach(item => {
+				const pushItem = { ...item }
 				const check = d100()
 				console.log(`> Event ${item.title}: ${item.chance} / ${check}`, check)
 				if (check < item.chance) {
 					console.log(`> > Event Hit: `, item.title)
-					item.eventAction = contextObj[item.eventAction]
+					pushItem.eventAction = contextObj[item.eventAction]
 					if (item.cost.length) {
-						item.cost = price(
-							item.cost[0] * playerState.cash,
-							item.cost[1] * playerState.cash,
+						const cost = price(
+							item.cost[0] * playerState.value,
+							item.cost[1] * playerState.value,
 							item.cost[2],
 							item.cost[3]
 						)
-						item.body = <div>
-							<p>{item.body}</p>
-							<p>Cost: ${item.cost}</p>
-						</div>
+						if (cost > cash) {
+							pushItem.body = <div>
+								<p>{item.body} But you can't afford it!</p>
+								<p>Cost: ${cost}, you have ${playerState.cash}</p>
+							</div>
+							pushItem.cost = null
+							pushItem.type = "event"
+						} else {
+							pushItem.body = <div>
+								<p>{item.body}  Do you accept?</p>
+								<p>Cost: ${cost}</p>
+							</div>
+							pushItem.cost = cost
+						}
 					}
-					events.push(item)
+					events.push(pushItem)
 				}
 			})
 		}

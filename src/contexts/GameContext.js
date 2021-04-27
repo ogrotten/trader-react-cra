@@ -13,7 +13,8 @@ const defaultPlayerState = {
 	maxTurns: gameConfig.TURNS,
 	currTurn: -1,
 
-	cash: gameConfig.START_MONEY,
+	cash: gameConfig.START_MONEY,	// cash on hand
+	value: gameConfig.START_MONEY,	// total value of inventory & cash
 	bank: 0,
 	debt: gameConfig.START_DEBT,
 	space: gameConfig.START_INVENTORY,
@@ -21,7 +22,6 @@ const defaultPlayerState = {
 
 	// array index = item.id
 	inv: Array(gameConfig.ITEMS.length).fill(0),
-	invValue: gameConfig.START_MONEY,
 }
 console.table(gameConfig.ITEMS)
 
@@ -118,13 +118,15 @@ const GameProvider = ({ children }) => {
 	}
 
 	const addSpace = (cost) => {
-		const added = dAny(4) + dAny(4) + dAny(4) + dAny(4)
-		setOldPlayerState(playerState)
-		setPlayerState({
-			...playerState,
-			space: playerState.space + added,
-			cash: playerState.cash - cost
-		})
+		if (cost) {
+			const added = dAny(4) + dAny(4) + dAny(4) + dAny(4)
+			setOldPlayerState(playerState)
+			setPlayerState({
+				...playerState,
+				space: playerState.space + added,
+				cash: playerState.cash - cost
+			})
+		}
 	}
 
 	const changeLocation = (newLoc) => {
@@ -133,6 +135,14 @@ const GameProvider = ({ children }) => {
 			...playerState,
 			position: +newLoc,
 			currTurn: playerState.currTurn + 1
+		})
+	}
+
+	const setValue = (incoming) => {
+		setOldPlayerState(playerState)
+		setPlayerState({
+			...playerState,
+			value: incoming,
 		})
 	}
 
@@ -147,7 +157,7 @@ const GameProvider = ({ children }) => {
 				changeInventory,
 				addSpace, remainingSpace,
 				changeLocation,
-
+				setValue,
 			}}
 		>
 			{children}

@@ -14,7 +14,7 @@ const Modal = ({ data, isShowing, hide, normal, okAction, children }, props) => 
 
 	const doOkButton = () => {
 		if (typeof data.eventAction === "function") {
-			if (data.cost) {
+			if (data.cost > 0) {
 				data.eventAction(data.cost)
 			} else {
 				data.eventAction()
