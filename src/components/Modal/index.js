@@ -14,7 +14,18 @@ const Modal = ({ data, isShowing, hide, normal, okAction, children }, props) => 
 
 	const doOkButton = () => {
 		if (typeof data.eventAction === "function") {
-			data.eventAction()
+			if (data.cost > 0) {
+				data.eventAction(data.cost)
+			} else {
+				data.eventAction()
+			}
+		}
+		okAction()
+	}
+
+	const doCancelButton = () => {
+		if (typeof data.cancelAction === "function") {
+			data.cancelAction()
 		}
 		okAction()
 	}
@@ -40,9 +51,9 @@ const Modal = ({ data, isShowing, hide, normal, okAction, children }, props) => 
 								<span aria-hidden="true">OK</span>
 							</button>
 						}
-						{data.type !== "event" &&
+						{data.type === "choice" &&
 							<button data-dismiss="modal" aria-label="Close"
-								onClick={hide}
+								onClick={doCancelButton}
 							>
 								<span aria-hidden="true">Cancel</span>
 							</button>

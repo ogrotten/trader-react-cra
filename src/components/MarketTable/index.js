@@ -29,10 +29,11 @@ const MarketTable = () => {
 	const { modalShow, modalHide, isShowing } = useModal()
 	const {
 		playerState,
-		playerState: { currTurn, inv },
+		playerState: { currTurn, inv, cash, },
 		addEvent,
 		buyItem, sellItem,
 		changeInventory,
+		setValue,
 		gameConfig: { ITEMS, RANGES, MINIMUM_AVAILABLE }
 	} = useContext(GameContext)
 
@@ -60,15 +61,19 @@ const MarketTable = () => {
 	}, [])
 
 	useEffect(() => {
+		let x = cash
 		List.forEach((item, i) => {
 			if (item.event === true) {
 				addEvent({
-					type: "price",
+					type: "event",
 					title: "[price event]",
 					body: `${item.name} prices are really ${ITEMS[i].spikeType}!`
 				})
 			}
+			x += (item.price * playerState.inv[i])
 		})
+		setValue(x)
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [List])
 
@@ -189,7 +194,7 @@ function marketMath(allItems, allRanges, MINIMUM_AVAILABLE) {
 	return pricelist
 }
 
-function price(pricemin, pricemax, skewwidth, skewdir) {
+export function price(pricemin, pricemax, skewwidth, skewdir) {
 
 	let overmax = 0
 

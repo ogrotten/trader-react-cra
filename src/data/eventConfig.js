@@ -11,12 +11,14 @@ import { dAny } from "../engines/dice"
 
 export const eventConfig = [
 	{
-		chance: 50,
-		type: "addSpace",
+		chance: 100,
+		type: "choice",
+		eventAction: "addSpace",
 		title: "Hidden Space",
-		body: "bla bla hidden space in your car. Do you accept?",
+		body: "A local carhacker can add hidden space to your car.",
 		// eventAction: function () {
 		// 	console.log(`Add ${dAny(4) + dAny(4) + dAny(4) + dAny(4)} spaces!`)
 		// }
+		cost: [.15, .33, -7, 1.6,]
 	}
 ]

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
 import Modal from "../Modal"
-import GameOver from "../GameOver"
 import { GameContext } from "../../contexts/GameContext"
 
 import "./Location.scss"
@@ -8,7 +7,7 @@ import useModal from '../../hooks/useModal'
 
 
 const Location = () => {
-	const { changeLocation, playerState, playerState: { currTurn, maxTurns, position }, endGame, advanceTurn, gameConfig: { LOCATIONS, TRAVEL } } = useContext(GameContext)
+	const { changeLocation, playerState: { currTurn, maxTurns, position }, gameConfig: { LOCATIONS, TRAVEL } } = useContext(GameContext)
 	const [traveltext, setTraveltext] = useState("")
 	const { modalHide, modalShow, modalLarge, isShowing } = useModal()
 
