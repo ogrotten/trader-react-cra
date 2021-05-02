@@ -16,7 +16,7 @@ export const BuyModal = ({ data: { price, name }, transaction: { transactionCoun
 	return (
 		<div>
 			<p>How much {name} do you want to buy?</p>
-			<input type="range" min={0} max={maxBuy()} defaultValue={0} onChange={getCount} />
+			<input type="range" min={0} max={maxBuy()} defaultValue={0} onChange={getCount} style={{ width: "100%" }} />
 			<div>{transactionCount} at €${price} = {transactionCount * price}</div>
 		</div>
 	)

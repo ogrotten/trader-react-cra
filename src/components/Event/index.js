@@ -65,7 +65,7 @@ const Event = () => {
 		// Game Start
 		if (playerState.currTurn === 0) {
 			const gameStart = {
-				type: "game",
+				type: "event",
 				title: "Get started",
 				body: "Starting the game",
 				// eventAction: actionFunctions["advanceTurn"]()
@@ -76,7 +76,7 @@ const Event = () => {
 		// End Game
 		if (playerState.currTurn > playerState.maxTurns) {
 			const gameEnd = {
-				type: "game",
+				type: "event",
 				title: "Game Over",
 				body: "Done.",
 				eventAction: function () { console.log(`conlog: END GAME`,) }
@@ -106,7 +106,7 @@ const Event = () => {
 								<p>Cost: ${cost}, you have ${playerState.cash}</p>
 							</div>
 							pushItem.cost = null
-							pushItem.type = "event"
+							pushItem.type = "special"
 						} else {
 							pushItem.body = <div>
 								<p>{item.body}  Do you accept?</p>

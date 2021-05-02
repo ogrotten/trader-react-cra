@@ -51,7 +51,7 @@ const Modal = ({ data, isShowing, hide, normal, okAction, children }, props) => 
 								<span aria-hidden="true">OK</span>
 							</button>
 						}
-						{data.type === "choice" &&
+						{data.type !== "event" &&
 							<button data-dismiss="modal" aria-label="Close"
 								onClick={doCancelButton}
 							>
