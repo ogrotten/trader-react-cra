@@ -11,7 +11,7 @@ import { dAny } from "../engines/dice"
 
 export const eventConfig = [
 	{
-		chance: 100,
+		chance: 10,
 		type: "choice",
 		eventAction: "addSpace",
 		title: "Hidden Space",

@@ -6,8 +6,8 @@ import Market from "./components/Market"
 import Location from "./components/Location"
 
 import './App.scss';
-import GameOver from './components/GameOver';
-import GameStart from './components/GameStart';
+import GameOver from "./components/GameOver"
+import GameStart from "./components/Gamestart"
 
 const Main = panache.div({
 	width: 432,
