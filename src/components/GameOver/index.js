@@ -9,12 +9,12 @@ const GameOver = () => {
 	return (
 		<div>
 			<p>Game Over (component)</p>
-			{log.forEach((turn, idx) => {
-				<div>
+			{log.map((turn, idx) => {
+				return <div>
 					<p key={idx}>Turn {idx} </p>
 					<ul>
-						{turn.forEach((item, i) => {
-							<li key={i}>{item}</li>
+						{turn.map((item, i) => {
+							return <li key={i}>{Object.keys(item)[0]}: {Object.values(item)[0]}</li>
 						})}
 					</ul>
 				</div>
