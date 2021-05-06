@@ -27,7 +27,7 @@ const Modal = ({ data, isShowing, hide, normal, okAction, children }, props) => 
 		if (typeof data.cancelAction === "function") {
 			data.cancelAction()
 		}
-		okAction()
+		hide()
 	}
 
 	return isShowing && ReactDOM.createPortal(
