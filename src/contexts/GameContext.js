@@ -30,19 +30,30 @@ const GameProvider = ({ children }) => {
 	const [playerState, setPlayerState] = useState(defaultPlayerState)
 	const [oldPlayerState, setOldPlayerState] = useState(playerState)
 	const [eventList, setEventList] = useState([])
+	const [log, setLog] = useState([])
 
 	useEffect(() => {
-		// console.log(`conlog: `, playerState)
-	})
+		// console.log(`conlog: `, log)
+	}, [log])
 
 	useEffect(() => {
-		// console.table(playerState)
-		// console.table(oldPlayerState)
-		// const updiff = updatedDiff(oldPlayerState, playerState)
-		// console.log(`Turn ${playerState.currTurn}`, updiff);
+		const newlog = [...log]
+		const updiff = updatedDiff(oldPlayerState, playerState)
 
+		if (playerState.currTurn >= 0 && Object.keys(updiff).length > 0) {
+			if (!Array.isArray(newlog[playerState.currTurn])) {
+				newlog[playerState.currTurn] = new Array
+			}
+			newlog[playerState.currTurn].push(updiff)
+
+			setLog(
+				newlog
+			)
+		}
+		// console.log(playerState.currTurn, log)
 	}, [playerState])
 
+	//#region location
 	const startGame = () => {
 		if (playerState.currTurn < 0) {
 			return true
@@ -128,12 +139,13 @@ const GameProvider = ({ children }) => {
 			})
 		}
 	}
-
+	//#endregion
 	const changeLocation = (newLoc) => {
-		setOldPlayerState(playerState)
+		newLoc = +newLoc
+		setOldPlayerState({ ...playerState })
 		setPlayerState({
 			...playerState,
-			position: +newLoc,
+			position: newLoc,
 			currTurn: playerState.currTurn + 1
 		})
 	}
@@ -149,6 +161,7 @@ const GameProvider = ({ children }) => {
 	return (
 		<GameContext.Provider
 			value={{
+				log,
 				gameConfig,
 				playerState, setPlayerState,
 				eventList, addEvent, remvEvent,
