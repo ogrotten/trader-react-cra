@@ -128,25 +128,19 @@ const MarketTable = () => {
 					})}
 				</tbody>
 			</table>
-			{data.price < cash
-				? <Modal data={data} isShowing={isShowing} hide={modalHide} normal={false} okAction={endTransaction}>
-					{
-						{
-							"Buy": <BuyModal data={data} transaction={{ transactionCount, setTransactionCount }} />,
-							"Sell": <SellModal data={data} transaction={{ transactionCount, setTransactionCount }} />
-						}[data.type]
-					}
-				</Modal>
-				: <Modal isShowing={isShowing} hide={modalHide} normal={false}
-					data={{
-						type: "broke",
-						title: "Broke ass."
-					}}
-				>
-					<div>
-						<p>Your broke ass doesn't have enough money.</p>
-					</div>
-				</Modal>
+
+
+			{
+				{
+					"Buy": data.price < cash
+						? <Modal data={data} isShowing={isShowing} hide={modalHide} normal={false} okAction={endTransaction}><BuyModal data={data} transaction={{ transactionCount, setTransactionCount }} /></Modal>
+						: <Modal isShowing={isShowing} hide={modalHide} normal={false} data={{ type: "broke", title: "Broke ass." }}>
+							<div>
+								<p>Your broke ass doesn't have enough money.</p>
+							</div>
+						</Modal>,
+					"Sell": <Modal data={data} isShowing={isShowing} hide={modalHide} normal={false} okAction={endTransaction}><SellModal data={data} transaction={{ transactionCount, setTransactionCount }} /></Modal>
+				}[data.type]
 			}
 		</section>
 	)

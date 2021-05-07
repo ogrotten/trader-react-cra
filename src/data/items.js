@@ -35,14 +35,14 @@ const items = [
 		spikeChance: 0, spikeBase: 0, spikemin: 0, spikemax: 0, spikeType: "", bonusChance: 0, bonusAmount: 0
 	},
 	{
-		id: 7, name: "Nanozine", pricemin: 15000, pricemax: 32000, pricerange: "NAR_LO", availability: 40,
+		id: 7, name: "Nanozine", pricemin: 15000, pricemax: 32000, pricerange: "NAR_LO", availability: 45,
 
-		spikeChance: 2.8, spikeBase: .4, spikemin: 6750, spikemax: 16500, spikeType: "low", bonusChance: 0, bonusAmount: 0
+		spikeChance: 3.2, spikeBase: .4, spikemin: 6750, spikemax: 16500, spikeType: "low", bonusChance: 0, bonusAmount: 0
 	},
 	{
-		id: 8, name: "Zillion", pricemin: 300, pricemax: 30000, pricerange: "WIDE_LO", availability: 35,
+		id: 8, name: "Zillion", pricemin: 300, pricemax: 30000, pricerange: "WIDE_LO", availability: 45,
 
-		spikeChance: 2.2, spikeBase: 3.50, spikemin: 27700, spikemax: 108500, spikeType: "high", bonusChance: 0, bonusAmount: 0
+		spikeChance: 3.0, spikeBase: 3.50, spikemin: 27700, spikemax: 108500, spikeType: "high", bonusChance: 0, bonusAmount: 0
 	}
 ]
 

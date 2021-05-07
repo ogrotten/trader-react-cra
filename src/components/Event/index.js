@@ -89,7 +89,7 @@ const Event = () => {
 			eventConfig.forEach(item => {
 				const pushItem = { ...item }
 				const check = d100()
-				console.log(`> Event ${item.title}: ${item.chance} / ${check}`, check)
+				// console.log(`> Event ${item.title}: ${item.chance} / ${check}`, check)
 				if (check < item.chance) {
 					console.log(`> > Event Hit: `, item.title)
 					pushItem.eventAction = contextObj[item.eventAction]
