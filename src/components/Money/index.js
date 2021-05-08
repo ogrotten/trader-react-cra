@@ -73,7 +73,7 @@ const Money = (props) => {
 		}
 		setTxMax(duckets)
 		setTxCount(0)
-	}, [txType])
+	}, [isShowing, txType])
 
 	return (
 		<section className="money">
