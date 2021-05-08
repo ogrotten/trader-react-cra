@@ -15,8 +15,9 @@ const Money = (props) => {
 	const [txCount, setTxCount] = useState(0)
 	const [txMax, setTxMax] = useState(0)
 	const [txType, setTxType] = useState("")
+	const [enableShark, setEnableShark] = useState(0)
 
-	const { playerState: { cash, bank, debt, position }, changeBank, changeDebt } = useContext(GameContext)
+	const { playerState, playerState: { cash, bank, debt, position }, changeBank, changeDebt, changeFlag } = useContext(GameContext)
 	const { modalShow, modalHide, isShowing } = useModal()
 
 	const beginBank = () => {
@@ -92,7 +93,7 @@ const Money = (props) => {
 				{position === 1 &&
 					<>
 						<br />
-						<button className="buysell-button" onClick={beginShark}>Visit Loan Shark</button>
+						<button disabled={playerState.flags.shark} className="buysell-button" onClick={beginShark}>Visit Loan Shark</button>
 					</>
 				}
 			</div>
@@ -102,8 +103,8 @@ const Money = (props) => {
 				normal={false}
 				okAction={endTransaction}
 			>
-				{data.type === "bank"
-					? <form onSubmit={endTransaction}>
+				{data.type === "bank" &&
+					<form onSubmit={endTransaction}>
 						<input name="deposit" type="radio" checked={txType === 'put'} value="put" onChange={() => setTxType('put')} /> Deposit
 						<input name="withdraw" type="radio" checked={txType === 'get'} value="get" onChange={() => setTxType('get')} /> Withdraw
 						<input name="amount" type="range" min={0} max={txMax} defaultValue={0} onChange={getCount} style={{ width: "100%" }} />
@@ -111,7 +112,9 @@ const Money = (props) => {
 						<p>{cash === 0 && txType === "put" && "No cash to deposit!"}</p>
 						<p>{bank === 0 && txType === "get" && "No funds in bank!"}</p>
 					</form>
-					: <form onSubmit={endTransaction}>
+				}
+				{data.type === "shark" &&
+					<form onSubmit={endTransaction}>
 						<input name="deposit" type="radio" checked={txType === 'put'} value="put" onChange={() => setTxType('put')} /> Pay off
 						<input name="withdraw" type="radio" checked={txType === 'get'} value="get" onChange={() => setTxType('get')} /> Get loan
 						<input name="amount" type="range" min={0} max={txMax} defaultValue={0} onChange={getCount} style={{ width: "100%" }} />

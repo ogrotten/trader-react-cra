@@ -19,6 +19,9 @@ const defaultPlayerState = {
 	debt: 0,
 	space: gameConfig.START_INVENTORY,
 	position: 1,
+	flags: {
+		shark: false,
+	},
 
 	// inv: array index = item.id
 	inv: Array(gameConfig.ITEMS.length).fill(0),
@@ -61,11 +64,12 @@ const GameProvider = ({ children }) => {
 			setPlayerState({
 				...newturn,
 				bank: Math.floor(newturn.bank += newturn.bank *= gameConfig.BANK_INTEREST),
-				debt: Math.floor(newturn.debt += newturn.debt *= gameConfig.DEBT_INTEREST)
+				debt: Math.floor(newturn.debt += newturn.debt *= gameConfig.DEBT_INTEREST),
+				flags: {
+					shark: false
+				}
 			})
-
 		}
-
 	}, [turn])
 
 	//#region location
@@ -181,6 +185,16 @@ const GameProvider = ({ children }) => {
 			debt: playerState.debt - amt,
 			cash: playerState.cash - amt
 		})
+		changeFlag("shark", true)
+	}
+
+	const changeFlag = (item, status) => {
+		setPlayerState({
+			...playerState,
+			flags: {
+				[item]: status
+			}
+		})
 	}
 
 	const setValue = (incoming) => {
@@ -203,7 +217,7 @@ const GameProvider = ({ children }) => {
 				changeInventory,
 				addSpace, remainingSpace,
 				changeLocation,
-				changeBank, changeDebt,
+				changeBank, changeDebt, changeFlag,
 				setValue,
 			}}
 		>
