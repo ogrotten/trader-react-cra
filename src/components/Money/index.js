@@ -14,7 +14,7 @@ const Money = (props) => {
 	const [data, setData] = useState({})
 	const [txCount, setTxCount] = useState(0)
 	const [txMax, setTxMax] = useState(0)
-	const [txType, setTxType] = useState("put")
+	const [txType, setTxType] = useState("")
 
 	const { playerState: { cash, bank, debt, position }, changeBank, changeDebt } = useContext(GameContext)
 	const { modalShow, modalHide, isShowing } = useModal()

@@ -60,8 +60,8 @@ const GameProvider = ({ children }) => {
 			const newturn = { ...playerState }
 			setPlayerState({
 				...newturn,
-				bank: Number.parseFloat(newturn.bank + (newturn.bank * gameConfig.BANK_INTEREST)).toFixed(),
-				debt: Number.parseFloat(newturn.debt + (newturn.debt * gameConfig.DEBT_INTEREST)).toFixed()
+				bank: Math.floor(newturn.bank += newturn.bank *= gameConfig.BANK_INTEREST),
+				debt: Math.floor(newturn.debt += newturn.debt *= gameConfig.DEBT_INTEREST)
 			})
 
 		}

@@ -1,6 +1,23 @@
-const x = []
-x[14] = "fourteen"
-x[-14] = "neg fourteen"
-x.push("one")
-x
-console.log(`conlog: `, x)
+let amt = 2000
+const int = .05
+console.log(amt)
+amt += amt *= int
+console.log(amt)
+amt += amt *= int
+console.log(amt)
+amt += amt *= int
+console.log(amt)
+amt += amt *= int
+console.log(amt)
+amt += amt *= int
+console.log(amt)
+amt += amt *= int
+console.log(amt)
+amt += amt *= int
+console.log(amt)
+amt += amt *= int
+console.log(amt)
+amt += amt *= int
+console.log(amt)
+amt += amt *= int
+console.log(amt)
