@@ -33,7 +33,7 @@ const MarketTable = () => {
 		addEvent,
 		buyItem, sellItem,
 		changeInventory,
-		setValue,
+		changeWorth,
 		gameConfig: { ITEMS, RANGES, MINIMUM_AVAILABLE }
 	} = useContext(GameContext)
 
@@ -72,7 +72,8 @@ const MarketTable = () => {
 			}
 			x += (item.price * playerState.inv[i])
 		})
-		setValue(x)
+		changeWorth(x)
+		console.log(`worth: `, x)
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [List])

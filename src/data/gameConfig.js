@@ -10,7 +10,7 @@ const gameConfig = {
 	},
 	"MINIMUM_AVAILABLE": 5,
 	"BANK_INTEREST": .02,
-	"DEBT_INTEREST": .4,
+	"DEBT_INTEREST": .04,
 	"TURNS": 52,
 	"START_MONEY": 2000,
 	"START_DEBT": 5000,

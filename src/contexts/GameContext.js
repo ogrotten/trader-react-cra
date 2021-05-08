@@ -14,7 +14,7 @@ const defaultPlayerState = {
 	currTurn: -1,
 
 	cash: gameConfig.START_MONEY,	// cash on hand
-	value: gameConfig.START_MONEY,	// total value of inventory & cash
+	worth: gameConfig.START_MONEY,	// total value of inventory & cash
 	bank: 0,
 	debt: 0,
 	space: gameConfig.START_INVENTORY,
@@ -33,6 +33,9 @@ const GameProvider = ({ children }) => {
 	const [playerState, setPlayerState] = useState(defaultPlayerState)
 	const [oldPlayerState, setOldPlayerState] = useState(playerState)
 	const [turn, setTurn] = useState(defaultPlayerState.currTurn)
+	const [flags, setFlags] = useState({
+		shark: false,
+	})
 	const [eventList, setEventList] = useState([])
 	const [log, setLog] = useState([])
 
@@ -41,6 +44,8 @@ const GameProvider = ({ children }) => {
 	}, [log])
 
 	useEffect(() => {
+		if (playerState.currTurn != turn) { setTurn(playerState.currTurn) }
+
 		const newlog = [...log]
 		const updiff = updatedDiff(oldPlayerState, playerState)
 
@@ -52,23 +57,20 @@ const GameProvider = ({ children }) => {
 
 			setLog(newlog)
 		}
-
-		if (playerState.currTurn != turn) { setTurn(playerState.currTurn) }
-
+		console.log(`ctx worth: `, playerState.worth)
 	}, [playerState])
 
 	useEffect(() => {
 		// Do New Turn stuff.
-		if (playerState.currTurn != oldPlayerState.currTurn) {
+		if (playerState.currTurn !== oldPlayerState.currTurn) {
+			console.log(`conlog: NEWTURN `,)
 			const newturn = { ...playerState }
 			setPlayerState({
 				...newturn,
 				bank: Math.floor(newturn.bank += newturn.bank *= gameConfig.BANK_INTEREST),
 				debt: Math.floor(newturn.debt += newturn.debt *= gameConfig.DEBT_INTEREST),
-				flags: {
-					shark: false
-				}
 			})
+			setFlags({ ...flags, shark: false })
 		}
 	}, [turn])
 
@@ -179,15 +181,12 @@ const GameProvider = ({ children }) => {
 	}
 
 	const changeDebt = (amt) => {
-		// changeFlag("shark", true)
+		setFlags({ ...flags, shark: true })
 		setOldPlayerState({ ...playerState })
 		setPlayerState({
 			...playerState,
 			debt: playerState.debt - amt,
 			cash: playerState.cash - amt,
-			flags: {
-				shark: true
-			}
 		})
 	}
 
@@ -200,11 +199,11 @@ const GameProvider = ({ children }) => {
 		})
 	}
 
-	const setValue = (incoming) => {
-		setOldPlayerState(playerState)
+	const changeWorth = (amt) => {
+		setOldPlayerState({ ...playerState })
 		setPlayerState({
 			...playerState,
-			value: incoming,
+			worth: (playerState.worth * 0) + amt,
 		})
 	}
 
@@ -220,8 +219,8 @@ const GameProvider = ({ children }) => {
 				changeInventory,
 				addSpace, remainingSpace,
 				changeLocation,
-				changeBank, changeDebt, changeFlag,
-				setValue,
+				changeBank, changeDebt, flags,
+				changeWorth,
 			}}
 		>
 			{children}

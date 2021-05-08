@@ -17,7 +17,7 @@ const Money = (props) => {
 	const [txType, setTxType] = useState("")
 	const [enableShark, setEnableShark] = useState(0)
 
-	const { playerState, playerState: { cash, bank, debt, position }, changeBank, changeDebt, changeFlag } = useContext(GameContext)
+	const { playerState, playerState: { cash, bank, debt, position, worth }, changeBank, changeDebt, flags } = useContext(GameContext)
 	const { modalShow, modalHide, isShowing } = useModal()
 
 	const beginBank = () => {
@@ -65,7 +65,8 @@ const Money = (props) => {
 			if (data.type === "bank") {
 				duckets = bank
 			} else if (data.type === "shark") {
-				duckets = cash / 4 || 2000
+				console.log(`worth: `, worth)
+				duckets = Math.max(worth / 4, 2000)
 			}
 		}
 		setTxMax(duckets)
@@ -89,7 +90,7 @@ const Money = (props) => {
 				{position === 1 &&
 					<>
 						<br />
-						<button className="buysell-button" onClick={beginShark} disabled={playerState.flags.shark}>Visit Loan Shark</button>
+						<button className="buysell-button" onClick={beginShark} disabled={flags.shark}>Visit Loan Shark</button>
 					</>
 				}
 			</div>
