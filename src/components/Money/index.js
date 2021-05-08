@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { GameContext } from "../../contexts/GameContext"
 
 import useModal from "../../hooks/useModal"
@@ -12,15 +12,16 @@ import "./Money.scss"
 
 const Money = (props) => {
 	const [data, setData] = useState({})
-	const [transactionCount, setTransactionCount] = useState(0)
-	const [transactionType, setTransactionType] = useState("put")
+	const [txCount, setTxCount] = useState(0)
+	const [txMax, setTxMax] = useState(0)
+	const [txType, setTxType] = useState("put")
 
-	const { playerState: { cash, bank, debt, position } } = useContext(GameContext)
+	const { playerState: { cash, bank, debt, position }, changeBank, changeDebt } = useContext(GameContext)
 	const { modalShow, modalHide, isShowing } = useModal()
 
 	const beginBank = () => {
-		setTransactionCount(0)
-		setTransactionType("put")
+		setTxCount(0)
+		setTxType("put")
 		setData({
 			title: "Gonk National Bank",
 			type: "bank",
@@ -42,13 +43,37 @@ const Money = (props) => {
 	}
 
 	const endTransaction = () => {
-		console.log(`conlog: `, transactionCount, transactionType)
+		const doChange = data.type === "bank" ? changeBank : changeDebt
+		if (txType === "put") {
+			doChange(txCount)
+		} else if (txType === "get") {
+			doChange(0 - txCount)
+		}
 		modalHide()
 	}
 
 	const getCount = (e) => {
-		setTransactionCount(+e.currentTarget.value)
+		setTxCount(+e.currentTarget.value)
 	}
+
+	useEffect(() => {
+		let duckets
+		if (txType === "put") {
+			if (data.type === "bank") {
+				duckets = cash
+			} else if (data.type === "shark") {
+				duckets = debt
+			}
+		} else if (txType === "get") {
+			if (data.type === "bank") {
+				duckets = bank
+			} else if (data.type === "shark") {
+				duckets = cash / 4 || 2000
+			}
+		}
+		setTxMax(duckets)
+		setTxCount(0)
+	}, [txType])
 
 	return (
 		<section className="money">
@@ -79,14 +104,20 @@ const Money = (props) => {
 			>
 				{data.type === "bank"
 					? <form onSubmit={endTransaction}>
-						<input name="deposit" type="radio" checked={transactionType === 'put'} value="put" onChange={() => setTransactionType('put')} /> Deposit
-						<input name="withdraw" type="radio" checked={transactionType === 'get'} value="get" onChange={() => setTransactionType('get')} /> Withdraw
-						<input name="amount" type="range" min={0} max={cash} defaultValue={0} onChange={getCount} style={{ width: "100%" }} />
-						{transactionCount}
+						<input name="deposit" type="radio" checked={txType === 'put'} value="put" onChange={() => setTxType('put')} /> Deposit
+						<input name="withdraw" type="radio" checked={txType === 'get'} value="get" onChange={() => setTxType('get')} /> Withdraw
+						<input name="amount" type="range" min={0} max={txMax} defaultValue={0} onChange={getCount} style={{ width: "100%" }} />
+						<p>{txCount}</p>
+						<p>{cash === 0 && txType === "put" && "No cash to deposit!"}</p>
+						<p>{bank === 0 && txType === "get" && "No funds in bank!"}</p>
 					</form>
-					: <>
-						Shark
-					</>
+					: <form onSubmit={endTransaction}>
+						<input name="deposit" type="radio" checked={txType === 'put'} value="put" onChange={() => setTxType('put')} /> Pay off
+						<input name="withdraw" type="radio" checked={txType === 'get'} value="get" onChange={() => setTxType('get')} /> Get loan
+						<input name="amount" type="range" min={0} max={txMax} defaultValue={0} onChange={getCount} style={{ width: "100%" }} />
+						<p>{txCount}<br /></p>
+						<p>{debt === 0 && txType === "put" && "No debt to pay off!"}</p>
+					</form>
 				}
 			</Modal>
 		</section>

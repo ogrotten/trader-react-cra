@@ -16,11 +16,11 @@ const defaultPlayerState = {
 	cash: gameConfig.START_MONEY,	// cash on hand
 	value: gameConfig.START_MONEY,	// total value of inventory & cash
 	bank: 0,
-	debt: gameConfig.START_DEBT,
+	debt: 0,
 	space: gameConfig.START_INVENTORY,
 	position: 1,
 
-	// array index = item.id
+	// inv: array index = item.id
 	inv: Array(gameConfig.ITEMS.length).fill(0),
 }
 console.table(gameConfig.ITEMS)
@@ -29,6 +29,7 @@ console.table(gameConfig.ITEMS)
 const GameProvider = ({ children }) => {
 	const [playerState, setPlayerState] = useState(defaultPlayerState)
 	const [oldPlayerState, setOldPlayerState] = useState(playerState)
+	const [turn, setTurn] = useState(defaultPlayerState.currTurn)
 	const [eventList, setEventList] = useState([])
 	const [log, setLog] = useState([])
 
@@ -46,12 +47,26 @@ const GameProvider = ({ children }) => {
 			}
 			newlog[playerState.currTurn].push(updiff)
 
-			setLog(
-				newlog
-			)
+			setLog(newlog)
 		}
-		// console.log(playerState.currTurn, log)
+
+		if (playerState.currTurn != turn) { setTurn(playerState.currTurn) }
+
 	}, [playerState])
+
+	useEffect(() => {
+		// Do New Turn stuff.
+		if (playerState.currTurn != oldPlayerState.currTurn) {
+			const newturn = { ...playerState }
+			setPlayerState({
+				...newturn,
+				bank: Number.parseFloat(newturn.bank + (newturn.bank * gameConfig.BANK_INTEREST)).toFixed(),
+				debt: Number.parseFloat(newturn.debt + (newturn.debt * gameConfig.DEBT_INTEREST)).toFixed()
+			})
+
+		}
+
+	}, [turn])
 
 	//#region location
 	const startGame = () => {
@@ -150,6 +165,24 @@ const GameProvider = ({ children }) => {
 		})
 	}
 
+	const changeBank = (amt) => {
+		setOldPlayerState({ ...playerState })
+		setPlayerState({
+			...playerState,
+			bank: playerState.bank + amt,
+			cash: playerState.cash - amt
+		})
+	}
+
+	const changeDebt = (amt) => {
+		setOldPlayerState({ ...playerState })
+		setPlayerState({
+			...playerState,
+			debt: playerState.debt - amt,
+			cash: playerState.cash - amt
+		})
+	}
+
 	const setValue = (incoming) => {
 		setOldPlayerState(playerState)
 		setPlayerState({
@@ -170,6 +203,7 @@ const GameProvider = ({ children }) => {
 				changeInventory,
 				addSpace, remainingSpace,
 				changeLocation,
+				changeBank, changeDebt,
 				setValue,
 			}}
 		>
