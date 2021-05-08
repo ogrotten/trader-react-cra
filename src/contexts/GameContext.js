@@ -179,13 +179,16 @@ const GameProvider = ({ children }) => {
 	}
 
 	const changeDebt = (amt) => {
+		// changeFlag("shark", true)
 		setOldPlayerState({ ...playerState })
 		setPlayerState({
 			...playerState,
 			debt: playerState.debt - amt,
-			cash: playerState.cash - amt
+			cash: playerState.cash - amt,
+			flags: {
+				shark: true
+			}
 		})
-		changeFlag("shark", true)
 	}
 
 	const changeFlag = (item, status) => {

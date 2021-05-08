@@ -26,7 +26,6 @@ const Money = (props) => {
 		setData({
 			title: "Gonk National Bank",
 			type: "bank",
-			eventAction,
 		})
 		modalShow()
 	}
@@ -36,13 +35,8 @@ const Money = (props) => {
 		setData({
 			title: "Fast Eddies, LLC",
 			type: "shark",
-			eventAction,
 		})
 		modalShow()
-	}
-
-	const eventAction = () => {
-		return
 	}
 
 	const endTransaction = () => {
@@ -95,7 +89,7 @@ const Money = (props) => {
 				{position === 1 &&
 					<>
 						<br />
-						<button disabled={playerState.flags.shark} className="buysell-button" onClick={beginShark}>Visit Loan Shark</button>
+						<button className="buysell-button" onClick={beginShark} disabled={playerState.flags.shark}>Visit Loan Shark</button>
 					</>
 				}
 			</div>
@@ -106,7 +100,7 @@ const Money = (props) => {
 				okAction={endTransaction}
 			>
 				{data.type === "bank" &&
-					<form onSubmit={endTransaction}>
+					<form>
 						<input name="deposit" type="radio" checked={txType === 'put'} value="put" onChange={() => setTxType('put')} /> Deposit
 						<input name="withdraw" type="radio" checked={txType === 'get'} value="get" onChange={() => setTxType('get')} /> Withdraw
 						<input name="amount" type="range" min={0} max={txMax} defaultValue={0} onChange={getCount} style={{ width: "100%" }} />
@@ -116,7 +110,7 @@ const Money = (props) => {
 					</form>
 				}
 				{data.type === "shark" &&
-					<form onSubmit={endTransaction}>
+					<form>
 						<input name="payoff" type="radio" checked={txType === 'put'} value="put" onChange={() => setTxType('put')} /> Pay off
 						<input name="incur" type="radio" checked={txType === 'get'} value="get" onChange={() => setTxType('get')} /> Get loan
 						<input name="amount" type="range" min={0} max={txMax} defaultValue={0} onChange={getCount} style={{ width: "100%" }} />
