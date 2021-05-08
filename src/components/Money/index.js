@@ -31,6 +31,8 @@ const Money = (props) => {
 		modalShow()
 	}
 	const beginShark = () => {
+		setTxCount(0)
+		setTxType("put")
 		setData({
 			title: "Fast Eddies, LLC",
 			type: "shark",
@@ -115,8 +117,8 @@ const Money = (props) => {
 				}
 				{data.type === "shark" &&
 					<form onSubmit={endTransaction}>
-						<input name="deposit" type="radio" checked={txType === 'put'} value="put" onChange={() => setTxType('put')} /> Pay off
-						<input name="withdraw" type="radio" checked={txType === 'get'} value="get" onChange={() => setTxType('get')} /> Get loan
+						<input name="payoff" type="radio" checked={txType === 'put'} value="put" onChange={() => setTxType('put')} /> Pay off
+						<input name="incur" type="radio" checked={txType === 'get'} value="get" onChange={() => setTxType('get')} /> Get loan
 						<input name="amount" type="range" min={0} max={txMax} defaultValue={0} onChange={getCount} style={{ width: "100%" }} />
 						<p>{txCount}<br /></p>
 						<p>{debt === 0 && txType === "put" && "No debt to pay off!"}</p>
