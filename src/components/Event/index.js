@@ -95,8 +95,8 @@ const Event = () => {
 					pushItem.eventAction = contextObj[item.eventAction]
 					if (item.cost.length) {
 						const cost = price(
-							item.cost[0] * playerState.value,
-							item.cost[1] * playerState.value,
+							item.cost[0] * playerState.worth,
+							item.cost[1] * playerState.worth,
 							item.cost[2],
 							item.cost[3]
 						)

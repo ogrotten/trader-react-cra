@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
 
-import useModal from "../../hooks/useModal"
-
 import MarketTable from "../MarketTable"
 import Status from "../Status"
 import Money from "../Money"
