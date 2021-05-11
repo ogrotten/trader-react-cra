@@ -44,7 +44,18 @@ const GameProvider = ({ children }) => {
 	}, [log])
 
 	useEffect(() => {
-		if (playerState.currTurn != turn) { setTurn(playerState.currTurn) }
+		if (playerState.currTurn != turn) {
+
+			// Do New Turn stuff.
+			const newturn = { ...playerState }
+			setPlayerState({
+				...newturn,
+				bank: Math.floor(newturn.bank += newturn.bank *= gameConfig.BANK_INTEREST),
+				debt: Math.floor(newturn.debt += newturn.debt *= gameConfig.DEBT_INTEREST),
+			})
+			setFlags({ ...flags, shark: false })
+			setTurn(playerState.currTurn)
+		}
 
 		const newlog = [...log]
 		const updiff = updatedDiff(oldPlayerState, playerState)
@@ -60,19 +71,13 @@ const GameProvider = ({ children }) => {
 		console.log(`ctx worth: `, playerState.worth)
 	}, [playerState])
 
-	useEffect(() => {
-		// Do New Turn stuff.
-		if (playerState.currTurn !== oldPlayerState.currTurn) {
-			console.log(`conlog: NEWTURN `,)
-			const newturn = { ...playerState }
-			setPlayerState({
-				...newturn,
-				bank: Math.floor(newturn.bank += newturn.bank *= gameConfig.BANK_INTEREST),
-				debt: Math.floor(newturn.debt += newturn.debt *= gameConfig.DEBT_INTEREST),
-			})
-			setFlags({ ...flags, shark: false })
-		}
-	}, [turn])
+	// useEffect(() => {
+	// 	// Do New Turn stuff.
+	// 	if (playerState.currTurn !== oldPlayerState.currTurn) {
+	// 		console.log(`conlog: NEWTURN `,)
+
+	// 	}
+	// }, [turn])
 
 	//#region location
 	const startGame = () => {
@@ -199,7 +204,7 @@ const GameProvider = ({ children }) => {
 		})
 	}
 
-	const changeWorth = (amt) => {
+	const changeNetWorth = (amt) => {
 		setOldPlayerState({ ...playerState })
 		setPlayerState({
 			...playerState,
@@ -220,7 +225,7 @@ const GameProvider = ({ children }) => {
 				addSpace, remainingSpace,
 				changeLocation,
 				changeBank, changeDebt, flags,
-				changeWorth,
+				changeNetWorth,
 			}}
 		>
 			{children}

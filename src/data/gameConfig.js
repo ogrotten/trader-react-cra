@@ -9,8 +9,8 @@ const gameConfig = {
 		"START_DEBT": "Money and debt you start with if you take debt"
 	},
 	"MINIMUM_AVAILABLE": 5,
-	"BANK_INTEREST": .02,
-	"DEBT_INTEREST": .04,
+	"BANK_INTEREST": .05,
+	"DEBT_INTEREST": .1,
 	"TURNS": 52,
 	"START_MONEY": 2000,
 	"START_DEBT": 5000,
