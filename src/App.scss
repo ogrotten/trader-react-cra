@@ -1,3 +1,9 @@
+@import "./amount_slider.scss";
+
+*:focus {
+	outline: none;
+}
+
 .container {
 	display: grid;
 	place-items: center;

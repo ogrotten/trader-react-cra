@@ -15,3 +15,12 @@
 	// border: 1px solid red;
 	align-self: start;
 }
+
+.choice {
+	display: flex;
+	justify-content: flex-start;
+	margin: 0 0 20px 0;
+	& > * {
+		min-width: 30%;
+	}
+}
