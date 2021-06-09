@@ -1,6 +1,6 @@
 .money {
 	width: 100%;
-	// min-height: 50px;
+	height: 40px;
 	display: grid;
 	grid: 1fr / 1fr 1fr 1fr;
 	margin: 0;
@@ -10,8 +10,8 @@
 .cash,
 .bank,
 .debt {
-	margin: 0;
-	padding: 10px 0 0;
+	margin: 10px;
+	padding: 0;
 	// border: 1px solid red;
 	align-self: start;
 }

@@ -73,26 +73,25 @@ const Money = (props) => {
 	}, [isShowing, txType])
 
 	return (
-		<section className="money">
-			<div className="cash">Cash: {cash}</div>
-			<div className="bank">
-				Bank: {bank}
+		<div>
+			<section className="money">
+				<div className="cash">Cash: {cash}</div>
+				<div className="bank">
+					Bank: {bank}
+				</div>
+				<div className="debt">
+					Debt: {debt}
+				</div>
+			</section>
+			<section className="money">
+				<div>&nbsp;</div>
 				{position === 1 &&
-					<>
-						<br />
-						<button className="buysell-button" onClick={beginBank}>Go to Bank</button>
-					</>
+					<button className="buysell-button" onClick={beginBank}>Go to Bank</button>
 				}
-			</div>
-			<div className="debt">
-				Debt: {debt}
 				{position === 1 &&
-					<>
-						<br />
-						<button className="buysell-button" onClick={beginShark} disabled={flags.shark}>Visit Loan Shark</button>
-					</>
+					<button className="buysell-button" onClick={beginShark} disabled={flags.shark}>Visit Loan Shark</button>
 				}
-			</div>
+			</section>
 			<Modal data={data}
 				isShowing={isShowing}
 				hide={modalHide}
@@ -119,7 +118,7 @@ const Money = (props) => {
 					</form>
 				}
 			</Modal>
-		</section>
+		</div>
 	)
 }
 
