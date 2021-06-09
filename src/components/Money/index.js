@@ -55,11 +55,11 @@ const Money = (props) => {
 	useEffect(() => {
 		let duckets
 		if (txType === "put") {
-			if (data.type === "bank") {
-				duckets = cash
-			} else if (data.type === "shark") {
-				duckets = debt
-			}
+			// if (data.type === "bank") {
+			duckets = cash
+			// } else if (data.type === "shark") {
+			// duckets = debt
+			// }
 		} else if (txType === "get") {
 			if (data.type === "bank") {
 				duckets = bank
@@ -101,6 +101,7 @@ const Money = (props) => {
 				{data.type === "bank" &&
 					<form className="money-modal">
 						<div className="choice">
+							<span>${txCount}</span>
 							<label>
 								<input name="deposit" type="radio" checked={txType === 'put'} value="put" onChange={() => setTxType('put')} /> Deposit
 							</label>
@@ -109,19 +110,25 @@ const Money = (props) => {
 							</label>
 						</div>
 						<div style={{ display: "flex", justifyContent: "space-between", margin: "10px 0" }}>
-							<span style={{}}>Amount: ${txCount}</span>
-							<span>
-								{cash === 0 && txType === "put" && "No cash to deposit!"}
-								{bank === 0 && txType === "get" && "No funds in bank!"}
+							<span style={{ width: "100%" }} >
+								{(() => {
+									if (bank === 0 && txType === "get") {
+										return "No funds in bank!"
+									} else if (cash === 0 && txType === "put") {
+										return "No cash to deposit!"
+									} else {
+										return <input name="amount" type="range" min={0} max={txMax} defaultValue={0} onChange={getCount} style={{ width: "100%" }} />
+									}
+								})()}
 							</span>
 						</div>
-						<input name="amount" type="range" min={0} max={txMax} defaultValue={0} onChange={getCount} style={{ width: "100%" }} />
 					</form>
 				}
 				{data.type === "shark" &&
 					<>
 						<form className="money-modal">
 							<div className="choice">
+								<span>${txCount}</span>
 								<label>
 									<input name="incur" type="radio" checked={txType === 'get'} value="get" onChange={() => setTxType('get')} /> Get loan
 								</label>
@@ -129,13 +136,15 @@ const Money = (props) => {
 									<input name="payoff" type="radio" checked={txType === 'put'} value="put" onChange={() => setTxType('put')} /> Payoff
 								</label>
 							</div>
-							<div className="amounter" style={{ display: "flex", justifyContent: "space-between", margin: "0 0 0 3px" }}>
-								<span>Amount: ${txCount}</span>
-								<span>
-									{debt === 0 && txType === "put" && "No debt to pay off!"}
+							<div className="amounter" >
+								<span style={{ width: "100%" }} >
+									{
+										(debt === 0 && txType === "put" && "No debt to pay off!")
+										||
+										<input name="amount" type="range" min={0} max={txMax} defaultValue={0} onChange={getCount} style={{ width: "100%" }} />
+									}
 								</span>
 							</div>
-							<input name="amount" type="range" min={0} max={txMax} defaultValue={0} onChange={getCount} style={{ width: "100%" }} />
 						</form>
 						{/* <form>
 							<input name="payoff" type="radio" checked={txType === 'put'} value="put" onChange={() => setTxType('put')} /> Pay off
