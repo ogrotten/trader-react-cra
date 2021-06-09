@@ -48,9 +48,12 @@ const GameProvider = ({ children }) => {
 
 			// Do New Turn stuff.
 			const newturn = { ...playerState }
-			changeBank(Math.floor(newturn.bank *= (1 + gameConfig.BANK_INTEREST)))
-			changeDebt(Math.floor(newturn.debt *= (1 + gameConfig.DEBT_INTEREST)))
-
+			setPlayerState({
+				...newturn,
+				// Interest calc
+				bank: Math.floor(newturn.bank += newturn.bank *= gameConfig.BANK_INTEREST),
+				debt: Math.floor(newturn.debt += newturn.debt *= gameConfig.DEBT_INTEREST),
+			})
 			setFlags({ ...flags, shark: false })
 			setTurn(playerState.currTurn)
 		}
