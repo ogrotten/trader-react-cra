@@ -44,7 +44,7 @@ const GameProvider = ({ children }) => {
 	}, [log])
 
 	useEffect(() => {
-		if (playerState.currTurn != turn) {
+		if (playerState.currTurn !== turn) {
 
 			// Do New Turn stuff.
 			const newturn = { ...playerState }
@@ -60,12 +60,13 @@ const GameProvider = ({ children }) => {
 
 		if (playerState.currTurn >= 0 && Object.keys(updiff).length > 0) {
 			if (!Array.isArray(newlog[playerState.currTurn])) {
-				newlog[playerState.currTurn] = new Array
+				newlog[playerState.currTurn] = new Array()
 			}
 			newlog[playerState.currTurn].push(updiff)
 
 			setLog(newlog)
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [playerState])
 
 	// useEffect(() => {

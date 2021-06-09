@@ -1,7 +1,5 @@
-import React, { useState, useContext, useEffect } from 'react'
-import Modal from "../Modal"
+import React, { useContext, } from 'react'
 import { GameContext } from "../../contexts/GameContext"
-import useModal from '../../hooks/useModal'
 
 import "./GameStart.scss"
 
