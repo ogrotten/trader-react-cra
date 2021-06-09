@@ -73,7 +73,6 @@ const MarketTable = () => {
 			x += (item.price * playerState.inv[i])
 		})
 		changeNetWorth(x)
-		console.log(`worth: `, x)
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [List])

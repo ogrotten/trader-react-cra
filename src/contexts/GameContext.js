@@ -48,11 +48,9 @@ const GameProvider = ({ children }) => {
 
 			// Do New Turn stuff.
 			const newturn = { ...playerState }
-			setPlayerState({
-				...newturn,
-				bank: Math.floor(newturn.bank += newturn.bank *= gameConfig.BANK_INTEREST),
-				debt: Math.floor(newturn.debt += newturn.debt *= gameConfig.DEBT_INTEREST),
-			})
+			changeBank(Math.floor(newturn.bank *= (1 + gameConfig.BANK_INTEREST)))
+			changeDebt(Math.floor(newturn.debt *= (1 + gameConfig.DEBT_INTEREST)))
+
 			setFlags({ ...flags, shark: false })
 			setTurn(playerState.currTurn)
 		}
@@ -68,7 +66,6 @@ const GameProvider = ({ children }) => {
 
 			setLog(newlog)
 		}
-		console.log(`ctx worth: `, playerState.worth)
 	}, [playerState])
 
 	// useEffect(() => {

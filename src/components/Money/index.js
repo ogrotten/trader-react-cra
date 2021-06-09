@@ -65,7 +65,6 @@ const Money = (props) => {
 			if (data.type === "bank") {
 				duckets = bank
 			} else if (data.type === "shark") {
-				console.log(`worth: `, worth)
 				duckets = Math.max(worth / 4, 2000)
 			}
 		}
