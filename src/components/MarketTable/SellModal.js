@@ -1,9 +1,9 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import { GameContext } from "../../contexts/GameContext"
 
 
 export const SellModal = ({ data: { price, name, id }, transaction: { transactionCount, setTransactionCount } }) => {
-	const { playerState: { cash, inv } } = useContext(GameContext)
+	const { playerState: { inv } } = useContext(GameContext)
 
 	const avail = inv[id]
 	const getCount = (e) => {

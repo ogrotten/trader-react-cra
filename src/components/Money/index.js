@@ -15,9 +15,8 @@ const Money = (props) => {
 	const [txCount, setTxCount] = useState(0)
 	const [txMax, setTxMax] = useState(0)
 	const [txType, setTxType] = useState("")
-	const [enableShark, setEnableShark] = useState(0)
 
-	const { playerState, playerState: { cash, bank, debt, position, worth }, changeBank, changeDebt, flags } = useContext(GameContext)
+	const { playerState: { cash, bank, debt, position, worth }, changeBank, changeDebt, flags } = useContext(GameContext)
 	const { modalShow, modalHide, isShowing } = useModal()
 
 	const beginBank = () => {
@@ -70,6 +69,7 @@ const Money = (props) => {
 		}
 		setTxMax(duckets)
 		setTxCount(0)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isShowing, txType])
 
 	return (
