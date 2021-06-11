@@ -7,7 +7,7 @@ import Location from "./components/Location"
 
 import './App.scss';
 import GameOver from "./components/GameOver"
-import GameStart from "./components/Gamestart"
+import GameStart from "./components/GameStart"
 
 const Main = panache.div({
 	width: 432,
