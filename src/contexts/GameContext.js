@@ -60,6 +60,7 @@ const GameProvider = ({ children }) => {
 
 		const newlog = [...log]
 		const updiff = updatedDiff(oldPlayerState, playerState)
+		const updiffInv = updatedDiff(oldPlayerState.inv, playerState.inv)
 
 		if (playerState.currTurn >= 0 && Object.keys(updiff).length > 0) {
 			if (!Array.isArray(newlog[playerState.currTurn])) {
