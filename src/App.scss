@@ -1,3 +1,9 @@
+@import "./widgetry.scss";
+
+// *:focus {
+// 	outline: none;
+// }
+
 .container {
 	display: grid;
 	place-items: center;
@@ -14,4 +20,10 @@
 	justify-content: space-between;
 	border: 1px solid black;
 	z-index: 20;
+}
+
+.amounter {
+	display: flex;
+	justify-content: space-between;
+	margin: 0 0 10px 0;
 }

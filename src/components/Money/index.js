@@ -30,7 +30,7 @@ const Money = (props) => {
 	}
 	const beginShark = () => {
 		setTxCount(0)
-		setTxType("put")
+		setTxType("get")
 		setData({
 			title: "Fast Eddies, LLC",
 			type: "shark",
@@ -58,7 +58,7 @@ const Money = (props) => {
 			if (data.type === "bank") {
 				duckets = cash
 			} else if (data.type === "shark") {
-				duckets = debt
+				duckets = Math.min(debt, cash)
 			}
 		} else if (txType === "get") {
 			if (data.type === "bank") {
@@ -73,26 +73,25 @@ const Money = (props) => {
 	}, [isShowing, txType])
 
 	return (
-		<section className="money">
-			<div className="cash">Cash: {cash}</div>
-			<div className="bank">
-				Bank: {bank}
+		<div>
+			<section className="money">
+				<div className="cash">Cash: {cash}</div>
+				<div className="bank">
+					Bank: {bank}
+				</div>
+				<div className="debt">
+					Debt: {debt}
+				</div>
+			</section>
+			<section className="money">
+				<div>&nbsp;</div>
 				{position === 1 &&
-					<>
-						<br />
-						<button className="buysell-button" onClick={beginBank}>Go to Bank</button>
-					</>
+					<button className="buysell-button" onClick={beginBank}>Go to Bank</button>
 				}
-			</div>
-			<div className="debt">
-				Debt: {debt}
 				{position === 1 &&
-					<>
-						<br />
-						<button className="buysell-button" onClick={beginShark} disabled={flags.shark}>Visit Loan Shark</button>
-					</>
+					<button className="buysell-button" onClick={beginShark} disabled={flags.shark}>Visit Loan Shark</button>
 				}
-			</div>
+			</section>
 			<Modal data={data}
 				isShowing={isShowing}
 				hide={modalHide}
@@ -100,26 +99,64 @@ const Money = (props) => {
 				okAction={endTransaction}
 			>
 				{data.type === "bank" &&
-					<form>
-						<input name="deposit" type="radio" checked={txType === 'put'} value="put" onChange={() => setTxType('put')} /> Deposit
-						<input name="withdraw" type="radio" checked={txType === 'get'} value="get" onChange={() => setTxType('get')} /> Withdraw
-						<input name="amount" type="range" min={0} max={txMax} defaultValue={0} onChange={getCount} style={{ width: "100%" }} />
-						<p>{txCount}</p>
-						<p>{cash === 0 && txType === "put" && "No cash to deposit!"}</p>
-						<p>{bank === 0 && txType === "get" && "No funds in bank!"}</p>
+					<form className="money-modal">
+						<div className="choice">
+							<span>${txCount}</span>
+							<label>
+								<input name="deposit" type="radio" checked={txType === 'put'} value="put" onChange={() => setTxType('put')} /> Deposit
+							</label>
+							<label>
+								<input name="withdraw" type="radio" checked={txType === 'get'} value="get" onChange={() => setTxType('get')} /> Withdraw
+							</label>
+						</div>
+						<div style={{ display: "flex", justifyContent: "space-between", margin: "10px 0" }}>
+							<span style={{ width: "100%" }} >
+								{(() => {
+									if (bank === 0 && txType === "get") {
+										return "No funds in bank!"
+									} else if (cash === 0 && txType === "put") {
+										return "No cash to deposit!"
+									} else {
+										return <input name="amount" type="range" min={0} max={txMax} defaultValue={0} onChange={getCount} style={{ width: "100%" }} />
+									}
+								})()}
+							</span>
+						</div>
 					</form>
 				}
 				{data.type === "shark" &&
-					<form>
-						<input name="payoff" type="radio" checked={txType === 'put'} value="put" onChange={() => setTxType('put')} /> Pay off
+					<>
+						<form className="money-modal">
+							<div className="choice">
+								<span>${txCount}</span>
+								<label>
+									<input name="incur" type="radio" checked={txType === 'get'} value="get" onChange={() => setTxType('get')} /> Get loan
+								</label>
+								<label>
+									<input name="payoff" type="radio" checked={txType === 'put'} value="put" onChange={() => setTxType('put')} /> Payoff
+								</label>
+							</div>
+							<div className="amounter" >
+								<span style={{ width: "100%" }} >
+									{
+										(debt === 0 && txType === "put" && "No debt to pay off!")
+										||
+										<input name="amount" type="range" min={0} max={txMax} defaultValue={0} onChange={getCount} style={{ width: "100%" }} />
+									}
+								</span>
+							</div>
+						</form>
+						{/* <form>
+							<input name="payoff" type="radio" checked={txType === 'put'} value="put" onChange={() => setTxType('put')} /> Pay off
 						<input name="incur" type="radio" checked={txType === 'get'} value="get" onChange={() => setTxType('get')} /> Get loan
 						<input name="amount" type="range" min={0} max={txMax} defaultValue={0} onChange={getCount} style={{ width: "100%" }} />
-						<p>{txCount}<br /></p>
-						<p>{debt === 0 && txType === "put" && "No debt to pay off!"}</p>
-					</form>
+							<p>{txCount}<br /></p>
+							<p>{debt === 0 && txType === "put" && "No debt to pay off!"}</p>
+						</form> */}
+					</>
 				}
 			</Modal>
-		</section>
+		</div >
 	)
 }
 
