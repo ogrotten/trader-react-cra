@@ -91,7 +91,7 @@ const Event = () => {
 				const check = d100()
 				// console.log(`> Event ${item.title}: ${item.chance} / ${check}`, check)
 				if (check < item.chance) {
-					console.log(`> > Event Hit: `, item.title)
+					// console.log(`> > Event Hit: `, item.title)
 					pushItem.eventAction = contextObj[item.eventAction]
 					if (item.cost.length) {
 						const cost = price(
