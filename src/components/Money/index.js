@@ -55,11 +55,11 @@ const Money = (props) => {
 	useEffect(() => {
 		let duckets
 		if (txType === "put") {
-			// if (data.type === "bank") {
-			duckets = cash
-			// } else if (data.type === "shark") {
-			// duckets = debt
-			// }
+			if (data.type === "bank") {
+				duckets = cash
+			} else if (data.type === "shark") {
+				duckets = Math.min(debt, cash)
+			}
 		} else if (txType === "get") {
 			if (data.type === "bank") {
 				duckets = bank
