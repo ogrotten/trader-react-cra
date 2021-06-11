@@ -60,11 +60,11 @@ const GameProvider = ({ children }) => {
 
 		const newlog = [...log]
 		const updiff = updatedDiff(oldPlayerState, playerState)
-		const updiffInv = updatedDiff(oldPlayerState.inv, playerState.inv)
+		// const updiffInv = updatedDiff(oldPlayerState.inv, playerState.inv)
 
 		if (playerState.currTurn >= 0 && Object.keys(updiff).length > 0) {
 			if (!Array.isArray(newlog[playerState.currTurn])) {
-				newlog[playerState.currTurn] = new Array()
+				newlog[playerState.currTurn] = []
 			}
 			newlog[playerState.currTurn].push(updiff)
 
@@ -227,7 +227,7 @@ const GameProvider = ({ children }) => {
 				addSpace, remainingSpace,
 				changeLocation,
 				changeBank, changeDebt, flags,
-				changeNetWorth,
+				changeNetWorth, changeFlag
 			}}
 		>
 			{children}
