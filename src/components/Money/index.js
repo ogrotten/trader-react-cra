@@ -75,12 +75,12 @@ const Money = (props) => {
 	return (
 		<div>
 			<section className="money">
-				<div className="cash">Cash: {cash}</div>
+				<div className="cash">Cash: {cash.toLocaleString(undefined, { maximumFractionDigits: 0 })}</div>
 				<div className="bank">
-					Bank: {bank}
+					Bank: {bank.toLocaleString(undefined, { maximumFractionDigits: 0 })}
 				</div>
 				<div className="debt">
-					Debt: {debt}
+					Debt: {debt.toLocaleString(undefined, { maximumFractionDigits: 0 })}
 				</div>
 			</section>
 			<section className="money">
@@ -101,7 +101,7 @@ const Money = (props) => {
 				{data.type === "bank" &&
 					<form className="money-modal">
 						<div className="choice">
-							<span>${txCount}</span>
+							<span>${txCount.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
 							<label>
 								<input name="deposit" type="radio" checked={txType === 'put'} value="put" onChange={() => setTxType('put')} /> Deposit
 							</label>
@@ -128,7 +128,7 @@ const Money = (props) => {
 					<>
 						<form className="money-modal">
 							<div className="choice">
-								<span>${txCount}</span>
+								<span>{txCount.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
 								<label>
 									<input name="incur" type="radio" checked={txType === 'get'} value="get" onChange={() => setTxType('get')} /> Get loan
 								</label>
