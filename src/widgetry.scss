@@ -1,7 +1,7 @@
 // https://www.cssportal.com/style-input-range/
 
 input[type="range"] {
-	// height: 33px;
+	height: 28px;
 	-webkit-appearance: none;
 	margin: 10px 0;
 	width: 100%;
@@ -11,50 +11,50 @@ input[type="range"]:focus {
 }
 input[type="range"]::-webkit-slider-runnable-track {
 	width: 100%;
-	height: 7px;
+	height: 14px;
 	cursor: pointer;
 	animate: 0.2s;
-	box-shadow: 0px 0px 0px #000000;
-	background: #3b8cd1;
-	border-radius: 5px;
-	border: 0px solid #000000;
+	box-shadow: 0px 0px 0px #50555c;
+	background: #deebff;
+	border-radius: 14px;
+	border: 1px solid #9da7b5;
 }
 input[type="range"]::-webkit-slider-thumb {
-	box-shadow: 0px 0px 0px #000000;
-	border: 2px solid #3071a9;
-	height: 25px;
-	width: 25px;
-	border-radius: 13px;
-	background: #ffffff;
+	box-shadow: 0px 0px 0px #ffffff;
+	border: 1px solid #ffffff;
+	height: 21px;
+	width: 40px;
+	border-radius: 12px;
+	background: #529de1;
 	cursor: pointer;
 	-webkit-appearance: none;
-	margin-top: -10px;
+	margin-top: -4.5px;
 }
 input[type="range"]:focus::-webkit-slider-runnable-track {
-	background: #3b8cd1;
+	background: #deebff;
 }
 input[type="range"]::-moz-range-track {
 	width: 100%;
-	height: 7px;
+	height: 14px;
 	cursor: pointer;
 	animate: 0.2s;
-	box-shadow: 0px 0px 0px #000000;
-	background: #3b8cd1;
-	border-radius: 5px;
-	border: 0px solid #000000;
+	box-shadow: 0px 0px 0px #50555c;
+	background: #deebff;
+	border-radius: 14px;
+	border: 1px solid #9da7b5;
 }
 input[type="range"]::-moz-range-thumb {
-	box-shadow: 0px 0px 0px #000000;
-	border: 2px solid #3071a9;
-	height: 25px;
-	width: 25px;
-	border-radius: 13px;
-	background: #ffffff;
+	box-shadow: 0px 0px 0px #ffffff;
+	border: 1px solid #ffffff;
+	height: 21px;
+	width: 40px;
+	border-radius: 12px;
+	background: #529de1;
 	cursor: pointer;
 }
 input[type="range"]::-ms-track {
 	width: 100%;
-	height: 7px;
+	height: 14px;
 	cursor: pointer;
 	animate: 0.2s;
 	background: transparent;
@@ -62,30 +62,30 @@ input[type="range"]::-ms-track {
 	color: transparent;
 }
 input[type="range"]::-ms-fill-lower {
-	background: #3b8cd1;
-	border: 0px solid #000000;
-	border-radius: 10px;
-	box-shadow: 0px 0px 0px #000000;
+	background: #deebff;
+	border: 1px solid #9da7b5;
+	border-radius: 28px;
+	box-shadow: 0px 0px 0px #50555c;
 }
 input[type="range"]::-ms-fill-upper {
-	background: #3b8cd1;
-	border: 0px solid #000000;
-	border-radius: 10px;
-	box-shadow: 0px 0px 0px #000000;
+	background: #deebff;
+	border: 1px solid #9da7b5;
+	border-radius: 28px;
+	box-shadow: 0px 0px 0px #50555c;
 }
 input[type="range"]::-ms-thumb {
 	margin-top: 1px;
-	box-shadow: 0px 0px 0px #000000;
-	border: 2px solid #3071a9;
-	height: 25px;
-	width: 25px;
-	border-radius: 13px;
-	background: #ffffff;
+	box-shadow: 0px 0px 0px #ffffff;
+	border: 1px solid #ffffff;
+	height: 21px;
+	width: 40px;
+	border-radius: 12px;
+	background: #529de1;
 	cursor: pointer;
 }
 input[type="range"]:focus::-ms-fill-lower {
-	background: #3b8cd1;
+	background: #deebff;
 }
 input[type="range"]:focus::-ms-fill-upper {
-	background: #3b8cd1;
+	background: #deebff;
 }
