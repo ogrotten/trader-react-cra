@@ -27,3 +27,11 @@
 	justify-content: space-between;
 	margin: 0 0 10px 0;
 }
+
+button {
+	box-sizing: border-box;
+	&:hover {
+		background-color: darken($color: #fff, $amount: 15%);
+		box-sizing: border-box;
+	}
+}

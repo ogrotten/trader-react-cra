@@ -138,11 +138,15 @@ const Money = (props) => {
 							</div>
 							<div className="amounter" >
 								<span style={{ width: "100%" }} >
-									{
-										(debt === 0 && txType === "put" && "No debt to pay off!")
-										||
-										<input name="amount" type="range" min={0} max={txMax} defaultValue={0} onChange={getCount} style={{ width: "100%" }} />
-									}
+									{(() => {
+										if (debt === 0 && txType === "put") {
+											return "No debt to pay off!"
+										} else if (txType === "get" && debt > (cash * 3)) {
+											return "You already owe too much!"
+										} else {
+											return <input name="amount" type="range" min={0} max={txMax} defaultValue={0} onChange={getCount} style={{ width: "100%" }} />
+										}
+									})()}
 								</span>
 							</div>
 						</form>
