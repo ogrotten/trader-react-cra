@@ -23,8 +23,8 @@ const GameStart = () => {
 
 	return (
 		<Pregame>
-			<p>You're coming up in a corporate metropolis slingin snow, trying to pile up as much money as you can in a year of dealing.</p>
-			<p>Buy low, sell high, one week at a time. Drop your duckets into the bank for risk-free interest. Take on debt from the loan sharks if you dare.</p>
+			<p>You're coming up in a corporate metropolis, slingin snow and trying to pile up as many creds as you can in a year of dealing.</p>
+			<p>Buy low, sell high, one week at a time. Drop your duckets into the bank for risk-free interest. Or take on debt from the loan sharks for the one big score, if you dare.</p>
 			<p>Maybe you can't take it with you, but you can sure as hell run up the score and leave this city far behind.</p>
 			<button onClick={begin}>
 				Git money!
