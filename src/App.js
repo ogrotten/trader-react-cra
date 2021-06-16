@@ -4,15 +4,33 @@ import { GameContext } from "./contexts/GameContext"
 
 import Market from "./components/Market"
 import Location from "./components/Location"
-
-import './App.scss';
 import GameOver from "./components/GameOver"
 import GameStart from "./components/GameStart"
+import { dAny } from "./engines/dice"
+
+import './App.scss';
+
+function importBG(incoming) {
+	let images = {}
+	incoming.keys().forEach((item, i) => {
+		images[item.replace('./', '')] = incoming(item)
+	})
+
+	let imgArray = []
+	Object.values(images).forEach(item => {
+		imgArray.push(Object.values(item)[0])
+	});
+
+	return imgArray
+}
+
+const allBG = importBG(require.context('./data/backgrounds/cities', false, /\.(png|jpe?g|svg)$/))
 
 const Main = panache.div({
 	width: 432,
 	height: 768,
-	backgroundColor: "white"
+	// backgroundColor: "white"
+	backgroundImage: allBG[dAny(allBG.length)],
 })
 
 const App = () => {
