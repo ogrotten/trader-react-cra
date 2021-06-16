@@ -8,6 +8,9 @@ table {
 	max-width: 100%;
 	grid-template-columns: 60px 40px 1fr repeat(2, 60px);
 	color: silver;
+	// --evenRow: rgba(68, 68, 68, 0.664);
+	--evenRow: rgba(28, 28, 28, 0.664);
+	--oddRow: rgba(48, 48, 48, 0.5);
 }
 
 thead,
@@ -15,10 +18,10 @@ tbody,
 tr {
 	display: contents;
 	> :nth-child(even) td {
-		background: rgba(80, 80, 80, 0.5);
+		background: var(--evenRow);
 	}
 	> :nth-child(odd) td {
-		background: rgba(48, 48, 48, 0.5);
+		background: var(--oddRow);
 	}
 	.event-row td {
 		background: rgba(0, 158, 158, 0.5);
@@ -49,7 +52,7 @@ th:last-child {
 
 td {
 	// color: #808080;
-	border: 1px solid rgb(0, 0, 0);
+	// border: 1px solid rgb(0, 0, 0);
 }
 
 td.buysell-cell {
@@ -61,7 +64,7 @@ td.buysell-cell {
 
 button.buysell-button {
 	font-weight: normal;
-	border: 1px solid silver;
+	// border: 1px solid silver;
 	border-radius: 3px;
 	width: 80%;
 	height: 25px;

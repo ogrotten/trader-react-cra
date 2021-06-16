@@ -29,7 +29,7 @@ const allBG = importBG(require.context('./data/backgrounds/cities', false, /\.(p
 const Main = panache.div({
 	width: 432,
 	height: 768,
-	color: "red",
+	color: "#f22",
 })
 
 const BG = panache.div({

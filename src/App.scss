@@ -1,7 +1,7 @@
 @import "./widgetry.scss";
 
 // * {
-// 	color: white;
+// 	color: rgb(130, 130, 130);
 // }
 
 .container {
@@ -31,8 +31,10 @@
 
 button {
 	box-sizing: border-box;
+	background: rgba(192, 192, 192, 0.75);
+	color: black;
 	&:hover {
-		background-color: darken($color: #fff, $amount: 15%);
+		background-color: lighten($color: rgba(0, 158, 158, 0.75), $amount: 15%);
 		box-sizing: border-box;
 	}
 }

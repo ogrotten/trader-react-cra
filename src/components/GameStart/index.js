@@ -25,7 +25,7 @@ const GameStart = () => {
 		<Pregame>
 			<p>You're coming up in a corporate metropolis slingin snow, trying to pile up as much money as you can in a year of dealing.</p>
 			<p>Buy low, sell high, one week at a time. Drop your duckets into the bank for risk-free interest. Take on debt from the loan sharks if you dare.</p>
-			<p>Maybe you can't take it with you, but you can sure as hell run up the score and leave the gonks in this shithole far behind.</p>
+			<p>Maybe you can't take it with you, but you can sure as hell run up the score and leave this city far behind.</p>
 			<button onClick={begin}>
 				Git money!
 			</button>
