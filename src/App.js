@@ -29,16 +29,30 @@ const allBG = importBG(require.context('./data/backgrounds/cities', false, /\.(p
 const Main = panache.div({
 	width: 432,
 	height: 768,
-	color: "white",
-	backgroundImage: `url(${allBG[dAny(allBG.length - 1)]})`,
-	backgroundSize: "cover",
-	filter: "brightness(0.5)"
+	color: "red",
 })
 
-const Backgrounder = panache.div({
+const BG = panache.div({
+	position: "absolute",
+	zIndex: "-10",
+	top: "0px",
+	left: "0px",
+	width: "432px",
+	height: "768px",
 	backgroundImage: `url(${allBG[dAny(allBG.length - 1)]})`,
 	backgroundSize: "cover",
-	filter: "brightness(0.5)"
+	filter: "brightness(1)"
+})
+
+const Overlay = panache.div({
+	position: "absolute",
+	zIndex: "-9",
+	top: "0px",
+	left: "0px",
+	width: "432px",
+	height: "768px",
+	backgroundColor: "black",
+	filter: "opacity(0.5)"
 })
 
 const App = () => {
@@ -47,6 +61,8 @@ const App = () => {
 	return (
 		<div className="container">
 			<Main id="main" className="main">
+				<BG />
+				<Overlay />
 				{startGame() &&
 					<GameStart />
 				}
@@ -60,6 +76,7 @@ const App = () => {
 					</>
 				}
 			</Main>
+			{/* </Backgrounder> */}
 		</div>
 	)
 }

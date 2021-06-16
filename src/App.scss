@@ -1,8 +1,8 @@
 @import "./widgetry.scss";
 
-* {
-	color: white;
-}
+// * {
+// 	color: white;
+// }
 
 .container {
 	display: grid;
@@ -12,6 +12,7 @@
 }
 
 .main {
+	position: relative;
 	width: 432px;
 	height: 768px;
 	display: grid;
