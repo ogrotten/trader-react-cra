@@ -34,14 +34,14 @@ const Main = panache.div({
 
 const BG = panache.div({
 	position: "absolute",
-	// zIndex: "-10",
-	zIndex: "100",
+	zIndex: "-10",
+	// zIndex: "100",
 	top: "0px",
 	left: "0px",
 	width: "432px",
 	height: "768px",
-	// backgroundImage: `url(${allBG[dAny(allBG.length - 1)]})`,
-	backgroundImage: `url(${allBG[7]})`,
+	backgroundImage: `url(${allBG[dAny(allBG.length - 1)]})`,
+	// backgroundImage: `url(${allBG[7]})`,
 	backgroundPosition: "30% center",
 	backgroundSize: "cover",
 	filter: "brightness(1)"
@@ -62,15 +62,18 @@ const styleSheet = document.styleSheets[0]
 
 const bgKeyFrames =
 	`@keyframes rolling {
-	from {background-position: 30% center;}
-	to {background-position: 70% center;}
+	from {background-position: 20% center;}
+	to {background-position: 80% center;}
 	}`
 
 styleSheet.insertRule(bgKeyFrames, styleSheet.cssRules.length)
 
 const roller = {
 	animationName: "rolling",
-	animationDuration: "5s",
+	animationDuration: "45s",
+	animationIterationCount: "infinite",
+	animationDirection: "alternate",
+	animationTimingFunction: "linear"
 }
 
 const App = () => {
