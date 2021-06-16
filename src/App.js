@@ -29,8 +29,16 @@ const allBG = importBG(require.context('./data/backgrounds/cities', false, /\.(p
 const Main = panache.div({
 	width: 432,
 	height: 768,
-	// backgroundColor: "white"
-	backgroundImage: allBG[dAny(allBG.length)],
+	color: "white",
+	backgroundImage: `url(${allBG[dAny(allBG.length - 1)]})`,
+	backgroundSize: "cover",
+	filter: "brightness(0.5)"
+})
+
+const Backgrounder = panache.div({
+	backgroundImage: `url(${allBG[dAny(allBG.length - 1)]})`,
+	backgroundSize: "cover",
+	filter: "brightness(0.5)"
 })
 
 const App = () => {

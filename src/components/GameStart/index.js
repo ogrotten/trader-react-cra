@@ -3,7 +3,6 @@ import panache from "panache-react"
 
 import { GameContext } from "../../contexts/GameContext"
 
-import panache from "panache-react"
 import "./GameStart.scss"
 
 const styles = {
