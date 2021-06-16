@@ -7,6 +7,7 @@ table {
 	border-collapse: collapse;
 	max-width: 100%;
 	grid-template-columns: 60px 40px 1fr repeat(2, 60px);
+	color: silver;
 }
 
 thead,
@@ -14,10 +15,13 @@ tbody,
 tr {
 	display: contents;
 	> :nth-child(even) td {
-		background: #f8f6ff;
+		background: rgba(80, 80, 80, 0.5);
+	}
+	> :nth-child(odd) td {
+		background: rgba(48, 48, 48, 0.5);
 	}
 	.event-row td {
-		background: #ccffd2;
+		background: rgba(0, 158, 158, 0.5);
 	}
 }
 
@@ -32,11 +36,11 @@ td {
 th {
 	position: sticky;
 	top: 0;
-	background: #6c7ae0;
+	background: rgba(0, 0, 0, 0.5);
 	text-align: left;
 	font-weight: normal;
-	font-size: 1.1rem;
-	color: white;
+	font-size: 0.85rem;
+	color: rgb(0, 158, 158);
 }
 
 th:last-child {
@@ -44,8 +48,8 @@ th:last-child {
 }
 
 td {
-	color: #808080;
-	border: 1px solid rgb(224, 224, 224);
+	// color: #808080;
+	border: 1px solid rgb(0, 0, 0);
 }
 
 td.buysell-cell {
