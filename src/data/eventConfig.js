@@ -22,7 +22,7 @@ export const eventConfig = [
 		cost: [.15, .33, -7, 1.6,]
 	},
 	{
-		chance: 100,
+		chance: 15,
 		type: "event",
 		title: "Random",
 		body: "[In the street] you [see] [a bully] [stealing] [candy] [from a baby].",
