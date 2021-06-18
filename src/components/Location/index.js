@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react'
-import Modal from "../Modal"
+import panache from "panache-react"
 import { GameContext } from "../../contexts/GameContext"
 
+import Modal from "../Modal"
 import "./Location.scss"
 import useModal from '../../hooks/useModal'
 
@@ -32,6 +33,13 @@ const Location = () => {
 		modalShow()
 	}
 
+	const LocButton = panache.button({
+		width: "28%",
+		margin: "8px 0",
+		height: "64px",
+		backgroundColor: "silver"
+	})
+
 	return (
 		<>
 			<div className="mainFooter">
@@ -48,13 +56,13 @@ const Location = () => {
 					{
 						LOCATIONS.map((item, i) => {
 							return (
-								<button key={i} value={i}
+								<LocButton key={i} value={i}
 									disabled={i === position}
-									style={{ width: "28%", margin: "8px 0", height: 64 }}
+									style={i === position ? { backgroundColor: "#404040", color: "#606060" } : null}
 									onClick={doTravel}
 								>
 									{item}
-								</button>
+								</LocButton>
 							)
 						})
 					}
