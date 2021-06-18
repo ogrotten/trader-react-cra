@@ -92,11 +92,13 @@ const Event = () => {
 				// console.log(`> Event ${item.title}: ${item.chance} / ${check}`, check)
 				if (check < item.chance) {
 					// console.log(`> > Event Hit: `, item.title)
-					pushItem.eventAction = contextObj[item.eventAction]
+					if (typeof pushItem.eventAction != "function") {
+						pushItem.eventAction = contextObj[item.eventAction]
+					}
 
 					// it blows out here without a cost array in the event data
 					// need to genericize the returned event data.
-					if (item.cost.length) {
+					if (item.cost && item.cost.length) {
 						const cost = price(
 							item.cost[0] * playerState.worth,
 							item.cost[1] * playerState.worth,
