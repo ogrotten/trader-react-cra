@@ -71,6 +71,9 @@ const Event = () => {
 				// eventAction: actionFunctions["advanceTurn"]()
 			}
 			events.push(gameStart)
+
+			// No non market events.
+			return events
 		}
 
 		// End Game
@@ -82,6 +85,9 @@ const Event = () => {
 				eventAction: function () { console.log(`conlog: END GAME`,) }
 			}
 			events.push(gameEnd)
+
+			// No non market events.
+			return events
 		}
 
 		// Regular Game Turn
@@ -94,6 +100,9 @@ const Event = () => {
 					// console.log(`> > Event Hit: `, item.title)
 					if (typeof pushItem.eventAction != "function") {
 						pushItem.eventAction = contextObj[item.eventAction]
+					}
+					if (typeof pushItem.cancelAction != "function") {
+						pushItem.cancelAction = remvEvent
 					}
 
 					// it blows out here without a cost array in the event data

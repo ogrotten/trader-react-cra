@@ -1,12 +1,22 @@
 import React, { useContext, } from 'react'
+import panache from "panache-react"
 import { GameContext } from "../../contexts/GameContext"
 
 import "./GameOver.scss"
 
+const styles = {
+	Pregame: panache.div({
+		padding: "18%",
+		lineHeight: "200%",
+	})
+}
+
 const GameOver = () => {
 	const { /* log, */ playerState: { cash, debt, bank, worth } } = useContext(GameContext)
+	const { Pregame } = styles
+
 	return (
-		<div>
+		<Pregame>
 			<h2>After a year...</h2>
 			<p>Cash: {cash.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
 			<p>Bank: {bank.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
@@ -14,7 +24,7 @@ const GameOver = () => {
 			<p>Debt: {debt.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
 
 			<h1>{(cash + bank + worth - debt).toLocaleString(undefined, { maximumFractionDigits: 0 })}</h1>
-		</div>
+		</Pregame>
 	)
 }
 
