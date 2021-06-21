@@ -61,7 +61,7 @@ const MarketTable = () => {
 	}, [])
 
 	useEffect(() => {
-		let x = cash
+		let networth = 0
 		List.forEach((item, i) => {
 			if (item.event === true) {
 				addEvent({
@@ -70,9 +70,9 @@ const MarketTable = () => {
 					body: `${item.name} prices are really ${ITEMS[i].spikeType}!`
 				})
 			}
-			x += (item.price * playerState.inv[i])
+			networth += (item.price * playerState.inv[i])
 		})
-		changeNetWorth(x)
+		changeNetWorth(networth)
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [List])

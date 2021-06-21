@@ -23,6 +23,7 @@ const GameOver = () => {
 			<p>Inventory value: {worth.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
 			<p>Debt: {debt.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
 
+			<h3>Your net worth:</h3>
 			<h1>{(cash + bank + worth - debt).toLocaleString(undefined, { maximumFractionDigits: 0 })}</h1>
 		</Pregame>
 	)
