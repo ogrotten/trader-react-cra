@@ -35,8 +35,9 @@ const Location = () => {
 
 	const MainFooter = panache.div({
 		display: "grid",
-		placeItems: "center",
-		height: "auto"
+		justifyItems: "start",
+		height: "auto",
+		margin: "0 20px"
 	})
 	const LocButton = panache.button({
 		width: "28%",
