@@ -23,7 +23,7 @@ const Main = panache.div(({ theme, media }) => ({
 	gridTemplateColumns: "100%",
 	gridTemplateRows: "auto 50px",
 	justifyContent: "space-between",
-	border: "1px solid black",
+	// border: "1px solid black",
 	zIndex: 20,
 	[media.small]: {
 		fontSize: "13px",
