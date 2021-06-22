@@ -11,9 +11,9 @@ import { dAny } from "./engines/dice"
 import './App.scss';
 
 const Main = panache.div(({ theme, media }) => ({
-	width: "100vw",
+	width: "99%",
 	maxWidth: theme.outer.maxWidth,
-	height: "100vh",
+	height: "99%",
 	maxHeight: theme.outer.maxHeight,
 	color: theme.outer.color,
 	font: theme.outer.font,
@@ -35,6 +35,7 @@ const Container = panache.div(({ theme, media }) => ({
 	height: "100vh",
 	display: "grid",
 	placeItems: "center",
+	backgroundColor: "black",
 }))
 
 // #region Randomized background image 
