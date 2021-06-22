@@ -5,10 +5,10 @@
 table {
 	display: grid;
 	border-collapse: collapse;
-	max-width: 100%;
+	max-width: 95%;
 	grid-template-columns: 60px 40px 1fr repeat(2, 60px);
 	color: silver;
-	// --evenRow: rgba(68, 68, 68, 0.664);
+	margin: 0 auto;
 	--evenRow: rgba(28, 28, 28, 0.664);
 	--oddRow: rgba(48, 48, 48, 0.5);
 }
