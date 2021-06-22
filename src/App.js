@@ -10,6 +10,13 @@ import { dAny } from "./engines/dice"
 
 import './App.scss';
 
+const Main = panache.div(({ theme, media }) => ({
+	width: theme.outer.width,
+	height: theme.outer.height,
+	color: theme.outer.color,
+}))
+
+// #region Randomized background image 
 function importBG(incoming) {
 	let images = {}
 	incoming.keys().forEach((item, i) => {
@@ -23,25 +30,18 @@ function importBG(incoming) {
 
 	return imgArray
 }
-
 const allBG = importBG(require.context('./data/backgrounds/cities', false, /\.(png|jpe?g|svg)$/))
+// #endregion
 
-const Main = panache.div({
-	width: 432,
-	height: 768,
-	color: "#f22",
-})
-
+// #region Background image scroller setup
 const BG = panache.div({
 	position: "absolute",
 	zIndex: "-10",
-	// zIndex: "100",
 	top: "0px",
 	left: "0px",
 	width: "432px",
 	height: "768px",
 	backgroundImage: `url(${allBG[dAny(allBG.length - 1)]})`,
-	// backgroundImage: `url(${allBG[7]})`,
 	backgroundPosition: "30% center",
 	backgroundSize: "cover",
 	filter: "brightness(1)"
@@ -75,6 +75,7 @@ const roller = {
 	animationDirection: "alternate",
 	animationTimingFunction: "linear"
 }
+// #endregion Background image scroller setup
 
 const App = () => {
 	const { startGame, endGame, } = useContext(GameContext)

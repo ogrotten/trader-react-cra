@@ -4,8 +4,6 @@ import { GameContext } from "../../contexts/GameContext"
 import useModal from "../../hooks/useModal"
 import Modal from "../Modal"
 
-// import styled from "styled-components";
-
 // import { d100, dAny, dRange } from "../../engines/dice"
 
 import "./Money.scss"
