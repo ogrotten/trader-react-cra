@@ -66,7 +66,8 @@ const BG = panache.div({
 	backgroundImage: `url(${allBG[dAny(allBG.length - 1)]})`,
 	backgroundPosition: "30% center",
 	backgroundSize: "cover",
-	filter: "brightness(1)"
+	filter: "brightness(1)",
+	boxShadow: "inset 0 0 15px 10px #000"
 })
 
 const Overlay = panache.div({
@@ -77,7 +78,7 @@ const Overlay = panache.div({
 	width: "100%",
 	height: "100%",
 	backgroundColor: "black",
-	filter: "opacity(0.5)"
+	filter: "opacity(0.5)",
 })
 
 const styleSheet = document.styleSheets[0]
