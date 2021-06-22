@@ -27,7 +27,7 @@ const GameStart = () => {
 			<p>Buy low, sell high, one week at a time. Drop your duckets into the bank for risk-free interest. Or take on debt from the loan sharks for the one big score, if you dare.</p>
 			<p>Maybe you can't take it with you, but you can sure as hell run up the score and leave this city far behind.</p>
 			<button onClick={begin}>
-				Git money!
+				git money
 			</button>
 		</Pregame>
 	)

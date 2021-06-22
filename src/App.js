@@ -10,6 +10,35 @@ import { dAny } from "./engines/dice"
 
 import './App.scss';
 
+const Main = panache.div(({ theme, media }) => ({
+	width: "99%",
+	maxWidth: theme.outer.maxWidth,
+	height: "99%",
+	maxHeight: theme.outer.maxHeight,
+	color: theme.outer.color,
+	font: theme.outer.font,
+
+	position: "relative",
+	display: "grid",
+	gridTemplateColumns: "100%",
+	gridTemplateRows: "auto 50px",
+	justifyContent: "space-between",
+	border: "1px solid black",
+	zIndex: 20,
+	[media.small]: {
+		fontSize: "13px",
+	}
+}))
+
+const Container = panache.div(({ theme, media }) => ({
+	width: "100vw",
+	height: "100vh",
+	display: "grid",
+	placeItems: "center",
+	backgroundColor: "black",
+}))
+
+// #region Randomized background image 
 function importBG(incoming) {
 	let images = {}
 	incoming.keys().forEach((item, i) => {
@@ -23,28 +52,22 @@ function importBG(incoming) {
 
 	return imgArray
 }
-
 const allBG = importBG(require.context('./data/backgrounds/cities', false, /\.(png|jpe?g|svg)$/))
+// #endregion
 
-const Main = panache.div({
-	width: 432,
-	height: 768,
-	color: "#f22",
-})
-
+// #region Background image scroller setup
 const BG = panache.div({
 	position: "absolute",
 	zIndex: "-10",
-	// zIndex: "100",
 	top: "0px",
 	left: "0px",
-	width: "432px",
-	height: "768px",
+	width: "100%",
+	height: "100%",
 	backgroundImage: `url(${allBG[dAny(allBG.length - 1)]})`,
-	// backgroundImage: `url(${allBG[7]})`,
 	backgroundPosition: "30% center",
 	backgroundSize: "cover",
-	filter: "brightness(1)"
+	filter: "brightness(1)",
+	boxShadow: "inset 0 0 15px 10px #000"
 })
 
 const Overlay = panache.div({
@@ -52,10 +75,10 @@ const Overlay = panache.div({
 	zIndex: "-9",
 	top: "0px",
 	left: "0px",
-	width: "432px",
-	height: "768px",
+	width: "100%",
+	height: "100%",
 	backgroundColor: "black",
-	filter: "opacity(0.5)"
+	filter: "opacity(0.5)",
 })
 
 const styleSheet = document.styleSheets[0]
@@ -75,20 +98,21 @@ const roller = {
 	animationDirection: "alternate",
 	animationTimingFunction: "linear"
 }
+// #endregion Background image scroller setup
 
 const App = () => {
 	const { startGame, endGame, } = useContext(GameContext)
 
 	return (
-		<div className="container">
-			<Main id="main" className="main">
-				<BG style={roller} />
-				<Overlay />
+		<Container id="container"/*  className="container" */>
+			<Main id="main">
+				<BG id="BG" style={roller} />
+				<Overlay id="overlay" />
 				{startGame() &&
-					<GameStart />
+					<GameStart id="GameStart" />
 				}
 				{endGame() &&
-					<GameOver />
+					<GameOver id="GameOver" />
 				}
 				{!startGame() && !endGame() &&
 					<>
@@ -98,7 +122,7 @@ const App = () => {
 				}
 			</Main>
 			{/* </Backgrounder> */}
-		</div>
+		</Container>
 	)
 }
 
