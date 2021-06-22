@@ -9,12 +9,16 @@ import './index.css';
 
 const theme = {
 	outer: {
-		width: "432px",
-		height: "768px",
+		maxWidth: "432px",
+		maxHeight: "864px",
 		color: "#f22",
+		font: "16px Trebuchet"
 	}
 }
-const media = {}
+const media = {
+	small: "@media(max-width: 400px)",
+	reg: "@media(min-width: 432px)",
+}
 
 ReactDOM.render(
 	<GameProvider>

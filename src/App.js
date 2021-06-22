@@ -11,9 +11,30 @@ import { dAny } from "./engines/dice"
 import './App.scss';
 
 const Main = panache.div(({ theme, media }) => ({
-	width: theme.outer.width,
-	height: theme.outer.height,
+	width: "100vw",
+	maxWidth: theme.outer.maxWidth,
+	height: "100vh",
+	maxHeight: theme.outer.maxHeight,
 	color: theme.outer.color,
+	font: theme.outer.font,
+
+	position: "relative",
+	display: "grid",
+	gridTemplateColumns: "100%",
+	gridTemplateRows: "auto 50px",
+	justifyContent: "space-between",
+	border: "1px solid black",
+	zIndex: 20,
+	[media.small]: {
+		fontSize: "13px",
+	}
+}))
+
+const Container = panache.div(({ theme, media }) => ({
+	width: "100vw",
+	height: "100vh",
+	display: "grid",
+	placeItems: "center",
 }))
 
 // #region Randomized background image 
@@ -39,8 +60,8 @@ const BG = panache.div({
 	zIndex: "-10",
 	top: "0px",
 	left: "0px",
-	width: "432px",
-	height: "768px",
+	width: "100%",
+	height: "100%",
 	backgroundImage: `url(${allBG[dAny(allBG.length - 1)]})`,
 	backgroundPosition: "30% center",
 	backgroundSize: "cover",
@@ -52,8 +73,8 @@ const Overlay = panache.div({
 	zIndex: "-9",
 	top: "0px",
 	left: "0px",
-	width: "432px",
-	height: "768px",
+	width: "100%",
+	height: "100%",
 	backgroundColor: "black",
 	filter: "opacity(0.5)"
 })
@@ -81,15 +102,15 @@ const App = () => {
 	const { startGame, endGame, } = useContext(GameContext)
 
 	return (
-		<div className="container">
-			<Main id="main" className="main">
-				<BG style={roller} />
-				<Overlay />
+		<Container id="container"/*  className="container" */>
+			<Main id="main">
+				<BG id="BG" style={roller} />
+				<Overlay id="overlay" />
 				{startGame() &&
-					<GameStart />
+					<GameStart id="GameStart" />
 				}
 				{endGame() &&
-					<GameOver />
+					<GameOver id="GameOver" />
 				}
 				{!startGame() && !endGame() &&
 					<>
@@ -99,7 +120,7 @@ const App = () => {
 				}
 			</Main>
 			{/* </Backgrounder> */}
-		</div>
+		</Container>
 	)
 }
 
