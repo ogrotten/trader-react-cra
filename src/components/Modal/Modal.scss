@@ -11,7 +11,7 @@
 
 .modal-wrapper {
 	/* ideally, these dimension would be % */
-	width: 432px;
+	width: 100%;
 	/*  */
 	z-index: 110;
 	box-sizing: border-box;
@@ -78,7 +78,7 @@ button {
 	font-weight: 700;
 	border: none;
 	border-radius: 3px;
-	padding: 0.3rem 1rem;
+	// padding: 0.3rem 1rem;
 	margin-left: 0.5rem;
 }
 
