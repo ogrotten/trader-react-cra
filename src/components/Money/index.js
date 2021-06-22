@@ -4,8 +4,6 @@ import { GameContext } from "../../contexts/GameContext"
 import useModal from "../../hooks/useModal"
 import Modal from "../Modal"
 
-// import styled from "styled-components";
-
 // import { d100, dAny, dRange } from "../../engines/dice"
 
 import "./Money.scss"
@@ -86,10 +84,10 @@ const Money = (props) => {
 			<section className="money">
 				<div>&nbsp;</div>
 				{position === 1 &&
-					<button className="buysell-button" onClick={beginBank}>Go to Bank</button>
+					<button className="buysell-button" onClick={beginBank}>Bank</button>
 				}
 				{position === 1 &&
-					<button className="buysell-button" onClick={beginShark} disabled={flags.shark}>Visit Loan Shark</button>
+					<button className="buysell-button" onClick={beginShark} disabled={flags.shark}>Loan Shark</button>
 				}
 			</section>
 			<Modal data={data}

@@ -1,14 +1,34 @@
 import React from 'react';
-import { GameProvider } from "./contexts/GameContext"
-
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import { PanacheProvider } from 'panache-react'
+import { GameProvider } from "./contexts/GameContext"
+// import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<GameProvider><App /></GameProvider>, document.getElementById('root'));
+import App from './App';
+import './index.css';
+
+const theme = {
+	outer: {
+		maxWidth: "432px",
+		maxHeight: "864px",
+		color: "#f22",
+		font: "16px Trebuchet"
+	}
+}
+const media = {
+	small: "@media(max-width: 400px)",
+	reg: "@media(min-width: 432px)",
+}
+
+ReactDOM.render(
+	<GameProvider>
+		<PanacheProvider media={media} theme={theme}>
+			<App />
+		</PanacheProvider>
+	</GameProvider>
+	, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// serviceWorker.unregister();

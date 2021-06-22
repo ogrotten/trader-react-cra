@@ -5,10 +5,10 @@
 table {
 	display: grid;
 	border-collapse: collapse;
-	max-width: 100%;
+	max-width: 95%;
 	grid-template-columns: 60px 40px 1fr repeat(2, 60px);
 	color: silver;
-	// --evenRow: rgba(68, 68, 68, 0.664);
+	margin: 0 auto;
 	--evenRow: rgba(28, 28, 28, 0.664);
 	--oddRow: rgba(48, 48, 48, 0.5);
 }
@@ -41,7 +41,7 @@ th {
 	top: 0;
 	background: rgba(0, 0, 0, 0.5);
 	text-align: left;
-	font-weight: normal;
+	// font-weight: normal;
 	font-size: 0.85rem;
 	color: rgb(0, 158, 158);
 }
@@ -63,7 +63,7 @@ td.buysell-cell {
 }
 
 button.buysell-button {
-	font-weight: normal;
+	// font-weight: normal;
 	// border: 1px solid silver;
 	border-radius: 3px;
 	width: 80%;

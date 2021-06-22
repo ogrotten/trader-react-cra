@@ -33,6 +33,11 @@ const Location = () => {
 		modalShow()
 	}
 
+	const MainFooter = panache.div({
+		display: "grid",
+		placeItems: "center",
+		height: "auto"
+	})
 	const LocButton = panache.button({
 		width: "28%",
 		margin: "8px 0",
@@ -42,13 +47,13 @@ const Location = () => {
 
 	return (
 		<>
-			<div className="mainFooter">
+			<MainFooter>
 				{maxTurns - currTurn === 0
 					? <button value={1} onClick={doTravel}>{traveltext}. . .</button>
 					: <button onClick={travelButton}>{traveltext}. . .</button>
 				}
 				{/* <button onClick={travelButton}>{traveltext}. . .</button> */}
-			</div>
+			</MainFooter>
 			<Modal data={{ title: traveltext }} isShowing={isShowing} hide={modalHide} normal={true}>
 
 				<div>Where do you want to go?</div>
