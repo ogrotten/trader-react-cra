@@ -11,10 +11,10 @@ const Market = () => {
 
 	return (
 		<div className="market">
-			<Event />
 			<Status />
 			<MarketTable />
 			<Money />
+			<Event />
 		</div>
 	)
 }

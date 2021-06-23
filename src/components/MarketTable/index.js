@@ -58,7 +58,7 @@ const MarketTable = () => {
 	useEffect(() => {
 		setList(marketMath(ITEMS, RANGES, MINIMUM_AVAILABLE))
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	}, [currTurn])
 
 	useEffect(() => {
 		let networth = 0
@@ -72,15 +72,15 @@ const MarketTable = () => {
 			}
 			networth += (item.price * playerState.inv[i])
 		})
-		changeNetWorth(networth)
+		changeNetWorth(networth + playerState.cash)
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [List])
 
-	useEffect(() => {
-		setList(marketMath(ITEMS, RANGES, MINIMUM_AVAILABLE))
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [currTurn])
+	// useEffect(() => {
+	// 	setList(marketMath(ITEMS, RANGES, MINIMUM_AVAILABLE))
+	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
+	// }, [currTurn])
 
 	return (
 		<section className="market-table">
