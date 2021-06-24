@@ -57,17 +57,60 @@ const allBG = importBG(require.context('./data/backgrounds/cities', false, /\.(p
 
 const App = () => {
 	const [backImage, setBackImage] = useState("")
-	const [filterControl, setFilterControl] = useState(0.5)
+	const [Overlay, setOverlay] = useState(() => panache.div({
+		position: "absolute",
+		zIndex: "-9",
+		top: "0px",
+		left: "0px",
+		width: "100%",
+		height: "100%",
+		backgroundColor: "black",
+		filter: `opacity(1)`,
+	}))
+	const [overlayKeyFrames, setoverlayKeyFrames] = useState(
+		`@keyframes fading {
+			from {
+				filter: opacity( 1);
+			}
+			to {
+				filter: opacity(1);
+			}
+		}`
+	)
 	const { startGame, endGame, eventList, playerState: { currTurn } } = useContext(GameContext)
 
 	useEffect(() => {
-		setBackImage(allBG[dAny(allBG.length - 1)])
-	}, [currTurn])
+		// setBackImage("none")
+	}, [])
 
 	useEffect(() => {
-		if (eventList.length > 0) setFilterControl(1)
+		if (eventList.length === 0) {
+			setoverlayKeyFrames(
+				`@keyframes fading {
+					from {
+						filter: opacity( 1);
+					}
+					to {
+						filter: opacity(.5);
+					}
+				}`
+			)
+			setOverlay(() => panache.div({
+				position: "absolute",
+				zIndex: "-9",
+				top: "0px",
+				left: "0px",
+				width: "100%",
+				height: "100%",
+				backgroundColor: "black",
+				filter: `opacity(.5)`,
+			}))
+			setBackImage(`url(${allBG[dAny(allBG.length - 1)]})`)
+		} else {
+			setBackImage("none")
+		}
 
-	}, [eventList])
+	}, [eventList, currTurn])
 
 
 	// #region Background image scroller setup
@@ -78,23 +121,14 @@ const App = () => {
 		left: "0px",
 		width: "100%",
 		height: "100%",
-		backgroundImage: `url(${backImage})`,
+		backgroundImage: backImage,
 		backgroundPosition: "30% center",
 		backgroundSize: "cover",
 		filter: "brightness(1)",
 		boxShadow: "inset 0 0 15px 10px #000"
 	})
 
-	const Overlay = panache.div({
-		position: "absolute",
-		zIndex: "-9",
-		top: "0px",
-		left: "0px",
-		width: "100%",
-		height: "100%",
-		backgroundColor: "black",
-		filter: `opacity(${filterControl})`,
-	})
+	// const Overlay = panache.div()
 
 	const styleSheet = document.styleSheets[0]
 
@@ -107,15 +141,15 @@ const App = () => {
 			background-position: 80% center;
 		}
 	}`
-	const overlayKeyFrames =
-		`@keyframes fading {
-		from {
-			filter: opacity( 1);
-		}
-		to {
-			filter: opacity(${filterControl});
-		}
-	}`
+	// const overlayKeyFrames =
+	// 	`@keyframes fading {
+	// 	from {
+	// 		filter: opacity( 1);
+	// 	}
+	// 	to {
+	// 		filter: opacity(1);
+	// 	}
+	// }`
 
 	styleSheet.insertRule(backgroundKeyFrames, styleSheet.cssRules.length)
 	styleSheet.insertRule(overlayKeyFrames, styleSheet.cssRules.length)
