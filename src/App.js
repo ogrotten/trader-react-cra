@@ -11,19 +11,19 @@ import { dAny } from "./engines/dice"
 import './App.scss';
 
 const Main = panache.div(({ theme, media }) => ({
-	width: "99%",
+	width: "100%",
 	maxWidth: theme.outer.maxWidth,
-	height: "99%",
+	height: "100%",
 	maxHeight: theme.outer.maxHeight,
 	color: theme.outer.color,
 	font: theme.outer.font,
+	overflow: "hidden",
 
 	position: "relative",
 	display: "grid",
 	gridTemplateColumns: "100%",
 	gridTemplateRows: "auto 50px",
 	justifyContent: "space-between",
-	// border: "1px solid black",
 	zIndex: 20,
 	[media.small]: {
 		fontSize: "13px",
@@ -80,10 +80,6 @@ const App = () => {
 	const { startGame, endGame, eventList, playerState: { currTurn } } = useContext(GameContext)
 
 	useEffect(() => {
-		// setBackImage("none")
-	}, [])
-
-	useEffect(() => {
 		if (eventList.length === 0) {
 			setoverlayKeyFrames(
 				`@keyframes fading {
@@ -125,31 +121,15 @@ const App = () => {
 		backgroundPosition: "30% center",
 		backgroundSize: "cover",
 		filter: "brightness(1)",
-		boxShadow: "inset 0 0 15px 10px #000"
+		// with the below boxShadow,
+		// the gradient frame is the right shape and dimension
+		// but scale sticks to the image scale
+		// boxShadow: "inset 0 0 15px 10px #000",
 	})
-
-	// const Overlay = panache.div()
 
 	const styleSheet = document.styleSheets[0]
 
-	const backgroundKeyFrames =
-		`@keyframes rolling {
-		from {
-			background-position: 20% center;
-		}
-		to {
-			background-position: 80% center;
-		}
-	}`
-	// const overlayKeyFrames =
-	// 	`@keyframes fading {
-	// 	from {
-	// 		filter: opacity( 1);
-	// 	}
-	// 	to {
-	// 		filter: opacity(1);
-	// 	}
-	// }`
+	const backgroundKeyFrames = backgroundKeyFramesData[dAny(backgroundKeyFramesData.length - 1)]
 
 	styleSheet.insertRule(backgroundKeyFrames, styleSheet.cssRules.length)
 	styleSheet.insertRule(overlayKeyFrames, styleSheet.cssRules.length)
@@ -171,7 +151,7 @@ const App = () => {
 	// #endregion Background image scroller setup
 
 	return (
-		<Container id="container"/*  className="container" */>
+		<Container id="container">
 			<Main id="main">
 				<BG id="BG" style={roller} />
 				<Overlay id="overlay" style={fader} />
@@ -188,9 +168,47 @@ const App = () => {
 					</>
 				}
 			</Main>
-			{/* </Backgrounder> */}
 		</Container>
 	)
 }
 
 export default App;
+
+const backgroundKeyFramesData = [
+	`@keyframes rolling {
+			from {
+				background-position: 20% center;
+			}
+			to {
+				background-position: 80% center;
+			}
+		}`,
+	`@keyframes rolling {
+			from {
+				background-position: 80% center;
+			}
+			to {
+				background-position: 20% center;
+			}
+		}`,
+	`@keyframes rolling {
+			from {
+				transform: scale(1);
+				background-position: 60% center;
+			}
+			to {
+				transform: scale(1.3);
+				background-position: 40% center;
+			}
+		}`,
+	`@keyframes rolling {
+			from {
+				background-position: 40% center;
+				transform: scale(1.3);
+			}
+			to {
+				transform: scale(1);
+				background-position: 60% center;
+			}
+		}`,
+]
