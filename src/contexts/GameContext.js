@@ -39,9 +39,9 @@ const GameProvider = ({ children }) => {
 	const [eventList, setEventList] = useState([])
 	const [log, setLog] = useState([])
 
-	useEffect(() => {
-		// console.log(`conlog: `, log)
-	}, [log])
+	// useEffect(() => {
+	// 	console.log()
+	// }, [eventList])
 
 	useEffect(() => {
 		if (playerState.currTurn !== turn) {

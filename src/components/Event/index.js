@@ -11,7 +11,7 @@ import "./Event.scss"
 
 const Event = () => {
 	const [currEvent, setCurrEvent] = useState({})
-	const { eventList, addEvent, remvEvent, playerState, playerState: { currTurn, cash }, advanceTurn, addSpace } = useContext(GameContext)
+	const { eventList, addEvent, remvEvent, playerState, playerState: { cash }, advanceTurn, addSpace } = useContext(GameContext)
 	const contextObj = useContext(GameContext)
 	const { modalShow, modalHide, isShowing } = useModal()
 
@@ -48,7 +48,7 @@ const Event = () => {
 			newEvents.forEach(ev => { addEvent(ev) })
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [currTurn])
+	}, [playerState.worth])
 
 	const checkEventConditions = () => {
 		/**
@@ -73,7 +73,7 @@ const Event = () => {
 			events.push(gameStart)
 
 			// No non market events.
-			return events
+			// return events
 		}
 
 		// End Game

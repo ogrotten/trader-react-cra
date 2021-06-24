@@ -12,7 +12,7 @@ const theme = {
 		maxWidth: "432px",
 		maxHeight: "864px",
 		color: "#f22",
-		font: "16px Trebuchet"
+		font: "16px Trebuchet, sans-serif"
 	}
 }
 const media = {
