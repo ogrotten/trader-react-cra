@@ -57,11 +57,17 @@ const allBG = importBG(require.context('./data/backgrounds/cities', false, /\.(p
 
 const App = () => {
 	const [backImage, setBackImage] = useState("")
-	const { startGame, endGame, playerState: { currTurn } } = useContext(GameContext)
+	const [filterControl, setFilterControl] = useState(0.5)
+	const { startGame, endGame, eventList, playerState: { currTurn } } = useContext(GameContext)
 
 	useEffect(() => {
 		setBackImage(allBG[dAny(allBG.length - 1)])
 	}, [currTurn])
+
+	useEffect(() => {
+		if (eventList.length > 0) setFilterControl(1)
+
+	}, [eventList])
 
 
 	// #region Background image scroller setup
@@ -87,7 +93,7 @@ const App = () => {
 		width: "100%",
 		height: "100%",
 		backgroundColor: "black",
-		filter: "opacity(0.5)",
+		filter: `opacity(${filterControl})`,
 	})
 
 	const styleSheet = document.styleSheets[0]
@@ -107,7 +113,7 @@ const App = () => {
 			filter: opacity( 1);
 		}
 		to {
-			filter: opacity( 0.5);
+			filter: opacity(${filterControl});
 		}
 	}`
 
