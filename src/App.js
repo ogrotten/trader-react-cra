@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import panache from "panache-react"
 import { GameContext } from "./contexts/GameContext"
 
@@ -55,53 +55,63 @@ function importBG(incoming) {
 const allBG = importBG(require.context('./data/backgrounds/cities', false, /\.(png|jpe?g|svg)$/))
 // #endregion
 
-// #region Background image scroller setup
-const BG = panache.div({
-	position: "absolute",
-	zIndex: "-10",
-	top: "0px",
-	left: "0px",
-	width: "100%",
-	height: "100%",
-	backgroundImage: `url(${allBG[dAny(allBG.length - 1)]})`,
-	backgroundPosition: "30% center",
-	backgroundSize: "cover",
-	filter: "brightness(1)",
-	boxShadow: "inset 0 0 15px 10px #000"
-})
-
-const Overlay = panache.div({
-	position: "absolute",
-	zIndex: "-9",
-	top: "0px",
-	left: "0px",
-	width: "100%",
-	height: "100%",
-	backgroundColor: "black",
-	filter: "opacity(0.5)",
-})
-
-const styleSheet = document.styleSheets[0]
-
-const bgKeyFrames =
-	`@keyframes rolling {
-	from {background-position: 20% center;}
-	to {background-position: 80% center;}
-	}`
-
-styleSheet.insertRule(bgKeyFrames, styleSheet.cssRules.length)
-
-const roller = {
-	animationName: "rolling",
-	animationDuration: "45s",
-	animationIterationCount: "infinite",
-	animationDirection: "alternate",
-	animationTimingFunction: "linear"
-}
-// #endregion Background image scroller setup
-
 const App = () => {
-	const { startGame, endGame, } = useContext(GameContext)
+	const [backImage, setBackImage] = useState("")
+	const { startGame, endGame, playerState: { currTurn } } = useContext(GameContext)
+
+	useEffect(() => {
+		setBackImage(allBG[dAny(allBG.length - 1)])
+	}, [currTurn])
+
+
+	// #region Background image scroller setup
+	const BG = panache.div({
+		position: "absolute",
+		zIndex: "-10",
+		top: "0px",
+		left: "0px",
+		width: "100%",
+		height: "100%",
+		backgroundImage: `url(${backImage})`,
+		backgroundPosition: "30% center",
+		backgroundSize: "cover",
+		filter: "brightness(1)",
+		boxShadow: "inset 0 0 15px 10px #000"
+	})
+
+	const Overlay = panache.div({
+		position: "absolute",
+		zIndex: "-9",
+		top: "0px",
+		left: "0px",
+		width: "100%",
+		height: "100%",
+		backgroundColor: "black",
+		filter: "opacity(0.5)",
+	})
+
+	const styleSheet = document.styleSheets[0]
+
+	const bgKeyFrames =
+		`@keyframes rolling {
+			from {
+				background-position: 20% center;
+			}
+			to {
+				background-position: 80% center;
+			}
+		}`
+
+	styleSheet.insertRule(bgKeyFrames, styleSheet.cssRules.length)
+
+	const roller = {
+		animationName: "rolling",
+		animationDuration: "45s",
+		animationIterationCount: "infinite",
+		animationDirection: "alternate",
+		animationTimingFunction: "linear"
+	}
+	// #endregion Background image scroller setup
 
 	return (
 		<Container id="container"/*  className="container" */>
