@@ -92,17 +92,27 @@ const App = () => {
 
 	const styleSheet = document.styleSheets[0]
 
-	const bgKeyFrames =
+	const backgroundKeyFrames =
 		`@keyframes rolling {
-			from {
-				background-position: 20% center;
-			}
-			to {
-				background-position: 80% center;
-			}
-		}`
+		from {
+			background-position: 20% center;
+		}
+		to {
+			background-position: 80% center;
+		}
+	}`
+	const overlayKeyFrames =
+		`@keyframes fading {
+		from {
+			filter: opacity( 1);
+		}
+		to {
+			filter: opacity( 0.5);
+		}
+	}`
 
-	styleSheet.insertRule(bgKeyFrames, styleSheet.cssRules.length)
+	styleSheet.insertRule(backgroundKeyFrames, styleSheet.cssRules.length)
+	styleSheet.insertRule(overlayKeyFrames, styleSheet.cssRules.length)
 
 	const roller = {
 		animationName: "rolling",
@@ -111,13 +121,20 @@ const App = () => {
 		animationDirection: "alternate",
 		animationTimingFunction: "linear"
 	}
+
+	const fader = {
+		animationName: "fading",
+		animationDuration: ".8s",
+		animationIterationCount: "1",
+		animationTimingFunction: "ease-out",
+	}
 	// #endregion Background image scroller setup
 
 	return (
 		<Container id="container"/*  className="container" */>
 			<Main id="main">
 				<BG id="BG" style={roller} />
-				<Overlay id="overlay" />
+				<Overlay id="overlay" style={fader} />
 				{startGame() &&
 					<GameStart id="GameStart" />
 				}
