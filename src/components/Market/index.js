@@ -22,14 +22,6 @@ const Market = () => {
 	)
 }
 
-const TickerP = panache.div({
-	color: "green",
-	height: "100%",
-	margin: "auto",
-})
-
-const tickerStyle = { backgroundColor: "rgba(0,0,0,.5)" }
-
 const EventsTicker = () => {
 	return (
 		<Ticker /* offset="run-in" */ speed={0} height={40}>
