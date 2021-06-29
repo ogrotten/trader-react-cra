@@ -129,6 +129,9 @@ const Event = () => {
 							pushItem.cost = cost
 						}
 					}
+
+					// set random event data for the ticker.
+
 					events.push(pushItem)
 				}
 			})
