@@ -2,7 +2,7 @@ const items = [
 	{
 		id: 0, name: "Fluxnet", pricemin: 2500, pricemax: 9900, pricerange: "NORMAL", availability: 70,
 
-		spikeChance: 100, spikeBase: 0, spikemin: 0, spikemax: 0, spikeType: "TESTOR", bonusChance: 0, bonusAmount: 0
+		spikeChance: 0, spikeBase: 0, spikemin: 0, spikemax: 0, spikeType: "TESTOR", bonusChance: 0, bonusAmount: 0
 	},
 	{
 		id: 1, name: "Hytek", pricemin: 1000, pricemax: 4500, pricerange: "NAR_HI", availability: 65,

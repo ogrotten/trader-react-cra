@@ -36,9 +36,9 @@ const Modal = ({ data, isShowing, hide, normal, okAction, children }, props) => 
 			<div className={`modal-wrapper ${normal ? "modal-wrapper-regular" : "modal-wrapper-small"}`} aria-modal aria-hidden tabIndex={-1} role="dialog">
 				<div className="modal">
 					<div className="modal-header">
-						<h1 style={{ padding: 0, margin: 0 }}>
+						<h3 style={{ padding: 0, margin: 0 }}>
 							{data.title || data.type} {data?.name}
-						</h1>
+						</h3>
 					</div>
 					<div className="modal-content">
 						{children}

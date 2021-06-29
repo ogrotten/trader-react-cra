@@ -140,7 +140,7 @@ const Event = () => {
 
 	return (
 		<Modal data={currEvent} isShowing={isShowing} hide={modalHide} normal={false} okAction={okAction}>
-			{currEvent.body}
+			<p>{currEvent.body}</p>
 		</Modal>
 	)
 }
