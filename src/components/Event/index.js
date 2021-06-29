@@ -129,6 +129,9 @@ const Event = () => {
 							pushItem.cost = cost
 						}
 					}
+
+					// set random event data for the ticker.
+
 					events.push(pushItem)
 				}
 			})
@@ -140,7 +143,7 @@ const Event = () => {
 
 	return (
 		<Modal data={currEvent} isShowing={isShowing} hide={modalHide} normal={false} okAction={okAction}>
-			{currEvent.body}
+			<p>{currEvent.body}</p>
 		</Modal>
 	)
 }

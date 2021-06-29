@@ -18,6 +18,7 @@ const theme = {
 const media = {
 	small: "@media(max-width: 400px)",
 	reg: "@media(min-width: 432px)",
+	short: "@media(max-height: 690px)",
 }
 
 ReactDOM.render(

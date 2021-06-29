@@ -37,6 +37,7 @@ const GameProvider = ({ children }) => {
 		shark: false,
 	})
 	const [eventList, setEventList] = useState([])
+	const [tickerList, setTickerList] = useState([])
 	const [log, setLog] = useState([])
 
 	// useEffect(() => {
@@ -104,8 +105,15 @@ const GameProvider = ({ children }) => {
 
 	const remvEvent = () => {
 		const newList = [...eventList]
-		newList.splice(0, 1)
+		const tick = newList.splice(0, 1)
+		manageTicker(tick[0])
 		setEventList([...newList])
+	}
+
+	const manageTicker = (item) => {
+		if (item === "clear") { } // clear array
+		const newList = [...tickerList, item.title]
+		setTickerList(newList)
 	}
 
 	const advanceTurn = () => {
@@ -221,6 +229,7 @@ const GameProvider = ({ children }) => {
 				gameConfig,
 				playerState, setPlayerState,
 				eventList, addEvent, remvEvent,
+				tickerList, manageTicker,
 				startGame, endGame, advanceTurn,
 				buyItem, sellItem,
 				changeInventory,
