@@ -25,14 +25,16 @@ const Market = () => {
 const TickerP = panache.div({
 	color: "green",
 	height: "100%",
-	margin: "10px ",
+	margin: "auto",
 })
+
+const tickerStyle = { backgroundColor: "rgba(0,0,0,.5)" }
 
 const EventsTicker = () => {
 	return (
-		<Ticker class="ticker" offset="run-in" speed={5} height={40}>
+		<Ticker /* offset="run-in" */ speed={0} height={40}>
 			{({ index }) => (
-				<TickerP>This is the Headline of element #{index}! &nbsp;&nbsp;&nbsp;::&nbsp;&nbsp;&nbsp;</TickerP>
+				<p style={{ margin: "0" }} >This is the Headline of element #{index}! &nbsp;&nbsp;&nbsp;::&nbsp;&nbsp;&nbsp;</p>
 			)}
 		</Ticker>
 	)
