@@ -24,7 +24,7 @@ const Market = () => {
 
 const EventsTicker = () => {
 	return (
-		<Ticker /* offset="run-in" */ speed={0} height={40}>
+		<Ticker offset="run-in" speed={5} height={40}>
 			{({ index }) => (
 				<p style={{ margin: "0" }} >This is the Headline of element #{index}! &nbsp;&nbsp;&nbsp;::&nbsp;&nbsp;&nbsp;</p>
 			)}
