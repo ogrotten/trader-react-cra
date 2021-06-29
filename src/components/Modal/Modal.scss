@@ -22,7 +22,8 @@
 }
 
 .modal-wrapper-regular {
-	height: 768px;
+	max-height: 768px;
+	height: 100%;
 }
 .modal-wrapper-small {
 	height: 320px;
