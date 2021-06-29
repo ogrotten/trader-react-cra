@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import { GameContext } from "../../contexts/GameContext"
 import Ticker from "react-ticker"
 
 import MarketTable from "../MarketTable"
@@ -22,12 +23,30 @@ const Market = () => {
 }
 
 const EventsTicker = () => {
+	const [tickerDisplay, setTickerDisplay] = useState("")
+	const { eventList, tickerList } = useContext(GameContext)
+
+	useEffect(() => {
+		if (eventList.length === 0 && tickerList.length > 0) {
+			setTickerDisplay(tickerList.map((item, i) => {
+				return (<span key={i}>{item}&nbsp;&nbsp;//&nbsp;&nbsp;</span>)
+			}))
+		}
+	}, [eventList])
+
+	useEffect(() => {
+		console.log()
+	}, [tickerDisplay])
+
 	return (
 		<Ticker offset="run-in" speed={5} height={35}>
 			{({ index }) => (
-				<p style={{ margin: "0" }} >This is the Headline of element #{index}! &nbsp;&nbsp;//&nbsp;&nbsp;</p>
-			)}
-		</Ticker>
+				tickerDisplay !== ""
+					? < p style={{ margin: "0" }} >{tickerDisplay}</p>
+					: ".  "
+			)
+			}
+		</Ticker >
 	)
 }
 
