@@ -38,12 +38,14 @@ const EventsTicker = () => {
 		console.log()
 	}, [tickerDisplay])
 
+	const Jeff = () => <div style={{ visibility: "hidden" }}>.</div>
+
 	return (
 		<Ticker offset="run-in" speed={5} height={35}>
 			{({ index }) => (
 				tickerDisplay !== ""
-					? < p style={{ margin: "0" }} >{tickerDisplay}</p>
-					: ".  "
+					? <p style={{ margin: "0" }} >{tickerDisplay}</p>
+					: <span style={{ visibility: "hidden" }}>.</span>
 			)
 			}
 		</Ticker >
