@@ -26,7 +26,7 @@ const Main = panache.div(({ theme, media }) => ({
 	justifyContent: "space-between",
 	zIndex: 20,
 	[media.small]: {
-		fontSize: "13px",
+		fontSize: "14px",
 	}
 }))
 
