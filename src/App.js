@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react'
+import Ticker from "react-ticker"
 import panache from "panache-react"
 import { GameContext } from "./contexts/GameContext"
 
@@ -22,11 +23,14 @@ const Main = panache.div(({ theme, media }) => ({
 	position: "relative",
 	display: "grid",
 	gridTemplateColumns: "100%",
-	gridTemplateRows: "auto 50px",
+	gridTemplateRows: "auto 50px 50px",
 	justifyContent: "space-between",
 	zIndex: 20,
 	[media.small]: {
 		fontSize: "14px",
+	},
+	[media.short]: {
+		gridTemplateRows: "auto 50px"
 	}
 }))
 
@@ -165,6 +169,7 @@ const App = () => {
 					<>
 						<Market />
 						<Location />
+						<EventsTicker />
 					</>
 				}
 			</Main>
@@ -173,6 +178,32 @@ const App = () => {
 }
 
 export default App;
+
+const EventsTicker = () => {
+	const [tickerDisplay, setTickerDisplay] = useState("")
+	const { eventList, tickerList } = useContext(GameContext)
+
+	useEffect(() => {
+		if (eventList.length === 0 && tickerList.length > 0) {
+			setTickerDisplay(tickerList.map((item, i) => {
+				return (<span key={i}>{item}&nbsp;&nbsp;&nbsp;//&nbsp;&nbsp;&nbsp;</span>)
+			}))
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [eventList])
+
+	return (
+		<Ticker offset="run-in" speed={5} height={35}>
+			{({ index }) => (
+				tickerDisplay !== ""
+					? <p style={{ margin: "0" }} >{tickerDisplay}</p>
+					: <span style={{ visibility: "hidden" }}>.</span>
+			)
+			}
+		</Ticker >
+	)
+}
+
 
 const backgroundKeyFramesData = [
 	`@keyframes rolling {
