@@ -1,5 +1,4 @@
 import React from 'react'
-import panache from "panache-react"
 import Ticker from "react-ticker"
 
 import MarketTable from "../MarketTable"
@@ -24,9 +23,9 @@ const Market = () => {
 
 const EventsTicker = () => {
 	return (
-		<Ticker offset="run-in" speed={5} height={40}>
+		<Ticker offset="run-in" speed={5} height={35}>
 			{({ index }) => (
-				<p style={{ margin: "0" }} >This is the Headline of element #{index}! &nbsp;&nbsp;&nbsp;::&nbsp;&nbsp;&nbsp;</p>
+				<p style={{ margin: "0" }} >This is the Headline of element #{index}! &nbsp;&nbsp;//&nbsp;&nbsp;</p>
 			)}
 		</Ticker>
 	)
