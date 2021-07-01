@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react'
+import { GameContext } from "../../contexts/GameContext"
+
 import ReactDOM from 'react-dom';
 
 import "./Modal.scss"
@@ -11,7 +13,7 @@ import "./Modal.scss"
  */
 
 const Modal = ({ data, isShowing, hide, normal, okAction, children }, props) => {
-
+	const { remvEvent } = useContext(GameContext)
 	const doOkButton = () => {
 		if (typeof data.eventAction === "function") {
 			if (data.cost > 0) {
@@ -26,6 +28,8 @@ const Modal = ({ data, isShowing, hide, normal, okAction, children }, props) => 
 	const doCancelButton = () => {
 		if (typeof data.cancelAction === "function") {
 			data.cancelAction()
+		} else if (data.cancelAction === "remvEvent") {
+			remvEvent()
 		}
 		hide()
 	}

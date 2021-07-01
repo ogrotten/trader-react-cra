@@ -112,7 +112,7 @@ const GameProvider = ({ children }) => {
 
 	const manageTicker = (item) => {
 		if (item === "clear") { } // clear array
-		const newList = [...tickerList, item.title]
+		const newList = [...tickerList, item.ticker]
 		setTickerList(newList)
 	}
 
@@ -222,6 +222,16 @@ const GameProvider = ({ children }) => {
 		})
 	}
 
+	const ripoff = (cost) => {
+		setOldPlayerState(playerState)
+		setPlayerState((current) => {
+			return {
+				...current,
+				cash: current.cash - cost
+			}
+		})
+	}
+
 	return (
 		<GameContext.Provider
 			value={{
@@ -236,7 +246,8 @@ const GameProvider = ({ children }) => {
 				addSpace, remainingSpace,
 				changeLocation,
 				changeBank, changeDebt, flags,
-				changeNetWorth, changeFlag
+				changeNetWorth, changeFlag,
+				ripoff
 			}}
 		>
 			{children}
