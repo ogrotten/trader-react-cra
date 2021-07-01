@@ -97,7 +97,8 @@ const Event = () => {
 				const check = d100()
 				// console.log(`> Event ${item.title}: ${item.chance} / ${check}`, check)
 				if (check < item.chance) {
-					// console.log(`> > Event Hit: `, item.title)
+					// take the configged eventAction and either push the function 
+					// or use that name of function from Context methods.
 					if (typeof pushItem.eventAction != "function") {
 						pushItem.eventAction = contextObj[item.eventAction]
 					}
@@ -107,7 +108,20 @@ const Event = () => {
 
 					// it blows out here without a cost array in the event data
 					// need to genericize the returned event data.
-					if (item.cost && item.cost.length) {
+					if (item.type === "ripoff") {
+						const cost = price(
+							item.cost[0] * playerState.worth,
+							item.cost[1] * playerState.worth,
+							item.cost[2],
+							item.cost[3]
+						)
+						pushItem.body = <>
+							<p>{item.body}</p>
+							<p>They got away with {cost}!</p>
+						</>
+						pushItem.cost = cost
+						pushItem.type = "event"
+					} else if (item.cost && item.cost.length) {
 						const cost = price(
 							item.cost[0] * playerState.worth,
 							item.cost[1] * playerState.worth,
