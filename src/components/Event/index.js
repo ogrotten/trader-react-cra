@@ -68,7 +68,15 @@ const Event = () => {
 				type: "event",
 				title: "Get started",
 				body: "Starting the game",
-				// eventAction: actionFunctions["advanceTurn"]()
+				get ticker() {
+					return [
+						"First Post!",
+						"First day on the job",
+						"Gettin Started",
+						"A new day",
+						"Day One"
+					][Math.floor(Math.random() * 5)]
+				}
 			}
 			events.push(gameStart)
 
@@ -115,10 +123,12 @@ const Event = () => {
 							item.cost[2],
 							item.cost[3]
 						)
+						const settext = item.body
 						pushItem.body = <>
-							<p>{item.body}</p>
+							<p>{settext}</p>
 							<p>They got away with {cost}!</p>
 						</>
+						pushItem.ticker = settext
 						pushItem.cost = cost
 						pushItem.type = "event"
 					} else if (item.cost && item.cost.length) {

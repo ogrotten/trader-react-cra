@@ -112,7 +112,7 @@ const GameProvider = ({ children }) => {
 
 	const manageTicker = (item) => {
 		if (item === "clear") { } // clear array
-		const newList = [...tickerList, item.title]
+		const newList = [...tickerList, item.ticker]
 		setTickerList(newList)
 	}
 

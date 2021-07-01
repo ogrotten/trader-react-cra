@@ -11,17 +11,18 @@
 
 export const eventConfig = [
 	{
-		chance: 100,
+		chance: 10,
 		type: "choice",
 		eventAction: "addSpace",
 		title: "Hidden Space",
-		body: "A local carhacker can add hidden space to your car.",
+		body: "A carhack offers to add hidden space to your car.",
+		ticker: "A carhack offered to add hidden space to your car.",
 
 		// range 15% to 33% of current cash+inv value, curve is NORM_LO
 		cost: [.15, .33, -7, 1.6,]
 	},
 	{
-		chance: 100,
+		chance: 5,
 		type: "ripoff",
 		eventAction: "ripoff",
 		title: "You got ripped off!",
@@ -30,6 +31,7 @@ export const eventConfig = [
 			const whatChoose = Math.floor(Math.random() * this.what.length)
 			return `${this.who[whoChoose]} ${this.what[whatChoose]}!`
 		},
+		ticker: "",
 		who: [
 			"Your cousin",
 			"A local bent cop",
