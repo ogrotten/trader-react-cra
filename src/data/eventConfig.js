@@ -10,22 +10,22 @@
  */
 
 export const eventConfig = [
-	// {
-	// 	chance: 10,
-	// 	type: "choice",
-	// 	eventAction: "addSpace",
-	// 	title: "Hidden Space",
-	// 	body: "A local carhacker can add hidden space to your car.",
+	{
+		chance: 100,
+		type: "choice",
+		eventAction: "addSpace",
+		title: "Hidden Space",
+		body: "A local carhacker can add hidden space to your car.",
 
-	// 	// range 15% to 33% of current cash+inv value, curve is NORM_LO
-	// 	cost: [.15, .33, -7, 1.6,]
-	// },
+		// range 15% to 33% of current cash+inv value, curve is NORM_LO
+		cost: [.15, .33, -7, 1.6,]
+	},
 	{
 		chance: 100,
 		type: "ripoff",
 		eventAction: "ripoff",
-		title: "Ripoff!",
-		body: function () {
+		title: "You got ripped off!",
+		get body() {
 			const whoChoose = Math.floor(Math.random() * this.who.length)
 			const whatChoose = Math.floor(Math.random() * this.what.length)
 			return `${this.who[whoChoose]} ${this.what[whatChoose]}!`
@@ -41,14 +41,27 @@ export const eventConfig = [
 			"A streetwalker",
 			"Meatball",
 			"Some musclehead",
+			"Some glitter butt",
+			"Some zillion head",
+			"Some nanozite",
+			"Some smash ass",
 			"A cyberpsycho",
+			"A foaming from the ears cyberpsycho",
 			"3 hookers",
 			"A priest, a nun and a rabbi",
 			"Local angry parents",
 			"Your crazy ex",
 			"That dumb bitch sister of yours",
 			"That bithead brother of yours",
-			"Was that your mom?! She"
+			"Was that your mom?! She",
+			"It's the price of doing business. Some jackass",
+			"The entire Cult of Elon Musnt",
+			"Nomads",
+			"Gangers",
+			"You wake up and they",
+			"You weren't paying attention and they",
+			"You without a gun and they",
+			"Dammit, "
 		],
 		what: [
 			"caught you off guard",
@@ -66,10 +79,20 @@ export const eventConfig = [
 			"took a chance while you were stuck in traffic",
 			"shot you in the ass",
 			"tried to stab you in the neck",
+			"jacked you while you were sleeping",
+			"lifted a bunch of creds",
+			"snuck off with some cash",
+			"heisted your shit",
+			"jacked your stuff",
+			"carjacked you",
+			"kicked down your door",
+			"laid a trap",
+			"roofied you",
+			"skipped out on a delivery",
 		],
 
 		// range 10% to 25% of current cash+inv value, curve is NORM_LO
-		cost: [.10, .25, -7, 1.6,]
+		cost: [.10, .65, -7, 1.6,]
 	},
 	// {
 	// 	chance: 15,

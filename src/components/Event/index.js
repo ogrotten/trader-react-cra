@@ -110,8 +110,8 @@ const Event = () => {
 					// need to genericize the returned event data.
 					if (item.type === "ripoff") {
 						const cost = price(
-							item.cost[0] * playerState.worth,
-							item.cost[1] * playerState.worth,
+							item.cost[0] * playerState.cash,
+							item.cost[1] * playerState.cash,
 							item.cost[2],
 							item.cost[3]
 						)
