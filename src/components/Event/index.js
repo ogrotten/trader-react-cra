@@ -103,7 +103,7 @@ const Event = () => {
 						pushItem.eventAction = contextObj[item.eventAction]
 					}
 					if (typeof pushItem.cancelAction != "function") {
-						pushItem.cancelAction = remvEvent
+						pushItem.cancelAction = "remvEvent"
 					}
 
 					// it blows out here without a cost array in the event data
