@@ -1,8 +1,7 @@
 import { dAny } from "../engines/dice"
 
-export const tickerConfig = [
+const tickerConfig = [
 	{
-		chance: 100,
 		get text() {
 			const song = this.song[dAny(this.song.length - 1)]
 			const where = this.where[dAny(this.where.length - 1)]
@@ -41,6 +40,16 @@ export const tickerConfig = [
 		where: [
 			"walk by a taco bowl joint"
 		]
-	}
+	},
+	{
+		text: "second"
+	},
+	{
+		text: "The Third Item"
+	},
+	{
+		text: "Fourth time's the charm"
+	},
 ]
 
+export default tickerConfig
