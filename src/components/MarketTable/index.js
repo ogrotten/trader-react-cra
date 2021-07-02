@@ -64,10 +64,12 @@ const MarketTable = () => {
 		let networth = 0
 		List.forEach((item, i) => {
 			if (item.event === true) {
+				const tickertext = `${item.name} ${ITEMS[i].spikeType === "low" ? "floods the market" : "is selling sky high"}!`
 				addEvent({
 					type: "event",
-					title: `${item.name} ${ITEMS[i].spikeType === "low" ? "floods the market" : "is selling sky high"}!`,
-					body: `${item.name} prices are really ${ITEMS[i].spikeType}!`
+					title: tickertext,
+					body: `${item.name} prices are really ${ITEMS[i].spikeType}!`,
+					ticker: tickertext
 				})
 			}
 			networth += (item.price * playerState.inv[i])
