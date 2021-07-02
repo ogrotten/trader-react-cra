@@ -28,7 +28,7 @@ const gameConfig = {
 	],
 	"TRAVEL": ["Jet", "Split", "Bounce", "Jam", "Mosey", "Sneak", "Creep", "Holla",
 		"Out", "Audi", "Outticus", "Boogie", "Dip", "Book", "Run", "Break", "Bust a move",
-		"Bust it", "Chip", "Dash", "Ditch", "Cruise", "Cut", "Fuck off", "Git",
+		"Bust it", "Chip", "Dash", "Ditch", "Cruise", "Cut", "Kick off", "Git",
 		"GTFO", "Groove", "Haul", "Head", "Hit it", "Juke", "Jump", "Kick it",
 		"Make tracks", "Motor", "Outie", "Peace", "Peace out", "Piss off",
 		"Pull out", "Ramble", "Ride", "Ride out", "Rock n roll", "Roll", "Roll out",

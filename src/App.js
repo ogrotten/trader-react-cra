@@ -81,6 +81,8 @@ const App = () => {
 			}
 		}`
 	)
+	const [backgroundKeyFrames, setBackgroundKeyFrames] = useState(backgroundKeyFramesData[dAny(backgroundKeyFramesData.length - 1)])
+
 	const { startGame, endGame, eventList, playerState: { currTurn } } = useContext(GameContext)
 
 	useEffect(() => {
@@ -108,6 +110,7 @@ const App = () => {
 			setBackImage(`url(${allBG[dAny(allBG.length - 1)]})`)
 		} else {
 			setBackImage("none")
+			setBackgroundKeyFrames(backgroundKeyFramesData[dAny(backgroundKeyFramesData.length - 1)])
 		}
 
 	}, [eventList, currTurn])
@@ -125,6 +128,7 @@ const App = () => {
 		backgroundPosition: "30% center",
 		backgroundSize: "cover",
 		filter: "brightness(1)",
+
 		// with the below boxShadow,
 		// the gradient frame is the right shape and dimension
 		// but scale sticks to the image scale
@@ -133,7 +137,7 @@ const App = () => {
 
 	const styleSheet = document.styleSheets[0]
 
-	const backgroundKeyFrames = backgroundKeyFramesData[dAny(backgroundKeyFramesData.length - 1)]
+	// const backgroundKeyFrames = backgroundKeyFramesData[dAny(backgroundKeyFramesData.length - 1)]
 
 	styleSheet.insertRule(backgroundKeyFrames, styleSheet.cssRules.length)
 	styleSheet.insertRule(overlayKeyFrames, styleSheet.cssRules.length)
@@ -193,7 +197,7 @@ const EventsTicker = () => {
 	}, [eventList])
 
 	return (
-		<Ticker offset="run-in" speed={5} height={35}>
+		<Ticker offset="run-in" speed={7} height={35}>
 			{({ index }) => (
 				tickerDisplay !== ""
 					? <p style={{ margin: "0" }} >{tickerDisplay}</p>

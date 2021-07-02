@@ -57,6 +57,7 @@ const GameProvider = ({ children }) => {
 			})
 			setFlags({ ...flags, shark: false })
 			setTurn(playerState.currTurn)
+			manageTicker("clear")
 		}
 
 		const newlog = [...log]
@@ -111,9 +112,13 @@ const GameProvider = ({ children }) => {
 	}
 
 	const manageTicker = (item) => {
-		if (item === "clear") { } // clear array
-		const newList = [...tickerList, item.ticker]
-		setTickerList(newList)
+		let newList
+		if (item === "clear") { // clear array
+			setTickerList([])
+		} else {
+			newList = [...tickerList, item.ticker]
+			setTickerList(newList)
+		}
 	}
 
 	const advanceTurn = () => {
