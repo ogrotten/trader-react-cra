@@ -194,7 +194,11 @@ const EventsTicker = () => {
 			}))
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [eventList])
+	}, [eventList, tickerList])
+
+	useEffect(() => {
+		console.log()
+	}, [tickerList])
 
 	return (
 		<Ticker offset="run-in" speed={7} height={35}>

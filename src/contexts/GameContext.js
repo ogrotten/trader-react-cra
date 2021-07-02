@@ -1,8 +1,9 @@
 import React, { useState, useEffect, createContext } from 'react'
 import { updatedDiff } from 'deep-object-diff'
-import { dAny } from "../engines/dice"
+import { d100, dAny } from "../engines/dice"
 
 import gameConfig from "../data/gameConfig"
+import tickerConfig from "../data/tickerConfig"
 import ITEMS from "../data/items"
 import RANGES from "../data/pricerange"
 gameConfig.ITEMS = ITEMS
@@ -56,8 +57,11 @@ const GameProvider = ({ children }) => {
 				debt: Math.floor(newturn.debt += newturn.debt *= gameConfig.DEBT_INTEREST),
 			})
 			setFlags({ ...flags, shark: false })
+			// const temp = tickerConfig[dAny(tickerConfig.length - 1)].text
+			const temp = [tickerConfig[playerState.currTurn % tickerConfig.length].text]
+			setTickerList(() => [...temp])
+
 			setTurn(playerState.currTurn)
-			manageTicker("clear")
 		}
 
 		const newlog = [...log]
@@ -112,13 +116,7 @@ const GameProvider = ({ children }) => {
 	}
 
 	const manageTicker = (item) => {
-		let newList
-		if (item === "clear") { // clear array
-			setTickerList([])
-		} else {
-			newList = [...tickerList, item.ticker]
-			setTickerList(newList)
-		}
+		setTickerList((oldlist) => [...oldlist, item.ticker])
 	}
 
 	const advanceTurn = () => {

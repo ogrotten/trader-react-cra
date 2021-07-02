@@ -1,19 +1,56 @@
-/* 1	Don't Stop Believin'	Journey	1981	Rock
-2	You Shook Me All Night Long	AC/DC	1980	Rock
-3	Love Shack	B-52's	1989	Popular
-4	Livin' On A Prayer	Bon Jovi	1986	Rock
-5	Pour Some Sugar On Me	Def Leppard	1987	Rock
-6	Billie Jean	Michael Jackson	1982	Popular
-7	Celebration	Kool & The Gang	1980	Disco
-8	Footloose	Kenny Loggins	1984	Popular
-9	Thriller	Michael Jackson	1982	Popular
-10	I Wanna Dance With Somebody (Who Loves Me)	Whitney Houston	1987	Popular
-11	Girls Just Want To Have Fun	Cyndi Lauper	1984	Popular
-12	Summer Of 69	Bryan Adams	1984	Rock
-13	The Way You Make Me Feel	Michael Jackson	1987	Popular
-14	Jessie's Girl	Rick Springfield	1981	Popular
-15	(I've Had) The Time Of My Life	Bill Medley & Jennifer Warnes	1987	Ballad
-16	Pretty Young Thing (P.Y.T)	Michael Jackson	1982	Popular
-17	Push It	Salt-N-Pepa	1987	Popular
-18	Faithfully	Journey	1983	Ballad
-19	Bust A Move	Young M.C.	1989	Popular */
+import { dAny } from "../engines/dice"
+
+
+const tickerConfig = [
+	{
+		get text() {
+			const song = this.song[dAny(this.song.length - 1)]
+			const where = this.where[dAny(this.where.length - 1)]
+			return `${where} ${song}`
+		},
+		song: [
+			'"Don\'t Stop Believin\'" by Journey',
+			'"You Shook Me All Night Long" by AC / DC',
+			'"Love Shack" by B - 52\'s',
+			'"Livin\' On A Prayer" by Bon Jovi',
+			'"Pour Some Sugar On Me" by Def Leppard',
+			'"Beat It" by Michael Jackson',
+			'"Celebration" by Kool & The Gang',
+			'"Footloose" by Kenny Loggins',
+			'"Thriller" by Michael Jackson',
+			'"Girls Just Want To Have Fun" by Cyndi Lauper',
+			'"Pretty Young Thing(P.Y.T)" by Michael Jackson',
+			'"Push It" by Salt - N - Pepa',
+			'"Bust A Move" by Young M.C.',
+			'"U Can\'t Touch This" by MC Hammer ',
+			'"Black Or White" by Michael Jackson',
+			'"Gangsta\'s Paradise" by Coolio ',
+			'"Mmmbop" by Hanson',
+			'"Smells Like Teen Spirit" by Nirvana',
+			'"More Than Words" by Extreme',
+			'"The Sign" by Ace of Base',
+			'"Baby, One More Time" by Britney Spears',
+			'"Everything I Do I Do It For You" by Bryan Adams',
+			'"Under The Bridge" by Red Hot Chili Peppers',
+			'"To Be With You" by Mr Big',
+			'"Mambo Number 5(A Little Bit Of...)" by Lou Bega',
+			'"Zombie" by Cranberries',
+			'"Ice Ice Baby" by Vanilla Ice',
+			'"Macarena" by Los Del Rio',
+		],
+		where: [
+			"walk by a taco bowl joint"
+		]
+	},
+	{
+		text: "second"
+	},
+	{
+		text: "The Third Item"
+	},
+	{
+		text: "Fourth time's the charm"
+	},
+]
+
+export default tickerConfig
