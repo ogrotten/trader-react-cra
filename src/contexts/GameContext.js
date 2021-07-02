@@ -57,8 +57,11 @@ const GameProvider = ({ children }) => {
 				debt: Math.floor(newturn.debt += newturn.debt *= gameConfig.DEBT_INTEREST),
 			})
 			setFlags({ ...flags, shark: false })
+			// const temp = tickerConfig[dAny(tickerConfig.length - 1)].text
+			const temp = [tickerConfig[playerState.currTurn % tickerConfig.length].text]
+			setTickerList(() => [...temp])
+
 			setTurn(playerState.currTurn)
-			manageTicker("reset")
 		}
 
 		const newlog = [...log]
@@ -113,13 +116,7 @@ const GameProvider = ({ children }) => {
 	}
 
 	const manageTicker = (item) => {
-		let newList = []
-		if (item === "reset") { // start over.
-			newList = [tickerConfig[dAny(tickerConfig.length - 1)].text]
-		} else {
-			newList = [...tickerList, item.ticker]
-		}
-		setTickerList(newList)
+		setTickerList((oldlist) => [...oldlist, item.ticker])
 	}
 
 	const advanceTurn = () => {
